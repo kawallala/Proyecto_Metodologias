@@ -40,9 +40,12 @@ public abstract class AbstractUnit implements IUnit {
    */
   protected AbstractUnit(final int hitPoints, final int movement,
       final Location location, final int maxItems, final IEquipableItem... items) {
+    if (movement < 0) throw new AssertionError();
+    if (hitPoints < 1) throw new AssertionError();
     this.currentHitPoints = hitPoints;
     this.movement = movement;
     this.location = location;
+    location.setUnit(this);
     this.items.addAll(Arrays.asList(items).subList(0, min(maxItems, items.length)));
   }
 
