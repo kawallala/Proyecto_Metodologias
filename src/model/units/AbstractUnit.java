@@ -21,7 +21,8 @@ import model.map.Location;
 public abstract class AbstractUnit implements IUnit {
 
   protected final List<IEquipableItem> items = new ArrayList<>();
-  private final int currentHitPoints;
+  private int currentHitPoints;
+  private int maximumHitPoints;
   private final int movement;
   protected IEquipableItem equippedItem;
   private Location location;
@@ -37,15 +38,15 @@ public abstract class AbstractUnit implements IUnit {
    *     the current position of this unit on the map
    * @param maxItems
    *     maximum amount of items this unit can carry
-   */
-  protected AbstractUnit(final int hitPoints, final int movement,
+   * */
+  protected AbstractUnit(int hitPoints, final int movement,
       final Location location, final int maxItems, final IEquipableItem... items) {
     if (movement < 0) throw new AssertionError();
     if (hitPoints < 1) throw new AssertionError();
-    this.currentHitPoints = hitPoints;
+    this.maximumHitPoints = hitPoints;
+    setCurrentHitPoints(maximumHitPoints);
     this.movement = movement;
-    this.location = location;
-    location.setUnit(this);
+    setLocation(location);
     this.items.addAll(Arrays.asList(items).subList(0, min(maxItems, items.length)));
   }
 
@@ -53,6 +54,9 @@ public abstract class AbstractUnit implements IUnit {
   public int getCurrentHitPoints() {
     return currentHitPoints;
   }
+
+  @Override
+  public void setCurrentHitPoints(int hitPoints){this.currentHitPoints = hitPoints;}
 
   @Override
   public List<IEquipableItem> getItems() {
@@ -77,6 +81,7 @@ public abstract class AbstractUnit implements IUnit {
   @Override
   public void setLocation(final Location location) {
     this.location = location;
+    location.setUnit(this);
   }
 
   @Override
@@ -89,6 +94,13 @@ public abstract class AbstractUnit implements IUnit {
     if (getLocation().distanceTo(targetLocation) <= getMovement()
         && targetLocation.getUnit() == null) {
       setLocation(targetLocation);
+    }
+  }
+
+  @Override
+  public void attack(IUnit targetUnit) {
+    if (targetUnit.getLocation().distanceTo(this.getLocation())<=this.equippedItem.getMaxRange()){
+      targetUnit.setCurrentHitPoints(targetUnit.getCurrentHitPoints()-this.equippedItem.getPower());
     }
   }
 }

@@ -149,6 +149,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
   @Override
   @Test
   public void equipStaffTest() {
+    assertNull(getTestUnit().getEquippedItem());
     checkEquippedItem(getStaff());
   }
 
