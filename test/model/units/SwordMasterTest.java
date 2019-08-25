@@ -37,7 +37,7 @@ public class SwordMasterTest extends AbstractTestUnit {
   @Test
   public void equipSwordTest() {
     assertNull(swordMaster.getEquippedItem());
-    swordMaster.equipItem(sword);
+    this.sword.equipTo(this.swordMaster);
     assertEquals(sword, swordMaster.getEquippedItem());
   }
 }
