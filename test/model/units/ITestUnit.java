@@ -13,125 +13,125 @@ import org.junit.jupiter.api.Test;
  */
 public interface ITestUnit {
 
-  /**
-   * Set up the game field
-   */
-  void setField();
+    /**
+     * Set up the game field
+     */
+    void setField();
 
-  /**
-   * Set up the main unit that's going to be tested in the test set
-   */
-  void setTestUnit();
+    /**
+     * Set up the main unit that's going to be tested in the test set
+     */
+    void setTestUnit();
 
-  /**
-   * Creates a set of testing units
-   */
-  void setTargetUnits();
+    /**
+     * Creates a set of testing units
+     */
+    void setTargetUnits();
 
-  /**
-   * Creates a set of testing weapons
-   */
-  void setWeapons();
+    /**
+     * Creates a set of testing weapons
+     */
+    void setWeapons();
 
-  /**
-   * Checks that the constructor works properly.
-   */
-  @Test
-  void constructorTest();
+    /**
+     * Checks that the constructor works properly.
+     */
+    @Test
+    void constructorTest();
 
-  /**
-   * @return the current unit being tested
-   */
-  IUnit getTestUnit();
+    /**
+     * @return the current unit being tested
+     */
+    IUnit getTestUnit();
 
-  /**
-   * Checks if the axe is equipped correctly to the unit
-   */
-  @Test
-  void equipAxeTest();
+    /**
+     * Checks if the axe is equipped correctly to the unit
+     */
+    @Test
+    void equipAxeTest();
 
-  /**
-   * Tries to equip an unaccepted item for the unit, and checks that it was not equipped
-   *
-   * @param item Item to be equipped
-   */
-  void checkItemNotEquipped(IEquipableItem item);
+    /**
+     * Tries to equip an unaccepted item for the unit, and checks that it was not equipped
+     *
+     * @param item Item to be equipped
+     */
+    void checkItemNotEquipped(IEquipableItem item);
 
-  /**
-   * @return the test axe
-   */
-  Axe getAxe();
+    /**
+     * @return the test axe
+     */
+    Axe getAxe();
 
-  @Test
-  void equipSwordTest();
+    @Test
+    void equipSwordTest();
 
-  /**
-   * @return the test sword
-   */
-  Sword getSword();
+    /**
+     * @return the test sword
+     */
+    Sword getSword();
 
-  @Test
-  void equipSpearTest();
+    @Test
+    void equipSpearTest();
 
-  /**
-   * @return the test spear
-   */
-  Spear getSpear();
+    /**
+     * @return the test spear
+     */
+    Spear getSpear();
 
-  @Test
-  void equipStaffTest();
+    @Test
+    void equipStaffTest();
 
-  /**
-   * @return the test staff
-   */
-  Staff getStaff();
+    /**
+     * @return the test staff
+     */
+    Staff getStaff();
 
-  @Test
-  void equipBowTest();
+    @Test
+    void equipBowTest();
 
-  /**
-   * @return the test bow
-   */
-  Bow getBow();
+    /**
+     * @return the test bow
+     */
+    Bow getBow();
 
-  /**
-   * Checks if the unit moves correctly
-   */
-  @Test
-  void testMovement();
+    /**
+     * Checks if the unit moves correctly
+     */
+    @Test
+    void testMovement();
 
-  /**
-   * @return the test field
-   */
-  Field getField();
+    /**
+     * @return the test field
+     */
+    Field getField();
 
-  /**
-   * @return the target Alpaca
-   */
-  Alpaca getTargetAlpaca();
+    /**
+     * @return the target Alpaca
+     */
+    Alpaca getTargetAlpaca();
 
-  /**
-   * @return the target Archer
-   */
-  Archer getTargetArcher();
+    /**
+     * @return the target Archer
+     */
+    Archer getTargetArcher();
 
-  /**
-   * @return the target Cleric
-   */
-  Cleric getTargetCleric();
+    /**
+     * @return the target Cleric
+     */
+    Cleric getTargetCleric();
 
-  /**
-   * @return the target Fighter
-   */
-  Fighter getTargetFighter();
+    /**
+     * @return the target Fighter
+     */
+    Fighter getTargetFighter();
 
-  /**
-   * @return the target Hero
-   */
-  Hero getTargetHero();
+    /**
+     * @return the target Hero
+     */
+    Hero getTargetHero();
 
-  /**
-   * @return the target SwordMaster
-   */
-  SwordMaster getTargetSwordMaster();
+    /**
+     * @return the target SwordMaster
+     */
+    SwordMaster getTargetSwordMaster();
 }

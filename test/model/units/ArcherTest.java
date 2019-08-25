@@ -13,37 +13,37 @@ import org.junit.jupiter.api.Test;
  */
 public class ArcherTest extends AbstractTestUnit {
 
-  private Archer archer;
+    private Archer archer;
 
-  /**
-   * Set up the main unit that's going to be tested in the test set
-   */
-  @Override
-  public void setTestUnit() {
-    archer = new Archer(50, 2, field.getCell(0, 0));
-  }
+    /**
+     * Set up the main unit that's going to be tested in the test set
+     */
+    @Override
+    public void setTestUnit() {
+        archer = new Archer(50, 2, field.getCell(0, 0));
+    }
 
-  @Override
-  public void setTargetUnits() {
-    super.setTargetUnits();
-  }
+    @Override
+    public void setTargetUnits() {
+        super.setTargetUnits();
+    }
 
-  /**
-   * @return the current unit being tested
-   */
-  @Override
-  public IUnit getTestUnit() {
-    return archer;
-  }
+    /**
+     * @return the current unit being tested
+     */
+    @Override
+    public IUnit getTestUnit() {
+        return archer;
+    }
 
-  /**
-   * Checks if the bow is equipped correctly to the unit
-   */
-  @Test
-  @Override
-  public void equipBowTest() {
-    assertNull(this.archer.getEquippedItem());
-    this.bow.equipTo(archer);
-    assertEquals(bow, archer.getEquippedItem());
-  }
+    /**
+     * Checks if the bow is equipped correctly to the unit
+     */
+    @Test
+    @Override
+    public void equipBowTest() {
+        assertNull(this.archer.getEquippedItem());
+        this.bow.equipTo(archer);
+        assertEquals(bow, archer.getEquippedItem());
+    }
 }

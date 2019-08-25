@@ -13,21 +13,22 @@ import model.map.Location;
  */
 public class Fighter extends AbstractUnit {
 
-  public Fighter(final int hitPoints, final int movement, final Location location,
-      IEquipableItem... items) {
-    super(hitPoints, movement, location, 3, items);
-  }
+    public Fighter(final int hitPoints, final int movement, final Location location,
+                   IEquipableItem... items) {
+        super(hitPoints, movement, location, 3, items);
+    }
 
-  /**
-   * Sets the currently equipped item of this unit.
-   * <p>
-   * The <i>Fighter</i> can <b>only equip Axes</b>.
-   *
-   * @param axe
-   *     the axe to equip
-   */
-  @Override
-  public void equipAxe(Axe axe){
-    this.equippedItem = axe;
-  }
+    /**
+     * Sets the currently equipped item of this unit.
+     * <p>
+     * The <i>Fighter</i> can <b>only equip Axes</b>.
+     *
+     * @param axe
+     *     the axe to equip
+     */
+    @Override
+    public void equipAxe(Axe axe){
+        this.equippedItem = axe;
+        axe.setOwner(this);
+    }
 }

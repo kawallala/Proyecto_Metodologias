@@ -8,20 +8,21 @@ package model.units;
  */
 public class AlpacaTest extends AbstractTestUnit {
 
-  private Alpaca alpaca;
+    private Alpaca alpaca;
 
-  @Override
-  public void setTestUnit() {
-    alpaca = new Alpaca(50, 2, field.getCell(0, 0));
-  }
+    @Override
+    public void setTestUnit() {
+        alpaca = new Alpaca(50, 2, field.getCell(0, 0));
+    }
 
-  @Override
-  public void setTargetUnits() {
-    super.setTargetUnits();
-  }
+    @Override
+    public void setTargetUnits() {
+        super.setTargetUnits();
+    }
 
-  @Override
-  public Alpaca getTestUnit() {
-    return alpaca;
-  }
+    @Override
+    public Alpaca getTestUnit() {
+        return alpaca;
+    }
+
 }
