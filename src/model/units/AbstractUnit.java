@@ -5,7 +5,8 @@ import static java.lang.Math.min;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import model.items.IEquipableItem;
+
+import model.items.*;
 import model.map.Location;
 
 /**
@@ -69,11 +70,6 @@ public abstract class AbstractUnit implements IUnit {
   }
 
   @Override
-  public void setEquippedItem(final IEquipableItem item) {
-    this.equippedItem = item;
-  }
-
-  @Override
   public Location getLocation() {
     return this.location;
   }
@@ -94,6 +90,31 @@ public abstract class AbstractUnit implements IUnit {
     if (this.getLocation().distanceTo(targetLocation) <= this.getMovement() && targetLocation.getUnit() == null) {
       setLocation(targetLocation);
     }
+  }
+
+  @Override
+  public void equipBow(Bow bow){
+    //purposely left empty :c
+  }
+
+  @Override
+  public void equipStaff(Staff staff){
+    //purposely left empty :c
+  }
+
+  @Override
+  public void equipAxe(Axe axe){
+    //purposely left empty :c
+  }
+
+  @Override
+  public void equipSpear(Spear spear){
+    //purposely left empty :c
+  }
+
+  @Override
+  public void equipSword(Sword sword){
+    //purposely left empty :c
   }
 
   @Override

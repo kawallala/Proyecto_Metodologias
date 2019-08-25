@@ -21,14 +21,14 @@ public class SwordMaster extends AbstractUnit {
 
   /**
    * Sets the currently equipped item of this unit.
+   * <p>
+   * The <i>SwordMaster</i> can <b>only equip Swords</b>.
    *
-   * @param item
-   *     the item to equip
+   * @param sword
+   *     the sword to equip
    */
   @Override
-  public void equipItem(final IEquipableItem item) {
-    if (item instanceof Sword) {
-      equippedItem = item;
-    }
+  public void equipSword(Sword sword){
+    this.equippedItem = sword;
   }
 }

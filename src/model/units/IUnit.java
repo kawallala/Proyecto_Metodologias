@@ -1,7 +1,8 @@
 package model.units;
 
 import java.util.List;
-import model.items.IEquipableItem;
+
+import model.items.*;
 import model.map.Location;
 
 /**
@@ -15,13 +16,13 @@ import model.map.Location;
  */
 public interface IUnit {
 
-  /**
-   * Sets the currently equipped item of this unit.
-   *
-   * @param item
-   *     the item to equip
-   */
-  void equipItem(IEquipableItem item);
+//  /**
+//   * Sets the currently equipped item of this unit.
+//   *
+//   * @param item
+//   *     the item to equip
+//   */
+//  void equipItem(IEquipableItem item);
 
   /**
    * @return hit points of the unit
@@ -42,12 +43,6 @@ public interface IUnit {
    * @return the currently equipped item
    */
   IEquipableItem getEquippedItem();
-
-  /**
-   * @param item
-   *     the item to be equipped
-   */
-  void setEquippedItem(IEquipableItem item);
 
   /**
    * @return the current location of the unit
@@ -72,9 +67,47 @@ public interface IUnit {
   void moveTo(Location targetLocation);
 
   /**
+   * Equips a Bow to the unit
+   * @param bow
+   *      the Bow to be equipped
+   */
+  void equipBow(Bow bow);
+
+  /**
+   * Equips a staff to the unit
+   * @param staff
+   *      the Staff to be equipped
+   */
+
+  void equipStaff(Staff staff);
+  /**
+   * Equips an Axe to the unit
+   * @param axe
+   *      the Axe to be equipped
+   */
+  void equipAxe(Axe axe);
+
+  /**
+   * Equips an Spear to the unit
+   * @param spear
+   *      the Spear to be equipped
+   */
+  void equipSpear(Spear spear);
+
+  /**
+   * Equips an Sword to the unit
+   * @param sword
+   *      the Sword to be equipped
+   */
+  void equipSword(Sword sword);
+
+  /**
    * Makes this unit attack another unit.
    * <p>
    * If the other unit is outside of this unit's range, the unit does not attack
    */
   void attack(IUnit targetUnit);
+
+
+
 }

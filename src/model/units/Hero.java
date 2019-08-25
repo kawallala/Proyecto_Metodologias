@@ -29,14 +29,14 @@ public class Hero extends AbstractUnit {
 
   /**
    * Sets the currently equipped item of this unit.
+   * <p>
+   * The <i>Hero</i> can <b>only equip Spears</b>.
    *
-   * @param item
-   *     the item to equip
+   * @param spear
+   *     the spear to equip
    */
   @Override
-  public void equipItem(final IEquipableItem item) {
-    if (item instanceof Spear) {
-      equippedItem = item;
-    }
+  public void equipSpear(Spear spear){
+    this.equippedItem = spear;
   }
 }

@@ -28,14 +28,13 @@ public class Cleric extends AbstractUnit {
 
   /**
    * Sets the currently equipped item of this unit.
-   *
-   * @param item
-   *     the item to equip
+   * <p>
+   *    The <i>Cleric</i> can <b>only equip staffs</b>.
+   * @param staff
+   *     the staff to equip
    */
   @Override
-  public void equipItem(final IEquipableItem item) {
-    if (item instanceof Staff) {
-      equippedItem = item;
-    }
+  public void equipStaff(Staff staff){
+    this.equippedItem = staff;
   }
 }
