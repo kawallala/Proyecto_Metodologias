@@ -36,6 +36,9 @@ public abstract class AbstractItem implements IEquipableItem {
     public abstract void equipTo(final IUnit unit);
 
     @Override
+    public abstract void attackWith(IUnit targetUnit);
+
+    @Override
     public void setOwner(IUnit unit) {
         owner = unit;
     }

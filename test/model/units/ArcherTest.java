@@ -25,7 +25,7 @@ public class ArcherTest extends AbstractTestUnit {
 
     @Override
     public void setTargetUnits() {
-        super.setTargetUnits();
+
     }
 
     /**
@@ -45,5 +45,11 @@ public class ArcherTest extends AbstractTestUnit {
         assertNull(this.archer.getEquippedItem());
         this.bow.equipTo(archer);
         assertEquals(bow, archer.getEquippedItem());
+    }
+
+    @Override
+    public void testAttackTargetAlpaca() {
+
+
     }
 }

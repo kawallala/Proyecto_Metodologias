@@ -22,7 +22,7 @@ public class FighterTest extends AbstractTestUnit {
 
     @Override
     public void setTargetUnits() {
-        super.setTargetUnits();
+
     }
 
     /**
@@ -39,8 +39,17 @@ public class FighterTest extends AbstractTestUnit {
     @Test
     @Override
     public void equipAxeTest() {
-        assertNull(fighter.getEquippedItem());
-        this.axe.equipTo(this.fighter);
-        assertEquals(axe, fighter.getEquippedItem());
+        assertNull(getTestUnit().getEquippedItem());
+        this.getAxe().equipTo(this.getTestUnit());
+        assertEquals(getAxe(), getTestUnit().getEquippedItem());
+    }
+
+    @Test
+    @Override
+    public void testAttackTargetAlpaca() {
+        getTargetAlpaca().moveTo(getField().getCell(0, 1));
+        assertEquals(50, getTargetAlpaca().getCurrentHitPoints());
+        getTestUnit().attack(getTargetAlpaca());
+        assertEquals(50-10,getTargetAlpaca().getCurrentHitPoints());
     }
 }

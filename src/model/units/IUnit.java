@@ -20,7 +20,10 @@ public interface IUnit {
      * @return hit points of the unit
      */
     int getCurrentHitPoints();
-
+    /**
+     * @return the maximum hit point of a unit
+     */
+    int getMaximumHitPoints();
     /**
      * sets the new hit points of a unit
      */

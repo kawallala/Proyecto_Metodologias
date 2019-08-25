@@ -33,4 +33,9 @@ public class Bow extends AbstractItem {
     public void equipTo(IUnit unit) {
         unit.equipBow(this);
     }
+
+    @Override
+    public void attackWith(IUnit targetUnit) {
+        targetUnit.attackedByBow(this);
+    }
 }

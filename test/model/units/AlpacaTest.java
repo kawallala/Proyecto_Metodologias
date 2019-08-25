@@ -17,12 +17,17 @@ public class AlpacaTest extends AbstractTestUnit {
 
     @Override
     public void setTargetUnits() {
-        super.setTargetUnits();
+
     }
 
     @Override
     public Alpaca getTestUnit() {
         return alpaca;
+    }
+
+    @Override
+    public void testAttackTargetAlpaca() {
+
     }
 
 }

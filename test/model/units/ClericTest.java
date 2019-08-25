@@ -22,7 +22,7 @@ public class ClericTest extends AbstractTestUnit {
 
     @Override
     public void setTargetUnits() {
-        super.setTargetUnits();
+
     }
 
     /**
@@ -39,5 +39,10 @@ public class ClericTest extends AbstractTestUnit {
         assertNull(cleric.getEquippedItem());
         this.staff.equipTo(this.cleric);
         assertEquals(staff, cleric.getEquippedItem());
+    }
+
+    @Override
+    public void testAttackTargetAlpaca() {
+
     }
 }

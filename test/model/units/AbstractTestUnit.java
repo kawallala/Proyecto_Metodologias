@@ -17,14 +17,15 @@ import org.junit.jupiter.api.Test;
 public abstract class AbstractTestUnit implements ITestUnit {
 
     protected Field field;
+
     protected Alpaca targetAlpaca;
     protected Archer targetArcher;
     protected Cleric targetCleric;
     protected Fighter targetFighter;
     protected Hero targetHero;
     protected SwordMaster targetSwordMaster;
-    protected Bow bow;
 
+    protected Bow bow;
     protected Axe axe;
     protected Sword sword;
     protected Staff staff;
@@ -49,13 +50,15 @@ public abstract class AbstractTestUnit implements ITestUnit {
     public abstract void setTestUnit();
 
     /**
-     * Creates a set of testing units
+     * Creeates an Alpaca to be used as an obstacle in the
      */
     //TODO ver si esto puede ser mejorado, no me gusta actualmente
-    @Override
-    public void setTargetUnits() {
+    public void setTargetAlpaca() {
         this.targetAlpaca = new Alpaca(50, 2, field.getCell(2, 2));
     }
+
+    @Override
+    public abstract void setTargetUnits();
 
     /**
      * Creates a set of testing weapons
@@ -76,6 +79,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
     public void setUp() {
         setField();
         setTestUnit();
+        setTargetAlpaca();
         setTargetUnits();
         setWeapons();
     }
@@ -99,13 +103,11 @@ public abstract class AbstractTestUnit implements ITestUnit {
     public abstract IUnit getTestUnit();
 
     /**
-     * Checks if the axe is equipped correctly to the unit
+     * @return the test field
      */
     @Override
-    @Test
-    public void equipAxeTest() {
-        assertNull(getTestUnit().getEquippedItem());
-        checkItemNotEquipped(getAxe());
+    public Field getField() {
+        return field;
     }
 
     /**
@@ -121,6 +123,16 @@ public abstract class AbstractTestUnit implements ITestUnit {
     }
 
     /**
+     * Checks that the axe is not equipped correctly to the unit
+     */
+    @Override
+    @Test
+    public void equipAxeTest() {
+        assertNull(getTestUnit().getEquippedItem());
+        checkItemNotEquipped(getAxe());
+    }
+
+    /**
      * @return the test axe
      */
     @Override
@@ -128,9 +140,13 @@ public abstract class AbstractTestUnit implements ITestUnit {
         return axe;
     }
 
+    /**
+     * Checks that the Sword is not equipped correctly to the unit
+     */
     @Override
     @Test
     public void equipSwordTest() {
+        assertNull(getTestUnit().getEquippedItem());
         checkItemNotEquipped(getSword());
     }
 
@@ -142,9 +158,13 @@ public abstract class AbstractTestUnit implements ITestUnit {
         return sword;
     }
 
+    /**
+     * Checks that the Spear is not equipped correctly to the unit
+     */
     @Override
     @Test
     public void equipSpearTest() {
+        assertNull(getTestUnit().getEquippedItem());
         checkItemNotEquipped(getSpear());
     }
 
@@ -156,9 +176,13 @@ public abstract class AbstractTestUnit implements ITestUnit {
         return spear;
     }
 
+    /**
+     * Checks that the Staff is not equipped correctly to the unit
+     */
     @Override
     @Test
     public void equipStaffTest() {
+        assertNull(getTestUnit().getEquippedItem());
         checkItemNotEquipped(getStaff());
     }
 
@@ -170,10 +194,22 @@ public abstract class AbstractTestUnit implements ITestUnit {
         return staff;
     }
 
+    /**
+     * Checks that the Bow is not equipped correctly to the unit
+     */
     @Override
     @Test
     public void equipBowTest() {
+        assertNull(getTestUnit().getEquippedItem());
         checkItemNotEquipped(getBow());
+    }
+
+    /**
+     * @return the test bow
+     */
+    @Override
+    public Bow getBow() {
+        return bow;
     }
 
     /**
@@ -194,22 +230,6 @@ public abstract class AbstractTestUnit implements ITestUnit {
     }
 
     /**
-     * @return the test field
-     */
-    @Override
-    public Field getField() {
-        return field;
-    }
-
-    /**
-     * @return the test bow
-     */
-    @Override
-    public Bow getBow() {
-        return bow;
-    }
-
-    /**
      * @return the target Alpaca
      */
     @Override
@@ -217,28 +237,46 @@ public abstract class AbstractTestUnit implements ITestUnit {
         return targetAlpaca;
     }
 
+    /**
+     * @return the target Archer
+     */
     @Override
     public Archer getTargetArcher() {
         return targetArcher;
     }
 
+    /**
+     * @return the target Cleric
+     */
     @Override
     public Cleric getTargetCleric() {
         return targetCleric;
     }
 
+    /**
+     * @return the target Fighter
+     */
     @Override
     public Fighter getTargetFighter() {
         return targetFighter;
     }
 
+    /**
+     * @return the target Hero
+     */
     @Override
     public Hero getTargetHero() {
         return targetHero;
     }
 
+    /**
+     * @return the target SwordMaster
+     */
     @Override
     public SwordMaster getTargetSwordMaster() {
         return targetSwordMaster;
     }
+
+    @Override
+    public abstract void testAttackTargetAlpaca();
 }

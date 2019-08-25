@@ -32,4 +32,9 @@ public class Staff extends AbstractItem {
     public void equipTo(IUnit unit) {
         unit.equipStaff(this);
     }
+
+    @Override
+    public void attackWith(IUnit targetUnit) {
+        targetUnit.attackedByStaff(this);
+    }
 }

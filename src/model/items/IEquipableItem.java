@@ -54,4 +54,10 @@ public interface IEquipableItem {
      * @return the maximum range of the item
      */
     int getMaxRange();
+
+    /**
+     * Makes an attack with the item
+     * @param targetUnit the unit being attacked
+     */
+    void attackWith(IUnit targetUnit);
 }

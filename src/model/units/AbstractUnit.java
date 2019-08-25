@@ -38,13 +38,16 @@ public abstract class AbstractUnit implements IUnit {
      */
     protected AbstractUnit(int hitPoints, final int movement,
                            final Location location, final int maxItems, final IEquipableItem... items) {
-        if (movement < 0) throw new AssertionError();
-        if (hitPoints < 1) throw new AssertionError();
         this.maximumHitPoints = hitPoints;
         setCurrentHitPoints(maximumHitPoints);
         this.movement = movement;
         setLocation(location);
         this.items.addAll(Arrays.asList(items).subList(0, min(maxItems, items.length)));
+    }
+
+    @Override
+    public int getMaximumHitPoints() {
+        return this.maximumHitPoints;
     }
 
     @Override
@@ -117,8 +120,6 @@ public abstract class AbstractUnit implements IUnit {
 
     @Override
     public void attack(IUnit targetUnit) {
-        if (targetUnit.getLocation().distanceTo(this.getLocation()) <= this.equippedItem.getMaxRange()) {
-            targetUnit.setCurrentHitPoints(targetUnit.getCurrentHitPoints() - this.equippedItem.getPower());
-        }
+        this.equippedItem.attackWith(targetUnit);
     }
 }

@@ -32,4 +32,9 @@ public class Spear extends AbstractItem {
     public void equipTo(IUnit unit) {
         unit.equipSpear(this);
     }
+
+    @Override
+    public void attackWith(IUnit targetUnit) {
+        targetUnit.attackedBySpear(this);
+    }
 }

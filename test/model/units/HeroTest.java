@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Ignacio Slater Muñoz
  */
-public class HeroTest extends AbstractTestUnit {
+public
+class HeroTest extends AbstractTestUnit {
 
     private Hero hero;
 
@@ -22,7 +23,7 @@ public class HeroTest extends AbstractTestUnit {
 
     @Override
     public void setTargetUnits() {
-        super.setTargetUnits();
+
     }
 
     /**
@@ -39,5 +40,10 @@ public class HeroTest extends AbstractTestUnit {
         assertNull(hero.getEquippedItem());
         this.spear.equipTo(this.hero);
         assertEquals(spear, hero.getEquippedItem());
+    }
+
+    @Override
+    public void testAttackTargetAlpaca() {
+
     }
 }

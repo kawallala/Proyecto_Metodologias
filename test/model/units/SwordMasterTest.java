@@ -22,7 +22,7 @@ public class SwordMasterTest extends AbstractTestUnit {
 
     @Override
     public void setTargetUnits() {
-        super.setTargetUnits();
+
     }
 
     /**
@@ -39,5 +39,10 @@ public class SwordMasterTest extends AbstractTestUnit {
         assertNull(swordMaster.getEquippedItem());
         this.sword.equipTo(this.swordMaster);
         assertEquals(sword, swordMaster.getEquippedItem());
+    }
+
+    @Override
+    public void testAttackTargetAlpaca() {
+
     }
 }

@@ -29,6 +29,10 @@ public interface ITestUnit {
     void setTargetUnits();
 
     /**
+     * Creates a target Alpaca
+     */
+    void setTargetAlpaca();
+    /**
      * Creates a set of testing weapons
      */
     void setWeapons();
@@ -134,4 +138,10 @@ public interface ITestUnit {
      * @return the target SwordMaster
      */
     SwordMaster getTargetSwordMaster();
+
+    /**
+     * test attacks against an alpaca, it cannot attack back
+     */
+    @Test
+    void testAttackTargetAlpaca();
 }
