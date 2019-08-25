@@ -52,7 +52,7 @@ public abstract class AbstractUnit implements IUnit {
 
   @Override
   public int getCurrentHitPoints() {
-    return currentHitPoints;
+    return this.currentHitPoints;
   }
 
   @Override
@@ -60,12 +60,12 @@ public abstract class AbstractUnit implements IUnit {
 
   @Override
   public List<IEquipableItem> getItems() {
-    return List.copyOf(items);
+    return List.copyOf(this.items);
   }
 
   @Override
   public IEquipableItem getEquippedItem() {
-    return equippedItem;
+    return this.equippedItem;
   }
 
   @Override
@@ -75,24 +75,23 @@ public abstract class AbstractUnit implements IUnit {
 
   @Override
   public Location getLocation() {
-    return location;
+    return this.location;
   }
 
   @Override
   public void setLocation(final Location location) {
-    this.location = location;
     location.setUnit(this);
+    this.location = location;
   }
 
   @Override
   public int getMovement() {
-    return movement;
+    return this.movement;
   }
 
   @Override
   public void moveTo(final Location targetLocation) {
-    if (getLocation().distanceTo(targetLocation) <= getMovement()
-        && targetLocation.getUnit() == null) {
+    if (this.getLocation().distanceTo(targetLocation) <= this.getMovement() && targetLocation.getUnit() == null) {
       setLocation(targetLocation);
     }
   }

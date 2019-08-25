@@ -12,6 +12,7 @@ import model.map.Location;
  * @author Ignacio Slater Muñoz
  * @since 1.0
  */
+
 public class Alpaca extends AbstractUnit {
 
   /**
@@ -36,7 +37,6 @@ public class Alpaca extends AbstractUnit {
    */
   @Override
   public void equipItem(final IEquipableItem item) {
-    // Method body intentionally left empty
   }
 
 }

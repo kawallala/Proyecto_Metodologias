@@ -20,6 +20,11 @@ public class HeroTest extends AbstractTestUnit {
     hero = new Hero(50, 2, field.getCell(0, 0));
   }
 
+  @Override
+  public void setTargetUnits() {
+    super.setTargetUnits();
+  }
+
   /**
    * @return the current unit being tested
    */

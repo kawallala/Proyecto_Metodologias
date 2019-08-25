@@ -23,7 +23,10 @@ public interface ITestUnit {
    */
   void setTestUnit();
 
-  void setTargetAlpaca();
+  /**
+   * Creates a set of testing units
+   */
+  void setTargetUnits();
 
   /**
    * Creates a set of testing weapons
@@ -48,12 +51,11 @@ public interface ITestUnit {
   void equipAxeTest();
 
   /**
-   * Tries to equip a weapon to the alpaca and verifies that it was not equipped
+   * Tries to equip an unaccepted item for the unit, and checks that it was not equipped
    *
-   * @param item
-   *     to be equipped
+   * @param item Item to be equipped
    */
-  void checkEquippedItem(IEquipableItem item);
+  void checkItemNotEquipped(IEquipableItem item);
 
   /**
    * @return the test axe
@@ -107,4 +109,29 @@ public interface ITestUnit {
    * @return the target Alpaca
    */
   Alpaca getTargetAlpaca();
+
+  /**
+   * @return the target Archer
+   */
+  Archer getTargetArcher();
+
+  /**
+   * @return the target Cleric
+   */
+  Cleric getTargetCleric();
+
+  /**
+   * @return the target Fighter
+   */
+  Fighter getTargetFighter();
+
+  /**
+   * @return the target Hero
+   */
+  Hero getTargetHero();
+
+  /**
+   * @return the target SwordMaster
+   */
+  SwordMaster getTargetSwordMaster();
 }

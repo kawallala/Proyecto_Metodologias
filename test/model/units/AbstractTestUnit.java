@@ -17,6 +17,11 @@ import org.junit.jupiter.api.Test;
 public abstract class AbstractTestUnit implements ITestUnit {
 
   protected Alpaca targetAlpaca;
+  protected Archer targetArcher;
+  protected Cleric targetCleric;
+  protected Fighter targetFighter;
+  protected Hero targetHero;
+  protected SwordMaster targetSwordMaster;
   protected Bow bow;
   protected Field field;
   protected Axe axe;
@@ -24,31 +29,23 @@ public abstract class AbstractTestUnit implements ITestUnit {
   protected Staff staff;
   protected Spear spear;
 
-  @Override
-  public void setTargetAlpaca() {
-    targetAlpaca = new Alpaca(50, 2, field.getCell(1, 0));
-  }
-
-  /**
-   * Sets up the units and weapons to be tested
-   */
-  @BeforeEach
-  public void setUp() {
-    setField();
-    setTestUnit();
-    setTargetAlpaca();
-    setWeapons();
-  }
-
   /**
    * Set up the game field
    */
   @Override
   public void setField() {
     this.field = new Field();
-    this.field.addCells(true, new Location(0, 0), new Location(0, 1), new Location(0, 2),
-        new Location(1, 0), new Location(1, 1), new Location(1, 2), new Location(2, 0),
-        new Location(2, 1), new Location(2, 2));
+    this.field.addCells(true,
+            new Location(0, 0),
+            new Location(0, 1),
+            new Location(0, 2),
+            new Location(1, 0),
+            new Location(1, 1),
+            new Location(1, 2),
+            new Location(2, 0),
+            new Location(2, 1),
+            new Location(2, 2)
+            );
   }
 
   /**
@@ -56,6 +53,15 @@ public abstract class AbstractTestUnit implements ITestUnit {
    */
   @Override
   public abstract void setTestUnit();
+
+  /**
+   * Creates a set of testing units
+   */
+  //TODO ver si esto puede ser mejorado, no me gusta actualmente
+  @Override
+  public void setTargetUnits(){
+    this.targetAlpaca = new Alpaca(50,2,field.getCell(2, 2));
+  }
 
   /**
    * Creates a set of testing weapons
@@ -67,6 +73,17 @@ public abstract class AbstractTestUnit implements ITestUnit {
     this.spear = new Spear("Spear", 10, 1, 2);
     this.staff = new Staff("Staff", 10, 1, 2);
     this.bow = new Bow("Bow", 10, 2, 3);
+  }
+
+  /**
+   * Sets up the units and weapons to be tested
+   */
+  @BeforeEach
+  public void setUp() {
+    setField();
+    setTestUnit();
+    setTargetUnits();
+    setWeapons();
   }
 
   /**
@@ -94,17 +111,17 @@ public abstract class AbstractTestUnit implements ITestUnit {
   @Test
   public void equipAxeTest() {
     assertNull(getTestUnit().getEquippedItem());
-    checkEquippedItem(getAxe());
+    checkItemNotEquipped(getAxe());
   }
 
   /**
-   * Tries to equip a weapon to the alpaca and verifies that it was not equipped
+   * Tries to equip a weapon to the unit and verifies that it was not equipped
    *
    * @param item
    *     to be equipped
    */
   @Override
-  public void checkEquippedItem(IEquipableItem item) {
+  public void checkItemNotEquipped(IEquipableItem item) {
     assertNull(getTestUnit().getEquippedItem());
     getTestUnit().equipItem(item);
     assertNull(getTestUnit().getEquippedItem());
@@ -121,7 +138,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
   @Override
   @Test
   public void equipSwordTest() {
-    checkEquippedItem(getSword());
+    checkItemNotEquipped(getSword());
   }
 
   /**
@@ -135,7 +152,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
   @Override
   @Test
   public void equipSpearTest() {
-    checkEquippedItem(getSpear());
+    checkItemNotEquipped(getSpear());
   }
 
   /**
@@ -149,8 +166,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
   @Override
   @Test
   public void equipStaffTest() {
-    assertNull(getTestUnit().getEquippedItem());
-    checkEquippedItem(getStaff());
+    checkItemNotEquipped(getStaff());
   }
 
   /**
@@ -164,7 +180,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
   @Override
   @Test
   public void equipBowTest() {
-    checkEquippedItem(getBow());
+    checkItemNotEquipped(getBow());
   }
 
   /**
@@ -206,5 +222,30 @@ public abstract class AbstractTestUnit implements ITestUnit {
   @Override
   public Alpaca getTargetAlpaca() {
     return targetAlpaca;
+  }
+
+  @Override
+  public Archer getTargetArcher() {
+    return targetArcher;
+  }
+
+  @Override
+  public Cleric getTargetCleric() {
+    return targetCleric;
+  }
+
+  @Override
+  public Fighter getTargetFighter() {
+    return targetFighter;
+  }
+
+  @Override
+  public Hero getTargetHero() {
+    return targetHero;
+  }
+
+  @Override
+  public SwordMaster getTargetSwordMaster() {
+    return targetSwordMaster;
   }
 }

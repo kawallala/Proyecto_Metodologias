@@ -20,6 +20,11 @@ public class ClericTest extends AbstractTestUnit {
     cleric = new Cleric(50, 2, field.getCell(0, 0));
   }
 
+  @Override
+  public void setTargetUnits() {
+    super.setTargetUnits();
+  }
+
   /**
    * @return the current unit being tested
    */

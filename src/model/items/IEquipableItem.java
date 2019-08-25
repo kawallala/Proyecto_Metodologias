@@ -1,5 +1,6 @@
 package model.items;
 
+import model.units.Archer;
 import model.units.IUnit;
 
 /**
@@ -45,4 +46,10 @@ public interface IEquipableItem {
    * @return the maximum range of the item
    */
   int getMaxRange();
+
+  /**
+   * Tries to equip
+   * @param archer
+   */
+  void equippedByArcher(Archer archer);
 }

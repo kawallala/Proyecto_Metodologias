@@ -53,13 +53,13 @@ public class Location {
    */
   @Override
   public boolean equals(final Object other) {
-    return other instanceof Location && row == ((Location) other).row
-        && column == ((Location) other).column;
+    return other instanceof Location && this.row == ((Location) other).row
+        && this.column == ((Location) other).column;
   }
 
   @Override
   public String toString() {
-    return id;
+    return this.id;
   }
 
   /**
@@ -91,14 +91,14 @@ public class Location {
    * @return <code>true</code> if the two locations are adjacent; <code>false</code> otherwise
    */
   boolean isNeighbour(final Location otherLocation) {
-    return neighbours.contains(otherLocation);
+    return this.neighbours.contains(otherLocation);
   }
 
   /**
    * @return the unit currently located in this cell
    */
   public IUnit getUnit() {
-    return unit;
+    return this.unit;
   }
 
   /**
@@ -107,8 +107,11 @@ public class Location {
    * @param unit
    *     the unit to be placed in this cell
    */
+  //TODO test para chequeo de agregacion de unidades en el mismo lugar
   public void setUnit(final IUnit unit) {
-    this.unit = unit;
+    if(this.getUnit() == null){
+      this.unit = unit;
+    }
   }
 
   /**
@@ -153,7 +156,7 @@ public class Location {
     double distance = Double.POSITIVE_INFINITY;
     for (Location node :
         neighbours) {
-      if (!visited.contains(node)) {
+      if (!visited.contains(node) && node.getUnit() == null) {
         distance = Math.min(distance, 1 + node.shortestPathTo(otherNode, new HashSet<>(visited)));
       }
     }
