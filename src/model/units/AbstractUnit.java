@@ -169,6 +169,18 @@ public abstract class AbstractUnit implements IUnit {
                 getEquippedItem().getMaxRange()>= distance) {
             this.getEquippedItem().attackWith(targetUnit);
         }
+        targetUnit.counterAttack(this);
+    }
+
+    @Override
+    public void counterAttack(IUnit targetUnit) {
+        double distance = this.getLocation().distanceTo(targetUnit.getLocation());
+        if(getEquippedItem() != null &&
+                getEquippedItem().getMinRange()<= distance &&
+                getEquippedItem().getMaxRange()>= distance &&
+                getCurrentHitPoints()>=1) {
+            this.getEquippedItem().attackWith(targetUnit);
+        }
     }
 
     @Override

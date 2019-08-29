@@ -147,4 +147,11 @@ public interface IUnit {
      *      The item that will be added to the inventory
      */
     void addToInventory(IEquipableItem item);
+
+    /**
+     * Makes a counter attack to the target unit
+     * @param targetUnit
+     *      The unit that the counter attack is directed at
+     */
+    void counterAttack(IUnit targetUnit);
 }

@@ -145,4 +145,10 @@ public interface ITestUnit {
      */
     @Test
     void testAttackTargetAlpaca();
+
+    @Test
+    void testAttackStrongTarget();
+
+    @Test
+    void testAttackWeakTarget();
 }

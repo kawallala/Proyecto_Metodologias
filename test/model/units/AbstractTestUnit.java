@@ -1,17 +1,15 @@
 package model.units;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import model.items.*;
 import model.map.Field;
 import model.map.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
- * @author Ignacio Slater Muñoz
+ * @author Martin Araya Zavala
  * @since 1.0
  */
 public abstract class AbstractTestUnit implements ITestUnit {
@@ -31,9 +29,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
     protected Staff staff;
     protected Spear spear;
 
-    /**
-     * Set up the game field
-     */
+
     @Override
     public void setField() {
         this.field = new Field();
@@ -43,15 +39,9 @@ public abstract class AbstractTestUnit implements ITestUnit {
                 new Location(2, 0), new Location(2, 1), new Location(2, 2));
     }
 
-    /**
-     * Set up the main unit that's going to be tested in the test set
-     */
     @Override
     public abstract void setTestUnit();
 
-    /**
-     * Creeates an Alpaca to be used as an obstacle in the
-     */
     //TODO ver si esto puede ser mejorado, no me gusta actualmente
     public void setTargetAlpaca() {
         this.targetAlpaca = new Alpaca(50, 2, field.getCell(1, 1));
@@ -60,9 +50,6 @@ public abstract class AbstractTestUnit implements ITestUnit {
     @Override
     public abstract void setTargetUnits();
 
-    /**
-     * Creates a set of testing weapons
-     */
     @Override
     public void setWeapons() {
         this.axe = new Axe("Axe", 10, 1, 2);
@@ -72,9 +59,6 @@ public abstract class AbstractTestUnit implements ITestUnit {
         this.bow = new Bow("Bow", 10, 2, 3);
     }
 
-    /**
-     * Sets up the units and weapons to be tested
-     */
     @BeforeEach
     public void setUp() {
         setField();
@@ -84,9 +68,6 @@ public abstract class AbstractTestUnit implements ITestUnit {
         setWeapons();
     }
 
-    /**
-     * Checks that the constructor works properly.
-     */
     @Override
     @Test
     public void constructorTest() {
@@ -96,25 +77,14 @@ public abstract class AbstractTestUnit implements ITestUnit {
         assertTrue(getTestUnit().getItems().isEmpty());
     }
 
-    /**
-     * @return the current unit being tested
-     */
     @Override
     public abstract IUnit getTestUnit();
 
-    /**
-     * @return the test field
-     */
     @Override
     public Field getField() {
         return field;
     }
 
-    /**
-     * Tries to equip a weapon to the unit and verifies that it was not equipped
-     *
-     * @param item to be equipped
-     */
     @Override
     public void checkItemNotEquipped(IEquipableItem item) {
         assertNull(getTestUnit().getEquippedItem());
@@ -122,9 +92,6 @@ public abstract class AbstractTestUnit implements ITestUnit {
         assertNull(getTestUnit().getEquippedItem());
     }
 
-    /**
-     * Checks that the axe is not equipped correctly to the unit
-     */
     @Override
     @Test
     public void equipAxeTest() {
@@ -132,17 +99,11 @@ public abstract class AbstractTestUnit implements ITestUnit {
         checkItemNotEquipped(getAxe());
     }
 
-    /**
-     * @return the test axe
-     */
     @Override
     public Axe getAxe() {
         return axe;
     }
 
-    /**
-     * Checks that the Sword is not equipped correctly to the unit
-     */
     @Override
     @Test
     public void equipSwordTest() {
@@ -150,17 +111,11 @@ public abstract class AbstractTestUnit implements ITestUnit {
         checkItemNotEquipped(getSword());
     }
 
-    /**
-     * @return the test sword
-     */
     @Override
     public Sword getSword() {
         return sword;
     }
 
-    /**
-     * Checks that the Spear is not equipped correctly to the unit
-     */
     @Override
     @Test
     public void equipSpearTest() {
@@ -168,17 +123,11 @@ public abstract class AbstractTestUnit implements ITestUnit {
         checkItemNotEquipped(getSpear());
     }
 
-    /**
-     * @return the test spear
-     */
     @Override
     public Spear getSpear() {
         return spear;
     }
 
-    /**
-     * Checks that the Staff is not equipped correctly to the unit
-     */
     @Override
     @Test
     public void equipStaffTest() {
@@ -186,17 +135,11 @@ public abstract class AbstractTestUnit implements ITestUnit {
         checkItemNotEquipped(getStaff());
     }
 
-    /**
-     * @return the test staff
-     */
     @Override
     public Staff getStaff() {
         return staff;
     }
 
-    /**
-     * Checks that the Bow is not equipped correctly to the unit
-     */
     @Override
     @Test
     public void equipBowTest() {
@@ -204,17 +147,11 @@ public abstract class AbstractTestUnit implements ITestUnit {
         checkItemNotEquipped(getBow());
     }
 
-    /**
-     * @return the test bow
-     */
     @Override
     public Bow getBow() {
         return bow;
     }
 
-    /**
-     * Checks if the unit moves correctly
-     */
     @Override
     @Test
     public void testMovement() {
@@ -230,49 +167,31 @@ public abstract class AbstractTestUnit implements ITestUnit {
         assertEquals(new Location(0, 2), getTestUnit().getLocation());
     }
 
-    /**
-     * @return the target Alpaca
-     */
     @Override
     public Alpaca getTargetAlpaca() {
         return targetAlpaca;
     }
 
-    /**
-     * @return the target Archer
-     */
     @Override
     public Archer getTargetArcher() {
         return targetArcher;
     }
 
-    /**
-     * @return the target Cleric
-     */
     @Override
     public Cleric getTargetCleric() {
         return targetCleric;
     }
 
-    /**
-     * @return the target Fighter
-     */
     @Override
     public Fighter getTargetFighter() {
         return targetFighter;
     }
 
-    /**
-     * @return the target Hero
-     */
     @Override
     public Hero getTargetHero() {
         return targetHero;
     }
 
-    /**
-     * @return the target SwordMaster
-     */
     @Override
     public SwordMaster getTargetSwordMaster() {
         return targetSwordMaster;
@@ -280,7 +199,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
     @Override
     @Test
-    public void testAttackTargetAlpaca(){
+    public void testAttackTargetAlpaca() {
         //purposely left empty
     }
 }
