@@ -54,7 +54,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
      */
     //TODO ver si esto puede ser mejorado, no me gusta actualmente
     public void setTargetAlpaca() {
-        this.targetAlpaca = new Alpaca(50, 2, field.getCell(2, 2));
+        this.targetAlpaca = new Alpaca(50, 2, field.getCell(1, 1));
     }
 
     @Override
@@ -223,6 +223,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
         getTestUnit().moveTo(getField().getCell(0, 2));
         assertEquals(new Location(0, 2), getTestUnit().getLocation());
+        assertNull(getField().getCell(0, 0).getUnit());
 
         getField().getCell(0, 1).setUnit(getTargetAlpaca());
         getTestUnit().moveTo(getField().getCell(0, 1));
@@ -278,5 +279,8 @@ public abstract class AbstractTestUnit implements ITestUnit {
     }
 
     @Override
-    public abstract void testAttackTargetAlpaca();
+    @Test
+    public void testAttackTargetAlpaca(){
+        //purposely left empty
+    }
 }

@@ -25,6 +25,7 @@ public abstract class AbstractUnit implements IUnit {
     private int currentHitPoints;
     private int maximumHitPoints;
     private final int movement;
+    private final int maxItems;
     protected IEquipableItem equippedItem;
     private Location location;
 
@@ -39,8 +40,9 @@ public abstract class AbstractUnit implements IUnit {
     protected AbstractUnit(int hitPoints, final int movement,
                            final Location location, final int maxItems, final IEquipableItem... items) {
         this.maximumHitPoints = hitPoints;
-        setCurrentHitPoints(maximumHitPoints);
+        this.currentHitPoints = this.maximumHitPoints;
         this.movement = movement;
+        this.maxItems = maxItems;
         setLocation(location);
         this.items.addAll(Arrays.asList(items).subList(0, min(maxItems, items.length)));
     }
@@ -54,7 +56,7 @@ public abstract class AbstractUnit implements IUnit {
     public int getCurrentHitPoints() {
         return this.currentHitPoints;
     }
-
+    //TODO preguntar al auxs si eso se puede dejar private, y si no, porque no?
     @Override
     public void setCurrentHitPoints(int hitPoints) {
         this.currentHitPoints = hitPoints;
@@ -64,7 +66,7 @@ public abstract class AbstractUnit implements IUnit {
     public List<IEquipableItem> getItems() {
         return List.copyOf(this.items);
     }
-
+    //TODO unequip item
     @Override
     public IEquipableItem getEquippedItem() {
         return this.equippedItem;
@@ -89,7 +91,23 @@ public abstract class AbstractUnit implements IUnit {
     @Override
     public void moveTo(final Location targetLocation) {
         if (this.getLocation().distanceTo(targetLocation) <= this.getMovement() && targetLocation.getUnit() == null) {
+            getLocation().removeUnit();
             setLocation(targetLocation);
+        }
+    }
+
+    @Override
+    public void equipAxe(Axe axe) {
+        //purposely left empty :c
+    }
+
+    @Override
+    public void attackedByAxe(Axe axe) {
+        if(getEquippedItem() == null){
+            normalDamage(axe.getPower());
+        }
+        else{
+            getEquippedItem().ownerAttackedByAxe(axe);
         }
     }
 
@@ -99,12 +117,17 @@ public abstract class AbstractUnit implements IUnit {
     }
 
     @Override
-    public void equipStaff(Staff staff) {
-        //purposely left empty :c
+    public void attackedByBow(Bow bow) {
+        if(getEquippedItem() == null){
+            normalDamage(bow.getPower());
+        }
+        else{
+            getEquippedItem().ownerAttackedByBow(bow);
+        }
     }
 
     @Override
-    public void equipAxe(Axe axe) {
+    public void equipStaff(Staff staff) {
         //purposely left empty :c
     }
 
@@ -114,12 +137,49 @@ public abstract class AbstractUnit implements IUnit {
     }
 
     @Override
+    public void attackedBySpear(Spear spear) {
+        if(getEquippedItem() == null){
+            normalDamage(spear.getPower());
+        }
+        else{
+            getEquippedItem().ownerAttackedBySpear(spear);
+        }
+    }
+
+    @Override
     public void equipSword(Sword sword) {
         //purposely left empty :c
     }
 
     @Override
+    public void attackedBySword(Sword sword) {
+        if(getEquippedItem() == null){
+            normalDamage(sword.getPower());
+        }
+        else{
+            getEquippedItem().ownerAttackedBySword(sword);
+        }
+    }
+
+    @Override
     public void attack(IUnit targetUnit) {
-        this.equippedItem.attackWith(targetUnit);
+        double distance = this.getLocation().distanceTo(targetUnit.getLocation());
+        if(getEquippedItem() != null &&
+                getEquippedItem().getMinRange()<= distance &&
+                getEquippedItem().getMaxRange()>= distance) {
+            this.getEquippedItem().attackWith(targetUnit);
+        }
+    }
+
+    @Override
+    public void normalDamage(int damage) {
+        setCurrentHitPoints(getCurrentHitPoints()-damage);
+    }
+
+    @Override
+    public void addToInventory(IEquipableItem item) {
+        if (this.items.size() <= this.maxItems){
+            this.items.add(item);
+        }
     }
 }

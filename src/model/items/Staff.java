@@ -35,6 +35,6 @@ public class Staff extends AbstractItem {
 
     @Override
     public void attackWith(IUnit targetUnit) {
-        targetUnit.attackedByStaff(this);
     }
+
 }

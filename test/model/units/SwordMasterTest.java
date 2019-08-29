@@ -37,12 +37,21 @@ public class SwordMasterTest extends AbstractTestUnit {
     @Test
     public void equipSwordTest() {
         assertNull(swordMaster.getEquippedItem());
+        getTestUnit().addToInventory(getSword());
         this.sword.equipTo(this.swordMaster);
         assertEquals(sword, swordMaster.getEquippedItem());
     }
 
     @Override
+    @Test
     public void testAttackTargetAlpaca() {
+        getTestUnit().addToInventory(getSword());
+        getSword().equipTo(getTestUnit());
+        getTargetAlpaca().moveTo(getField().getCell(0, 1));
 
+        assertEquals(50, getTargetAlpaca().getCurrentHitPoints());
+
+        getTestUnit().attack(getTargetAlpaca());
+        assertEquals(50-10,getTargetAlpaca().getCurrentHitPoints());
     }
 }

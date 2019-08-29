@@ -1,6 +1,5 @@
 package model.items;
 
-import model.units.Archer;
 import model.units.IUnit;
 
 /**
@@ -60,4 +59,31 @@ public interface IEquipableItem {
      * @param targetUnit the unit being attacked
      */
     void attackWith(IUnit targetUnit);
+
+    /**
+     * Calculates the type of damage to the owner of this item
+     * @param axe
+     *      The axe that is dealing the damage
+     */
+    void ownerAttackedByAxe(Axe axe);
+
+    /**
+     * Calculates the type of damage to the owner of this item
+     * @param bow
+     *      The bow that is dealing the damage
+     */
+    void ownerAttackedByBow(Bow bow);
+
+    /**
+     * Calculates the type of damage to the owner of this item
+     * @param spear
+     *      The spear that is dealing the damage
+     */
+    void ownerAttackedBySpear(Spear spear);
+    /**
+     * Calculates the type of damage to the owner of this item
+     * @param sword
+     *      The sword that is dealing the damage
+     */
+    void ownerAttackedBySword(Sword sword);
 }

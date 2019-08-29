@@ -25,9 +25,4 @@ public class AlpacaTest extends AbstractTestUnit {
         return alpaca;
     }
 
-    @Override
-    public void testAttackTargetAlpaca() {
-
-    }
-
 }

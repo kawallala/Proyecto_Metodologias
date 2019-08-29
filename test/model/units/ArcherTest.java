@@ -43,13 +43,21 @@ public class ArcherTest extends AbstractTestUnit {
     @Override
     public void equipBowTest() {
         assertNull(this.archer.getEquippedItem());
-        this.bow.equipTo(archer);
+        archer.addToInventory(bow);
+        bow.equipTo(archer);
         assertEquals(bow, archer.getEquippedItem());
     }
 
+    @Test
     @Override
     public void testAttackTargetAlpaca() {
+        getTestUnit().addToInventory(getBow());
+        getBow().equipTo(getTestUnit());
+        getTargetAlpaca().moveTo(getField().getCell(0, 2));
 
+        assertEquals(50, getTargetAlpaca().getCurrentHitPoints());
 
+        getTestUnit().attack(getTargetAlpaca());
+        assertEquals(50-10,getTargetAlpaca().getCurrentHitPoints());
     }
 }

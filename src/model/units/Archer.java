@@ -36,8 +36,9 @@ public class Archer extends AbstractUnit {
      */
     @Override
     public void equipBow(Bow bow) {
-        this.equippedItem = bow;
-        bow.setOwner(this);
+        if(this.items.contains(bow)) {
+            this.equippedItem = bow;
+            bow.setOwner(this);
+        }
     }
-
 }

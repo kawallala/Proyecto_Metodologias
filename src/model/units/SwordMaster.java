@@ -29,7 +29,9 @@ public class SwordMaster extends AbstractUnit {
      */
     @Override
     public void equipSword(Sword sword){
-        this.equippedItem = sword;
-        sword.setOwner(this);
+        if(this.items.contains(sword)) {
+            this.equippedItem = sword;
+            sword.setOwner(this);
+        }
     }
 }

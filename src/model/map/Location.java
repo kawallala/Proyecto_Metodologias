@@ -93,7 +93,12 @@ public class Location {
     boolean isNeighbour(final Location otherLocation) {
         return this.neighbours.contains(otherLocation);
     }
-
+    /**
+     * method to remove current unit form the location
+     */
+    public void removeUnit(){
+        this.unit = null;
+    }
     /**
      * @return the unit currently located in this cell
      */
@@ -156,7 +161,7 @@ public class Location {
         double distance = Double.POSITIVE_INFINITY;
         for (Location node :
                 neighbours) {
-            if (!visited.contains(node) && node.getUnit() == null) {
+            if (!visited.contains(node)) {
                 distance = Math.min(distance, 1 + node.shortestPathTo(otherNode, new HashSet<>(visited)));
             }
         }

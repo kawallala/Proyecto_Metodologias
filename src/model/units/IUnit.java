@@ -20,10 +20,12 @@ public interface IUnit {
      * @return hit points of the unit
      */
     int getCurrentHitPoints();
+
     /**
      * @return the maximum hit point of a unit
      */
     int getMaximumHitPoints();
+
     /**
      * sets the new hit points of a unit
      */
@@ -62,11 +64,32 @@ public interface IUnit {
     void moveTo(Location targetLocation);
 
     /**
+     * Equips an Axe to the unit
+     * @param axe
+     *      the Axe to be equipped
+     */
+    void equipAxe(Axe axe);
+
+    /**
+     * Attacks this unit with an Axe
+     * @param axe
+     *      The axe this unit is being attacked with
+     */
+    void attackedByAxe(Axe axe);
+
+    /**
      * Equips a Bow to the unit
      * @param bow
      *      the Bow to be equipped
      */
     void equipBow(Bow bow);
+
+    /**
+     * Attacks this unit with a Bow
+     * @param bow
+     *      The bow this unit is being attacked with
+     */
+    void attackedByBow(Bow bow);
 
     /**
      * Equips a staff to the unit
@@ -75,12 +98,6 @@ public interface IUnit {
      */
 
     void equipStaff(Staff staff);
-    /**
-     * Equips an Axe to the unit
-     * @param axe
-     *      the Axe to be equipped
-     */
-    void equipAxe(Axe axe);
 
     /**
      * Equips an Spear to the unit
@@ -90,11 +107,25 @@ public interface IUnit {
     void equipSpear(Spear spear);
 
     /**
+     * Attacks this unit with a Spear
+     * @param spear
+     *      The spear this unit is being attacked with
+     */
+    void attackedBySpear(Spear spear);
+
+    /**
      * Equips an Sword to the unit
      * @param sword
      *      the Sword to be equipped
      */
     void equipSword(Sword sword);
+
+    /**
+     * Attacks this unit with a Sword
+     * @param sword
+     *      The sword this unit is being attacked with
+     */
+    void attackedBySword(Sword sword);
 
     /**
      * Makes this unit attack another unit.
@@ -103,6 +134,17 @@ public interface IUnit {
      */
     void attack(IUnit targetUnit);
 
+    /**
+     * Deals damage to this unit
+     * @param damage
+     *      The damage being dealt
+     */
+    void normalDamage(int damage);
 
-
+    /**
+     * Adds the item to the inventory of this unit
+     * @param item
+     *      The item that will be added to the inventory
+     */
+    void addToInventory(IEquipableItem item);
 }

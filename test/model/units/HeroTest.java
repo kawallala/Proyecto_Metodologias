@@ -38,12 +38,21 @@ class HeroTest extends AbstractTestUnit {
     @Test
     public void equipSpearTest() {
         assertNull(hero.getEquippedItem());
+        getTestUnit().addToInventory(getSpear());
         this.spear.equipTo(this.hero);
         assertEquals(spear, hero.getEquippedItem());
     }
 
     @Override
+    @Test
     public void testAttackTargetAlpaca() {
+        getTestUnit().addToInventory(getSpear());
+        getSpear().equipTo(getTestUnit());
+        getTargetAlpaca().moveTo(getField().getCell(0, 1));
 
+        assertEquals(50, getTargetAlpaca().getCurrentHitPoints());
+
+        getTestUnit().attack(getTargetAlpaca());
+        assertEquals(50-10,getTargetAlpaca().getCurrentHitPoints());
     }
 }
