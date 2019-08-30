@@ -64,33 +64,29 @@ public abstract class AbstractItem implements IEquipableItem {
 
     @Override
     public void ownerAttackedByAxe(Axe axe) {
-        this.owner.normalDamage(axe.getPower());
+        owner.normalDamage(axe.getPower());
     }
 
     @Override
     public void ownerAttackedByBow(Bow bow) {
-        this.owner.normalDamage(bow.getPower());
+        owner.normalDamage(bow.getPower());
     }
 
     @Override
     public void ownerAttackedBySpear(Spear spear) {
-        this.owner.normalDamage(spear.getPower());
+        owner.normalDamage(spear.getPower());
     }
 
     @Override
     public void ownerAttackedBySword(Sword sword) {
-        this.owner.normalDamage(sword.getPower());
+        owner.normalDamage(sword.getPower());
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof IEquipableItem && ((IEquipableItem) obj).getName() == this.name &&
-                ((IEquipableItem) obj).getMinRange() == this.minRange &&
-                ((IEquipableItem) obj).getMaxRange() == this.maxRange &&
-                ((IEquipableItem) obj).getPower() == this.power){
-            return true;
-        } else {
-            return false;
-        }
+        return obj instanceof IEquipableItem && ((IEquipableItem) obj).getName().equals(name) &&
+                ((IEquipableItem) obj).getMinRange() == minRange &&
+                ((IEquipableItem) obj).getMaxRange() == maxRange &&
+                ((IEquipableItem) obj).getPower() == power;
     }
 }

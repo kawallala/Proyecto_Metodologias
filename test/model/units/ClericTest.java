@@ -20,11 +20,6 @@ public class ClericTest extends AbstractTestUnit {
         cleric = new Cleric(50, 2, field.getCell(0, 0));
     }
 
-    @Override
-    public void setTargetUnits() {
-
-    }
-
     /**
      * @return the current unit being tested
      */
@@ -40,5 +35,23 @@ public class ClericTest extends AbstractTestUnit {
         cleric.addToInventory(staff);
         staff.equipTo(cleric);
         assertEquals(staff, cleric.getEquippedItem());
+    }
+
+    /**
+     * Test does nothing since the cleric cannot attack
+     */
+    @Test
+    @Override
+    public void testAttackTargetAlpaca() {
+        //purposely left empty
+    }
+
+    /**
+     * Test does nothing since the cleric cannot attack
+     */
+    @Test
+    @Override
+    public void testAttackTargetArcher() {
+        //purposely left empty
     }
 }

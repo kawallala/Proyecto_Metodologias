@@ -1,5 +1,7 @@
 package model.units;
 
+import org.junit.jupiter.api.Test;
+
 /**
  * Test set for the alpaca unit
  *
@@ -15,14 +17,28 @@ public class AlpacaTest extends AbstractTestUnit {
         alpaca = new Alpaca(50, 2, field.getCell(0, 0));
     }
 
-    @Override
-    public void setTargetUnits() {
-
-    }
 
     @Override
     public Alpaca getTestUnit() {
         return alpaca;
     }
 
+
+    /**
+     * Test does nothing since the ALpaca cannot attack
+     */
+    @Override
+    @Test
+    public void testAttackTargetAlpaca() {
+
+    }
+
+    /**
+     * Test does nothing since the Alpaca cannot attack
+     */
+    @Test
+    @Override
+    public void testAttackTargetArcher() {
+
+    }
 }

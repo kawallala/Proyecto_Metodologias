@@ -30,10 +30,6 @@ public interface ITestUnit {
     void setTargetUnits();
 
     /**
-     * Creates a target Alpaca
-     */
-    void setTargetAlpaca();
-    /**
      * Creates a set of testing weapons
      */
     void setWeapons();
@@ -151,4 +147,14 @@ public interface ITestUnit {
 
     @Test
     void testAttackWeakTarget();
+
+    @Test
+    void testAttackTargetAlpaca();
+
+    @Test
+    void testAttackTargetArcher();
+
+    @Test
+    void testAttacktargetCleric();
+
 }

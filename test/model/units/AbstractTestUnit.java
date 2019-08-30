@@ -40,14 +40,15 @@ public abstract class AbstractTestUnit implements ITestUnit {
     }
 
     @Override
-    public abstract void setTestUnit();
+    public void setTargetUnits(){
+        targetAlpaca = new Alpaca(50, 9, getField().getCell(2,2));
+        targetArcher = new Archer(50, 9, getField().getCell(2,1));
+        targetCleric = new Cleric(50, 9, getField().getCell(2,0));
+        targetFighter = new Fighter(50, 9 ,getField().getCell(1,2));
+        targetHero = new Hero(50, 9, getField().getCell(1,1));
+        targetSwordMaster = new SwordMaster(50, 9, getField().getCell(1,0));
 
-    public void setTargetAlpaca() {
-        this.targetAlpaca = new Alpaca(50, 2, field.getCell(1, 1));
     }
-
-    @Override
-    public abstract void setTargetUnits();
 
     @Override
     public void setWeapons() {
@@ -61,10 +62,9 @@ public abstract class AbstractTestUnit implements ITestUnit {
     @BeforeEach
     public void setUp() {
         setField();
-        setTestUnit();
-        setTargetAlpaca();
-        setTargetUnits();
         setWeapons();
+        setTargetUnits();
+        setTestUnit();
     }
 
     @Override
@@ -161,7 +161,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
         assertEquals(getField().getCell(0,2), getTestUnit().getLocation());
         assertNull(getField().getCell(0, 0).getUnit());
 
-        getField().getCell(0, 1).setUnit(getTargetAlpaca());
+        getTargetAlpaca().moveTo(getField().getCell(0,1));
         getTestUnit().moveTo(getField().getCell(0, 1));
         assertEquals(getField().getCell(0,2), getTestUnit().getLocation());
     }
@@ -210,5 +210,69 @@ public abstract class AbstractTestUnit implements ITestUnit {
     @Override
     public void testAttackWeakTarget() {
         //purposely left empty
+    }
+
+    @Override
+    @Test
+    public void testAttackTargetAlpaca() {
+        // in range - Alpaca
+        targetAlpaca.moveTo(getField().getCell(0, 1));
+        assertEquals(50, targetAlpaca.getCurrentHitPoints());
+        getTestUnit().attack(targetAlpaca);
+        assertEquals(40,targetAlpaca.getCurrentHitPoints());
+        assertEquals(50, getTestUnit().getCurrentHitPoints());
+
+        //out of range - Alpaca
+        targetAlpaca.moveTo(getField().getCell(2,2));
+        getTestUnit().attack(targetAlpaca);
+        assertEquals(40, targetAlpaca.getCurrentHitPoints());
+    }
+
+    @Override
+    @Test
+    public void testAttackTargetArcher() {
+        targetArcher.addToInventory(bow);
+        bow.equipTo(targetArcher);
+
+        //in range, no counter attack
+        targetArcher.moveTo(field.getCell(0,1));
+        assertEquals(50, targetArcher.getCurrentHitPoints());
+        getTestUnit().attack(targetArcher);
+        assertEquals(50-10,targetArcher.getCurrentHitPoints());
+        assertEquals(50, getTestUnit().getCurrentHitPoints());
+
+        //in range
+        targetArcher.moveTo(field.getCell(0,2));
+        getTestUnit().attack(targetArcher);
+        assertEquals(30, targetArcher.getCurrentHitPoints());
+        assertEquals(40, getTestUnit().getCurrentHitPoints());
+
+        //out of range
+        targetAlpaca.moveTo(field.getCell(0,1));
+        targetArcher.moveTo(field.getCell(2,2));
+        getTestUnit().attack(targetArcher);
+        assertEquals(30, targetArcher.getCurrentHitPoints());
+        assertEquals(40, getTestUnit().getCurrentHitPoints());
+    }
+
+    @Override
+    @Test
+    public void testAttacktargetCleric() {
+        targetCleric.addToInventory(staff);
+        staff.equipTo(targetCleric);
+
+        //in range
+        targetCleric.moveTo(field.getCell(0, 1));
+        assertEquals(50, targetCleric.getCurrentHitPoints());
+        getTestUnit().attack(targetCleric);
+        assertEquals(40, targetCleric.getCurrentHitPoints());
+        assertEquals(50, getTestUnit().getCurrentHitPoints());
+
+        //out of range
+        targetAlpaca.moveTo(field.getCell(0,2));
+        targetCleric.moveTo(field.getCell(2, 2));
+        getTestUnit().attack(targetCleric);
+        assertEquals(40, targetCleric.getCurrentHitPoints());
+        assertEquals(50, getTestUnit().getCurrentHitPoints());
     }
 }

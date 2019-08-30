@@ -19,12 +19,10 @@ class HeroTest extends AbstractTestUnit {
     @Override
     public void setTestUnit() {
         hero = new Hero(50, 2, field.getCell(0, 0));
+        hero.addToInventory(spear);
+        spear.equipTo(hero);
     }
 
-    @Override
-    public void setTargetUnits() {
-
-    }
 
     /**
      * @return the current unit being tested

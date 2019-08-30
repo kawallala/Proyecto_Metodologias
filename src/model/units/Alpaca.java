@@ -28,4 +28,8 @@ public class Alpaca extends AbstractUnit {
         super(hitPoints, movement, location, Integer.MAX_VALUE, items);
     }
 
+    @Override
+    public void attack(IUnit targetUnit) {
+
+    }
 }

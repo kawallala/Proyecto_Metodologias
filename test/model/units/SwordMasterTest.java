@@ -18,11 +18,8 @@ public class SwordMasterTest extends AbstractTestUnit {
     @Override
     public void setTestUnit() {
         swordMaster = new SwordMaster(50, 2, field.getCell(0, 0));
-    }
-
-    @Override
-    public void setTargetUnits() {
-
+        swordMaster.addToInventory(sword);
+        sword.equipTo(swordMaster);
     }
 
     /**

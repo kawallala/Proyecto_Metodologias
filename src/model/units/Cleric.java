@@ -40,4 +40,9 @@ public class Cleric extends AbstractUnit {
             staff.setOwner(this);
         }
     }
+
+    @Override
+    public void attack(IUnit targetUnit) {
+
+    }
 }
