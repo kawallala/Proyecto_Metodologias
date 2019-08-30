@@ -135,11 +135,25 @@ public interface IUnit {
     void attack(IUnit targetUnit);
 
     /**
-     * Deals damage to this unit
+     * Deals normal damage to this unit
      * @param damage
      *      The damage being dealt
      */
     void normalDamage(int damage);
+
+    /**
+     * Deals strong damage to this unit
+     * @param damage
+     *      The damage being dealt
+     */
+    void strongDamage(int damage);
+
+    /**
+     * Deals weak damage to this unit
+     * @param damage
+     *      The damage being dealt
+     */
+    void weakDamage(int damage);
 
     /**
      * Adds the item to the inventory of this unit

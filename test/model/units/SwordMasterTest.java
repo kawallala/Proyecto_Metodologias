@@ -44,7 +44,7 @@ public class SwordMasterTest extends AbstractTestUnit {
 
     @Override
     @Test
-    public void testAttackTargetAlpaca() {
+    public void testAttackNeutralTarget() {
         getTestUnit().addToInventory(getSword());
         getSword().equipTo(getTestUnit());
         getTargetAlpaca().moveTo(getField().getCell(0, 1));
@@ -53,5 +53,15 @@ public class SwordMasterTest extends AbstractTestUnit {
 
         getTestUnit().attack(getTargetAlpaca());
         assertEquals(50-10,getTargetAlpaca().getCurrentHitPoints());
+    }
+
+    @Override
+    public void testAttackStrongTarget() {
+
+    }
+
+    @Override
+    public void testAttackWeakTarget() {
+
     }
 }

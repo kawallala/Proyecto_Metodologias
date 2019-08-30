@@ -1,13 +1,13 @@
 package model.units;
 
-import static java.lang.Math.min;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import model.items.*;
 import model.map.Location;
+
+import static java.lang.Math.*;
 
 /**
  * This class represents an abstract unit.
@@ -163,6 +163,7 @@ public abstract class AbstractUnit implements IUnit {
 
     @Override
     public void attack(IUnit targetUnit) {
+        //TODO verificar que la vida sea mayor a 0
         double distance = this.getLocation().distanceTo(targetUnit.getLocation());
         if(getEquippedItem() != null &&
                 getEquippedItem().getMinRange()<= distance &&
@@ -186,6 +187,18 @@ public abstract class AbstractUnit implements IUnit {
     @Override
     public void normalDamage(int damage) {
         setCurrentHitPoints(getCurrentHitPoints()-damage);
+    }
+
+    @Override
+    public void strongDamage(int damage) {
+        setCurrentHitPoints((int) (getCurrentHitPoints() - damage*1.5));
+    }
+
+    @Override
+    public void weakDamage(int damage) {
+        if (damage-20>0) {
+            setCurrentHitPoints(getCurrentHitPoints() - damage + 20);
+        }
     }
 
     @Override

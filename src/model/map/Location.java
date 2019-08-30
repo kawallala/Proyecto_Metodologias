@@ -112,7 +112,6 @@ public class Location {
      * @param unit
      *     the unit to be placed in this cell
      */
-    //TODO test para chequeo de agregacion de unidades en el mismo lugar
     public void setUnit(final IUnit unit) {
         if(this.getUnit() == null){
             this.unit = unit;

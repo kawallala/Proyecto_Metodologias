@@ -144,7 +144,7 @@ public interface ITestUnit {
      * test attacks against an alpaca, it cannot attack back
      */
     @Test
-    void testAttackTargetAlpaca();
+    void testAttackNeutralTarget();
 
     @Test
     void testAttackStrongTarget();

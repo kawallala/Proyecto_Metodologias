@@ -42,7 +42,7 @@ public class ArcherTest extends AbstractTestUnit {
     @Test
     @Override
     public void equipBowTest() {
-        assertNull(this.archer.getEquippedItem());
+        assertNull(archer.getEquippedItem());
         archer.addToInventory(bow);
         bow.equipTo(archer);
         assertEquals(bow, archer.getEquippedItem());
@@ -50,14 +50,25 @@ public class ArcherTest extends AbstractTestUnit {
 
     @Test
     @Override
-    public void testAttackTargetAlpaca() {
-        getTestUnit().addToInventory(getBow());
-        getBow().equipTo(getTestUnit());
+    public void testAttackNeutralTarget() {
+        archer.addToInventory(getBow());
+        getBow().equipTo(archer);
+
+        //attack in range
         getTargetAlpaca().moveTo(getField().getCell(0, 2));
-
         assertEquals(50, getTargetAlpaca().getCurrentHitPoints());
-
-        getTestUnit().attack(getTargetAlpaca());
+        archer.attack(getTargetAlpaca());
         assertEquals(50-10,getTargetAlpaca().getCurrentHitPoints());
+
+        //attack out of range (inner range)
+        getTargetAlpaca().moveTo(getField().getCell(0,1));
+        archer.attack(getTargetAlpaca());
+        assertEquals(40, getTargetAlpaca().getCurrentHitPoints());
+
+        //attack out of range(outer range)
+        getTargetAlpaca().moveTo(getField().getCell(0,3));
+        getTargetAlpaca().moveTo(getField().getCell(0,4));
+        archer.attack(getTargetAlpaca());
+        assertEquals(40, getTargetAlpaca().getCurrentHitPoints());
     }
 }

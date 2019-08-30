@@ -45,7 +45,7 @@ class HeroTest extends AbstractTestUnit {
 
     @Override
     @Test
-    public void testAttackTargetAlpaca() {
+    public void testAttackNeutralTarget() {
         getTestUnit().addToInventory(getSpear());
         getSpear().equipTo(getTestUnit());
         getTargetAlpaca().moveTo(getField().getCell(0, 1));
@@ -54,5 +54,15 @@ class HeroTest extends AbstractTestUnit {
 
         getTestUnit().attack(getTargetAlpaca());
         assertEquals(50-10,getTargetAlpaca().getCurrentHitPoints());
+    }
+
+    @Override
+    public void testAttackStrongTarget() {
+
+    }
+
+    @Override
+    public void testAttackWeakTarget() {
+
     }
 }
