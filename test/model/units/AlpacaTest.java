@@ -50,4 +50,21 @@ public class AlpacaTest extends AbstractTestUnit {
     public void testAttackTargetCleric() {
 
     }
+
+    /**
+     * Test does nothing since the Alpaca cannot attack
+     */
+    @Test
+    @Override
+    public void testAttackTargetFighter() {
+
+    }
+
+    /**
+     * Test does nothing since the Alpaca cannot attack
+     */
+    @Override
+    public void testAttackTargetHero() {
+
+    }
 }

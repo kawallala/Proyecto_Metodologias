@@ -136,18 +136,6 @@ public interface ITestUnit {
      */
     SwordMaster getTargetSwordMaster();
 
-    /**
-     * test attacks against an alpaca, it cannot attack back
-     */
-    @Test
-    void testAttackNeutralTarget();
-
-    @Test
-    void testAttackStrongTarget();
-
-    @Test
-    void testAttackWeakTarget();
-
     @Test
     void testAttackTargetAlpaca();
 
@@ -157,4 +145,9 @@ public interface ITestUnit {
     @Test
     void testAttackTargetCleric();
 
+    @Test
+    void testAttackTargetFighter();
+
+    @Test
+    void testAttackTargetHero();
 }

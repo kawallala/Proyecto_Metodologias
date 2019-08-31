@@ -37,4 +37,9 @@ public class Sword extends AbstractItem {
     public void attackWith(IUnit targetUnit) {
         targetUnit.attackedBySword(this);
     }
+
+    @Override
+    public void ownerAttackedByAxe(Axe axe) {
+        getOwner().weakDamage(axe.getPower());
+    }
 }

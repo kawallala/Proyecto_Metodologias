@@ -198,22 +198,6 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
     @Override
     @Test
-    public void testAttackNeutralTarget() {
-        //purposely left empty
-    }
-
-    @Override
-    public void testAttackStrongTarget() {
-        //purposely left empty
-    }
-
-    @Override
-    public void testAttackWeakTarget() {
-        //purposely left empty
-    }
-
-    @Override
-    @Test
     public void testAttackTargetAlpaca() {
         // in range - Alpaca
         targetAlpaca.moveTo(getField().getCell(0, 1));

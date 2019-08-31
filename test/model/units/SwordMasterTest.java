@@ -39,26 +39,29 @@ public class SwordMasterTest extends AbstractTestUnit {
         assertEquals(sword, swordMaster.getEquippedItem());
     }
 
-    @Override
     @Test
-    public void testAttackNeutralTarget() {
-        getTestUnit().addToInventory(getSword());
-        getSword().equipTo(getTestUnit());
-        getTargetAlpaca().moveTo(getField().getCell(0, 1));
+    @Override
+    public void testAttackTargetFighter() {
+        targetFighter.addToInventory(axe);
+        axe.equipTo(targetFighter);
 
-        assertEquals(50, getTargetAlpaca().getCurrentHitPoints());
+        //in range
+        targetFighter.moveTo(field.getCell(0, 1));
+        assertEquals(50, targetFighter.getCurrentHitPoints());
+        swordMaster.attack(targetFighter);
+        assertEquals(35, targetFighter.getCurrentHitPoints());
+        assertEquals(50, swordMaster.getCurrentHitPoints());
 
-        getTestUnit().attack(getTargetAlpaca());
-        assertEquals(50-10,getTargetAlpaca().getCurrentHitPoints());
+        //out of range
+        targetAlpaca.moveTo(field.getCell(0,2));
+        targetFighter.moveTo(field.getCell(2, 2));
+        swordMaster.attack(targetFighter);
+        assertEquals(35, targetFighter.getCurrentHitPoints());
+        assertEquals(50, swordMaster.getCurrentHitPoints());
     }
 
     @Override
-    public void testAttackStrongTarget() {
-
-    }
-
-    @Override
-    public void testAttackWeakTarget() {
+    public void testAttackTargetHero() {
 
     }
 }

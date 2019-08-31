@@ -99,20 +99,45 @@ public class ArcherTest extends AbstractTestUnit {
     @Override
     public void testAttackTargetCleric() {
         //attack in range
-        getTargetCleric().moveTo(getField().getCell(0, 2));
-        assertEquals(50, getTargetCleric().getCurrentHitPoints());
-        archer.attack(getTargetCleric());
-        assertEquals(50 - 10, getTargetCleric().getCurrentHitPoints());
+        targetCleric.moveTo(getField().getCell(0, 2));
+        assertEquals(50, targetCleric.getCurrentHitPoints());
+        archer.attack(targetCleric);
+        assertEquals(50 - 10, targetCleric.getCurrentHitPoints());
 
         //attack out of range (inner range)
-        getTargetCleric().moveTo(getField().getCell(0, 1));
-        archer.attack(getTargetCleric());
-        assertEquals(40, getTargetCleric().getCurrentHitPoints());
+        targetCleric.moveTo(getField().getCell(0, 1));
+        archer.attack(targetCleric);
+        assertEquals(40, targetCleric.getCurrentHitPoints());
 
         //attack out of range(outer range)
         getTargetAlpaca().moveTo(field.getCell(0, 1));
-        getTargetCleric().moveTo(field.getCell(2,2));
-        archer.attack(getTargetCleric());
-        assertEquals(40, getTargetCleric().getCurrentHitPoints());
+        targetCleric.moveTo(field.getCell(2,2));
+        archer.attack(targetCleric);
+        assertEquals(40, targetCleric.getCurrentHitPoints());
+    }
+    @Test
+    @Override
+    public void testAttackTargetFighter() {
+        //attack in range
+        targetFighter.moveTo(getField().getCell(0, 2));
+        assertEquals(50, targetFighter.getCurrentHitPoints());
+        archer.attack(targetFighter);
+        assertEquals(50 - 10, targetFighter.getCurrentHitPoints());
+
+        //attack out of range (inner range)
+        targetFighter.moveTo(getField().getCell(0, 1));
+        archer.attack(targetFighter);
+        assertEquals(40, targetFighter.getCurrentHitPoints());
+
+        //attack out of range(outer range)
+        getTargetAlpaca().moveTo(field.getCell(0, 1));
+        targetFighter.moveTo(field.getCell(2,2));
+        archer.attack(targetFighter);
+        assertEquals(40, targetFighter.getCurrentHitPoints());
+    }
+
+    @Override
+    public void testAttackTargetHero() {
+
     }
 }

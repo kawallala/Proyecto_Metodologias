@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Ignacio Slater Muñoz
  */
-public
-class HeroTest extends AbstractTestUnit {
+public class HeroTest extends AbstractTestUnit {
 
     private Hero hero;
 
@@ -36,31 +35,34 @@ class HeroTest extends AbstractTestUnit {
     @Test
     public void equipSpearTest() {
         assertNull(hero.getEquippedItem());
-        getTestUnit().addToInventory(getSpear());
+        hero.addToInventory(getSpear());
         this.spear.equipTo(this.hero);
         assertEquals(spear, hero.getEquippedItem());
     }
 
-    @Override
     @Test
-    public void testAttackNeutralTarget() {
-        getTestUnit().addToInventory(getSpear());
-        getSpear().equipTo(getTestUnit());
-        getTargetAlpaca().moveTo(getField().getCell(0, 1));
+    @Override
+    public void testAttackTargetFighter() {
+        targetFighter.addToInventory(axe);
+        axe.equipTo(targetFighter);
 
-        assertEquals(50, getTargetAlpaca().getCurrentHitPoints());
+        //in range
+        targetFighter.moveTo(field.getCell(0, 1));
+        assertEquals(50, targetFighter.getCurrentHitPoints());
+        hero.attack(targetFighter);
+        assertEquals(50, targetFighter.getCurrentHitPoints());
+        assertEquals(35, hero.getCurrentHitPoints());
 
-        getTestUnit().attack(getTargetAlpaca());
-        assertEquals(50-10,getTargetAlpaca().getCurrentHitPoints());
+        //out of range
+        targetAlpaca.moveTo(field.getCell(0,2));
+        targetFighter.moveTo(field.getCell(2, 2));
+        hero.attack(targetFighter);
+        assertEquals(50, targetFighter.getCurrentHitPoints());
+        assertEquals(35, hero.getCurrentHitPoints());
     }
 
     @Override
-    public void testAttackStrongTarget() {
-
-    }
-
-    @Override
-    public void testAttackWeakTarget() {
+    public void testAttackTargetHero() {
 
     }
 }

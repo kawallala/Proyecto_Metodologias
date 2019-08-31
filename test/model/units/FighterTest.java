@@ -3,7 +3,7 @@ package model.units;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import model.items.IEquipableItem;
+import model.items.Axe;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -42,47 +42,30 @@ public class FighterTest extends AbstractTestUnit {
         axe.equipTo(fighter);
         assertEquals(axe, fighter.getEquippedItem());
     }
-
     @Test
     @Override
-    public void testAttackNeutralTarget() {
-        fighter.addToInventory(axe);
-        axe.equipTo(fighter);
-
-        targetArcher.addToInventory(bow);
-        bow.equipTo(targetArcher);
-
-        targetCleric.addToInventory(staff);
-        staff.equipTo(targetCleric);
-
-
-    }
-
-    @Override
-    @Test
-    public void testAttackStrongTarget() {
-        //TODO implementar ataque a todas las unidades
-        fighter.addToInventory(axe);
-        axe.equipTo(fighter);
-        targetHero.addToInventory(spear);
-        spear.equipTo(targetHero);
+    public void testAttackTargetFighter() {
+        Axe secondAxe = new Axe("second axe", 10, 1,2);
+        targetFighter.addToInventory(secondAxe);
+        secondAxe.equipTo(targetFighter);
 
         //in range
-        assertEquals(50,targetHero.getCurrentHitPoints());
-        fighter.attack(targetHero);
-        assertEquals(35,targetHero.getCurrentHitPoints());
-        assertEquals(50, fighter.getCurrentHitPoints());
+        targetFighter.moveTo(field.getCell(0, 1));
+        assertEquals(50, targetFighter.getCurrentHitPoints());
+        fighter.attack(targetFighter);
+        assertEquals(40, targetFighter.getCurrentHitPoints());
+        assertEquals(40, fighter.getCurrentHitPoints());
 
         //out of range
-        targetAlpaca.moveTo(getField().getCell(0,1));
-        targetHero.moveTo(getField().getCell(2,2));
-        fighter.attack(targetHero);
-        assertEquals(35, targetHero.getCurrentHitPoints());
-        assertEquals(50, fighter.getCurrentHitPoints());
+        targetAlpaca.moveTo(field.getCell(0,2));
+        targetFighter.moveTo(field.getCell(2, 2));
+        fighter.attack(targetFighter);
+        assertEquals(40, targetFighter.getCurrentHitPoints());
+        assertEquals(40, fighter.getCurrentHitPoints());
     }
 
     @Override
-    public void testAttackWeakTarget() {
+    public void testAttackTargetHero() {
 
     }
 }

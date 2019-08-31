@@ -63,4 +63,17 @@ public class ClericTest extends AbstractTestUnit {
     public void testAttackTargetCleric() {
 
     }
+
+    /**
+     * Test does nothing since the Cleric cannot attack
+     */
+    @Override
+    public void testAttackTargetFighter() {
+
+    }
+
+    @Override
+    public void testAttackTargetHero() {
+
+    }
 }
