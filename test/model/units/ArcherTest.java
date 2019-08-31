@@ -94,4 +94,25 @@ public class ArcherTest extends AbstractTestUnit {
         assertEquals(40, targetArcher.getCurrentHitPoints());
         assertEquals(40, archer.getCurrentHitPoints());
     }
+
+    @Test
+    @Override
+    public void testAttackTargetCleric() {
+        //attack in range
+        getTargetCleric().moveTo(getField().getCell(0, 2));
+        assertEquals(50, getTargetCleric().getCurrentHitPoints());
+        archer.attack(getTargetCleric());
+        assertEquals(50 - 10, getTargetCleric().getCurrentHitPoints());
+
+        //attack out of range (inner range)
+        getTargetCleric().moveTo(getField().getCell(0, 1));
+        archer.attack(getTargetCleric());
+        assertEquals(40, getTargetCleric().getCurrentHitPoints());
+
+        //attack out of range(outer range)
+        getTargetAlpaca().moveTo(field.getCell(0, 1));
+        getTargetCleric().moveTo(field.getCell(2,2));
+        archer.attack(getTargetCleric());
+        assertEquals(40, getTargetCleric().getCurrentHitPoints());
+    }
 }

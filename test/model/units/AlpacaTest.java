@@ -41,4 +41,13 @@ public class AlpacaTest extends AbstractTestUnit {
     public void testAttackTargetArcher() {
 
     }
+
+    /**
+     * Test does nothing since the Alpaca cannot attack
+     */
+    @Test
+    @Override
+    public void testAttackTargetCleric() {
+
+    }
 }

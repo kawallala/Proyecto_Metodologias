@@ -155,6 +155,6 @@ public interface ITestUnit {
     void testAttackTargetArcher();
 
     @Test
-    void testAttacktargetCleric();
+    void testAttackTargetCleric();
 
 }

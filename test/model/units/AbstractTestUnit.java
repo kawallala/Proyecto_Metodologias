@@ -257,7 +257,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
     @Override
     @Test
-    public void testAttacktargetCleric() {
+    public void testAttackTargetCleric() {
         targetCleric.addToInventory(staff);
         staff.equipTo(targetCleric);
 
