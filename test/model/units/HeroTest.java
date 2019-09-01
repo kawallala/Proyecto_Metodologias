@@ -3,6 +3,8 @@ package model.units;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import model.items.IEquipableItem;
+import model.items.Spear;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -18,8 +20,7 @@ public class HeroTest extends AbstractTestUnit {
     @Override
     public void setTestUnit() {
         hero = new Hero(50, 2, field.getCell(0, 0));
-        hero.addToInventory(spear);
-        spear.equipTo(hero);
+
     }
 
 
@@ -29,6 +30,11 @@ public class HeroTest extends AbstractTestUnit {
     @Override
     public IUnit getTestUnit() {
         return hero;
+    }
+
+    @Override
+    public IEquipableItem getCorrespondingWeapon() {
+        return spear;
     }
 
     @Override
@@ -43,6 +49,9 @@ public class HeroTest extends AbstractTestUnit {
     @Test
     @Override
     public void testAttackTargetFighter() {
+        hero.addToInventory(spear);
+        spear.equipTo(hero);
+
         targetFighter.addToInventory(axe);
         axe.equipTo(targetFighter);
 
@@ -60,9 +69,27 @@ public class HeroTest extends AbstractTestUnit {
         assertEquals(50, targetFighter.getCurrentHitPoints());
         assertEquals(35, hero.getCurrentHitPoints());
     }
-
+    @Test
     @Override
     public void testAttackTargetHero() {
+        hero.addToInventory(spear);
+        spear.equipTo(hero);
+        Spear secondspear = new Spear("second spear", 10, 1, 2);
+        targetHero.addToInventory(secondspear);
+        secondspear.equipTo(targetHero);
 
+        //in range
+        targetHero.moveTo(field.getCell(0, 1));
+        assertEquals(50, targetHero.getCurrentHitPoints());
+        hero.attack(targetHero);
+        assertEquals(40, targetHero.getCurrentHitPoints());
+        assertEquals(40, hero.getCurrentHitPoints());
+
+        //out of range
+        targetAlpaca.moveTo(field.getCell(0,2));
+        targetHero.moveTo(field.getCell(2, 2));
+        hero.attack(targetHero);
+        assertEquals(40, targetHero.getCurrentHitPoints());
+        assertEquals(40, hero.getCurrentHitPoints());
     }
 }

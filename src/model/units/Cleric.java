@@ -45,4 +45,9 @@ public class Cleric extends AbstractUnit {
     public void attack(IUnit targetUnit) {
 
     }
+
+    @Override
+    public void counterAttack(IUnit targetUnit) {
+
+    }
 }

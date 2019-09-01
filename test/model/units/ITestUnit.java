@@ -46,6 +46,10 @@ public interface ITestUnit {
     IUnit getTestUnit();
 
     /**
+     * @return the weapon that the nit can equip
+     */
+    IEquipableItem getCorrespondingWeapon();
+    /**
      * Checks if the axe is equipped correctly to the unit
      */
     @Test

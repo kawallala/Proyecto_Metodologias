@@ -32,4 +32,9 @@ public class Alpaca extends AbstractUnit {
     public void attack(IUnit targetUnit) {
 
     }
+
+    @Override
+    public void counterAttack(IUnit targetUnit) {
+
+    }
 }

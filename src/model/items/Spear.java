@@ -42,4 +42,9 @@ public class Spear extends AbstractItem {
     public void ownerAttackedByAxe(Axe axe) {
         getOwner().strongDamage(axe.getPower());
     }
+
+    @Override
+    public void ownerAttackedBySword(Sword sword) {
+        getOwner().weakDamage(sword.getPower());
+    }
 }

@@ -77,7 +77,9 @@ public abstract class AbstractTestUnit implements ITestUnit {
     }
 
     @Override
-    public abstract IUnit getTestUnit();
+    public IEquipableItem getCorrespondingWeapon() {
+        return null;
+    }
 
     @Override
     public Field getField() {
@@ -199,6 +201,9 @@ public abstract class AbstractTestUnit implements ITestUnit {
     @Override
     @Test
     public void testAttackTargetAlpaca() {
+        getTestUnit().addToInventory(getCorrespondingWeapon());
+        getCorrespondingWeapon().equipTo(getTestUnit());
+
         // in range - Alpaca
         targetAlpaca.moveTo(getField().getCell(0, 1));
         assertEquals(50, targetAlpaca.getCurrentHitPoints());
@@ -215,6 +220,9 @@ public abstract class AbstractTestUnit implements ITestUnit {
     @Override
     @Test
     public void testAttackTargetArcher() {
+        getTestUnit().addToInventory(getCorrespondingWeapon());
+        getCorrespondingWeapon().equipTo(getTestUnit());
+
         targetArcher.addToInventory(bow);
         bow.equipTo(targetArcher);
 
@@ -242,6 +250,9 @@ public abstract class AbstractTestUnit implements ITestUnit {
     @Override
     @Test
     public void testAttackTargetCleric() {
+        getTestUnit().addToInventory(getCorrespondingWeapon());
+        getCorrespondingWeapon().equipTo(getTestUnit());
+
         targetCleric.addToInventory(staff);
         staff.equipTo(targetCleric);
 

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import model.items.Axe;
+import model.items.IEquipableItem;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -19,8 +20,7 @@ public class FighterTest extends AbstractTestUnit {
     @Override
     public void setTestUnit() {
         fighter = new Fighter(50, 2, field.getCell(0, 0));
-        fighter.addToInventory(getAxe());
-        getAxe().equipTo(fighter);
+
     }
 
     /**
@@ -29,6 +29,11 @@ public class FighterTest extends AbstractTestUnit {
     @Override
     public IUnit getTestUnit() {
         return fighter;
+    }
+
+    @Override
+    public IEquipableItem getCorrespondingWeapon() {
+        return axe;
     }
 
     /**
@@ -45,6 +50,8 @@ public class FighterTest extends AbstractTestUnit {
     @Test
     @Override
     public void testAttackTargetFighter() {
+        fighter.addToInventory(axe);
+        axe.equipTo(fighter);
         Axe secondAxe = new Axe("second axe", 10, 1,2);
         targetFighter.addToInventory(secondAxe);
         secondAxe.equipTo(targetFighter);
@@ -63,9 +70,27 @@ public class FighterTest extends AbstractTestUnit {
         assertEquals(40, targetFighter.getCurrentHitPoints());
         assertEquals(40, fighter.getCurrentHitPoints());
     }
-
+    @Test
     @Override
     public void testAttackTargetHero() {
+        fighter.addToInventory(axe);
+        axe.equipTo(fighter);
 
+        targetHero.addToInventory(spear);
+        spear.equipTo(targetHero);
+
+        //in range
+        targetHero.moveTo(field.getCell(0, 1));
+        assertEquals(50, targetHero.getCurrentHitPoints());
+        fighter.attack(targetHero);
+        assertEquals(35, targetHero.getCurrentHitPoints());
+        assertEquals(50, fighter.getCurrentHitPoints());
+
+        //out of range
+        targetAlpaca.moveTo(field.getCell(0,2));
+        targetHero.moveTo(field.getCell(2, 2));
+        fighter.attack(targetHero);
+        assertEquals(35, targetHero.getCurrentHitPoints());
+        assertEquals(50, fighter.getCurrentHitPoints());
     }
 }

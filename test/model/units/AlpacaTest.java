@@ -63,6 +63,7 @@ public class AlpacaTest extends AbstractTestUnit {
     /**
      * Test does nothing since the Alpaca cannot attack
      */
+    @Test
     @Override
     public void testAttackTargetHero() {
 

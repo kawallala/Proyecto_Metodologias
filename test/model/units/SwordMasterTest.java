@@ -1,5 +1,6 @@
 package model.units;
 
+import model.items.IEquipableItem;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,8 +19,6 @@ public class SwordMasterTest extends AbstractTestUnit {
     @Override
     public void setTestUnit() {
         swordMaster = new SwordMaster(50, 2, field.getCell(0, 0));
-        swordMaster.addToInventory(sword);
-        sword.equipTo(swordMaster);
     }
 
     /**
@@ -28,6 +27,11 @@ public class SwordMasterTest extends AbstractTestUnit {
     @Override
     public IUnit getTestUnit() {
         return swordMaster;
+    }
+
+    @Override
+    public IEquipableItem getCorrespondingWeapon() {
+        return sword;
     }
 
     @Override
@@ -42,6 +46,9 @@ public class SwordMasterTest extends AbstractTestUnit {
     @Test
     @Override
     public void testAttackTargetFighter() {
+        swordMaster.addToInventory(sword);
+        sword.equipTo(swordMaster);
+
         targetFighter.addToInventory(axe);
         axe.equipTo(targetFighter);
 
@@ -59,9 +66,27 @@ public class SwordMasterTest extends AbstractTestUnit {
         assertEquals(35, targetFighter.getCurrentHitPoints());
         assertEquals(50, swordMaster.getCurrentHitPoints());
     }
-
+    @Test
     @Override
     public void testAttackTargetHero() {
+        swordMaster.addToInventory(sword);
+        sword.equipTo(swordMaster);
 
+        targetHero.addToInventory(spear);
+        spear.equipTo(targetHero);
+
+        //in range
+        targetHero.moveTo(field.getCell(0, 1));
+        assertEquals(50, targetHero.getCurrentHitPoints());
+        swordMaster.attack(targetHero);
+        assertEquals(50, targetHero.getCurrentHitPoints());
+        assertEquals(35, swordMaster.getCurrentHitPoints());
+
+        //out of range
+        targetAlpaca.moveTo(field.getCell(0,2));
+        targetHero.moveTo(field.getCell(2, 2));
+        swordMaster.attack(targetHero);
+        assertEquals(50, targetHero.getCurrentHitPoints());
+        assertEquals(35, swordMaster.getCurrentHitPoints());
     }
 }
