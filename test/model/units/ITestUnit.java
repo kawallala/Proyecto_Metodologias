@@ -41,7 +41,7 @@ public interface ITestUnit {
     void constructorTest();
 
     /**
-     * Checks that a dead unit can't do a thing
+     * Checks that a dead unit can't do anything
      */
     @Test
     void deadUnitTest();
@@ -52,8 +52,9 @@ public interface ITestUnit {
     IUnit getTestUnit();
 
     /**
-     * @return the weapon that the nit can equip
+     * @return the weapon that the unit can equip
      */
+
     IEquipableItem getCorrespondingWeapon();
     /**
      * Checks if the axe is equipped correctly to the unit
@@ -163,4 +164,7 @@ public interface ITestUnit {
 
     @Test
     void testAttackTargetSwordMaster();
+
+    @Test
+    void testAttackTargetSorcerer();
 }

@@ -47,4 +47,5 @@ public class Axe extends AbstractItem {
     public void ownerAttackedBySword(Sword sword) {
         getOwner().strongDamage(sword.getPower());
     }
+
 }

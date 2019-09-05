@@ -169,6 +169,16 @@ public abstract class AbstractUnit implements IUnit {
     }
 
     @Override
+    public void attackedByMagicBook(MagicBook magicBook) {
+        if(equippedItem == null){
+            normalDamage(magicBook.getPower());
+        }
+        else {
+            equippedItem.ownerAttackedByMagicBook(magicBook);
+        }
+    }
+
+    @Override
     public void attack(IUnit targetUnit) {
         //TODO verificar que la vida sea mayor a 0
         double distance = this.getLocation().distanceTo(targetUnit.getLocation());

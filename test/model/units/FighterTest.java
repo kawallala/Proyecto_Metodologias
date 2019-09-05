@@ -98,7 +98,6 @@ public class FighterTest extends AbstractTestUnit {
     @Override
     @Test
     public void testAttackTargetSwordMaster() {
-        //TODO nueva arma para los test donde es debil, para que efectivamente golpee -20
         fighter.addToInventory(axe);
         axe.equipTo(fighter);
 
@@ -118,5 +117,10 @@ public class FighterTest extends AbstractTestUnit {
         fighter.attack(targetSwordMaster);
         assertEquals(95, targetSwordMaster.getCurrentHitPoints());
         assertEquals(62, fighter.getCurrentHitPoints());
+    }
+
+    @Override
+    public void testAttackTargetSorcerer() {
+
     }
 }

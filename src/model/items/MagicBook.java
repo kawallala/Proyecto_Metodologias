@@ -2,9 +2,11 @@ package model.items;
 
 import model.units.IUnit;
 
-public abstract class MagicBook extends AbstractItem {
+public abstract class MagicBook extends AbstractItem implements IMagicBook{
     /**
-     * Constructor for a default item without any special behaviour.
+     * Constructor for a magic book
+     *
+     * A magic book is strong against non-magic items
      *
      * @param name     the name of the item
      * @param power    the power of the item (this could be the amount of damage or healing the item does)
@@ -18,6 +20,11 @@ public abstract class MagicBook extends AbstractItem {
     @Override
     public void equipTo(IUnit unit) {
         unit.equipMagicBook(this);
+    }
+
+    @Override
+    public void attackWith(IUnit targetUnit) {
+        targetUnit.attackedByMagicBook(this);
     }
 
     @Override
@@ -38,5 +45,20 @@ public abstract class MagicBook extends AbstractItem {
     @Override
     public void ownerAttackedBySword(Sword sword) {
         getOwner().strongDamage(sword.getPower());
+    }
+
+    @Override
+    public void ownerAttackedByLightMagicBook(LightMagicBook lightMagicBook) {
+        getOwner().normalDamage(lightMagicBook.getPower());
+    }
+
+    @Override
+    public void ownerAttackedByDarkMagicBook(DarkMagicBook darkMagicBook) {
+        getOwner().normalDamage(darkMagicBook.getPower());
+    }
+
+    @Override
+    public void ownerAttackedByAnimaMagicBook(AnimaMagicBook animaMagicBook) {
+        getOwner().normalDamage(animaMagicBook.getPower());
     }
 }

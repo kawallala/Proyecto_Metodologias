@@ -10,7 +10,7 @@ import model.map.Location;
  * This are a special kind of unit that can carry an unlimited amount of items but can't use any of
  * them.
  *
- * @author Ignacio Slater Muñoz
+ * @author Martin Araya Zavala
  * @since 1.0
  */
 
@@ -22,6 +22,7 @@ public class Alpaca extends AbstractUnit {
      * @param hitPoints the amount of damage this unit can receive
      * @param movement  number of cells the unit can move
      * @param location  current position of the unit
+     * @param items the items that the unit is carrying at the moment of construction
      */
     public Alpaca(final int hitPoints, final int movement, final Location location,
                   final IEquipableItem... items) {

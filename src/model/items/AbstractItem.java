@@ -83,6 +83,11 @@ public abstract class AbstractItem implements IEquipableItem {
     }
 
     @Override
+    public void ownerAttackedByMagicBook(MagicBook magicBook) {
+        owner.strongDamage(magicBook.getPower());
+    }
+
+    @Override
     public boolean equals(Object obj) {
         return obj instanceof IEquipableItem && ((IEquipableItem) obj).getName().equals(name) &&
                 ((IEquipableItem) obj).getMinRange() == minRange &&

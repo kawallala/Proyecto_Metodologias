@@ -123,11 +123,18 @@ public interface IUnit {
     void attackedBySword(Sword sword);
 
     /**
+     * Equips a Magic Book to the unit
+     * @param magicBook
+     *      the Magic Book to be equipped
+     */
+    void equipMagicBook(MagicBook magicBook);
+
+    /**
      * Attacks this unit with a magic book
      * @param magicBook
      *      The magic book this unit is being attacked with
      */
-    void equipMagicBook(MagicBook magicBook);
+    void attackedByMagicBook(MagicBook magicBook);
 
     /**
      * Makes this unit attack another unit.
