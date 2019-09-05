@@ -28,6 +28,7 @@ public class Alpaca extends AbstractUnit {
         super(hitPoints, movement, location, Integer.MAX_VALUE, items);
     }
 
+
     @Override
     public void attack(IUnit targetUnit) {
 
@@ -37,4 +38,5 @@ public class Alpaca extends AbstractUnit {
     public void counterAttack(IUnit targetUnit) {
 
     }
+
 }

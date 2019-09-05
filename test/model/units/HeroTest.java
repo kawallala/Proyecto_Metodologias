@@ -92,4 +92,28 @@ public class HeroTest extends AbstractTestUnit {
         assertEquals(40, targetHero.getCurrentHitPoints());
         assertEquals(40, hero.getCurrentHitPoints());
     }
+
+    @Override
+    @Test
+    public void testAttackTargetSwordMaster() {
+        hero.addToInventory(spear);
+        spear.equipTo(hero);
+
+        targetSwordMaster.addToInventory(sword);
+        sword.equipTo(targetSwordMaster);
+
+        //in range
+        targetSwordMaster.moveTo(field.getCell(0, 1));
+        assertEquals(50, targetSwordMaster.getCurrentHitPoints());
+        hero.attack(targetSwordMaster);
+        assertEquals(35, targetSwordMaster.getCurrentHitPoints());
+        assertEquals(50, hero.getCurrentHitPoints());
+
+        //out of range
+        targetAlpaca.moveTo(field.getCell(0,2));
+        targetSwordMaster.moveTo(field.getCell(2, 2));
+        hero.attack(targetSwordMaster);
+        assertEquals(35, targetSwordMaster.getCurrentHitPoints());
+        assertEquals(50, hero.getCurrentHitPoints());
+    }
 }

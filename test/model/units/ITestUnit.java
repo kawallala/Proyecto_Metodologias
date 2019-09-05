@@ -41,6 +41,12 @@ public interface ITestUnit {
     void constructorTest();
 
     /**
+     * Checks that a dead unit can't do a thing
+     */
+    @Test
+    void deadUnitTest();
+
+    /**
      * @return the current unit being tested
      */
     IUnit getTestUnit();
@@ -154,4 +160,7 @@ public interface ITestUnit {
 
     @Test
     void testAttackTargetHero();
+
+    @Test
+    void testAttackTargetSwordMaster();
 }

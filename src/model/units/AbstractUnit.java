@@ -16,7 +16,7 @@ import static java.lang.Math.*;
  * game, but that contains the implementation of some of the methods that are common for most
  * units.
  *
- * @author Ignacio Slater Muñoz
+ * @author Martin Araya Zavala
  * @since 1.0
  */
 public abstract class AbstractUnit implements IUnit {
@@ -57,15 +57,17 @@ public abstract class AbstractUnit implements IUnit {
         return this.currentHitPoints;
     }
     //TODO preguntar al auxs si eso se puede dejar private, y si no, porque no?
-    @Override
-    public void setCurrentHitPoints(int hitPoints) {
-        this.currentHitPoints = hitPoints;
+
+
+    private void setCurrentHitPoints(int hitPoints) {
+        this.currentHitPoints = min(hitPoints,maximumHitPoints);
     }
 
     @Override
     public List<IEquipableItem> getItems() {
         return List.copyOf(this.items);
     }
+
     //TODO unequip item
     @Override
     public IEquipableItem getEquippedItem() {
@@ -90,7 +92,7 @@ public abstract class AbstractUnit implements IUnit {
 
     @Override
     public void moveTo(final Location targetLocation) {
-        if (this.getLocation().distanceTo(targetLocation) <= this.getMovement() && targetLocation.getUnit() == null) {
+        if (this.getLocation().distanceTo(targetLocation) <= this.getMovement() && targetLocation.getUnit() == null && currentHitPoints >= 1) {
             getLocation().removeUnit();
             setLocation(targetLocation);
         }
@@ -162,12 +164,18 @@ public abstract class AbstractUnit implements IUnit {
     }
 
     @Override
+    public void equipMagicBook(MagicBook magicBook) {
+        //purposely left empty
+    }
+
+    @Override
     public void attack(IUnit targetUnit) {
         //TODO verificar que la vida sea mayor a 0
         double distance = this.getLocation().distanceTo(targetUnit.getLocation());
         if(getEquippedItem() != null &&
                 getEquippedItem().getMinRange()<= distance &&
-                getEquippedItem().getMaxRange()>= distance) {
+                getEquippedItem().getMaxRange()>= distance &&
+                this.getCurrentHitPoints() >= 1) {
             this.getEquippedItem().attackWith(targetUnit);
             targetUnit.counterAttack(this);
         }
@@ -186,19 +194,17 @@ public abstract class AbstractUnit implements IUnit {
 
     @Override
     public void normalDamage(int damage) {
-        setCurrentHitPoints(getCurrentHitPoints()-damage);
+        currentHitPoints -= damage;
     }
 
     @Override
     public void strongDamage(int damage) {
-        setCurrentHitPoints((int) (getCurrentHitPoints() - damage*1.5));
+        currentHitPoints = (int) max(0, currentHitPoints-damage*1.5);
     }
 
     @Override
     public void weakDamage(int damage) {
-        if (damage-20>0) {
-            setCurrentHitPoints(getCurrentHitPoints() - damage + 20);
-        }
+        currentHitPoints -= damage>20?damage:0;
     }
 
     @Override

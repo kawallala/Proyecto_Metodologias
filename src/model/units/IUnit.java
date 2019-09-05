@@ -27,11 +27,6 @@ public interface IUnit {
     int getMaximumHitPoints();
 
     /**
-     * sets the new hit points of a unit
-     */
-    void setCurrentHitPoints(int hitPoints);
-
-    /**
      * @return the items carried by this unit
      */
     List<IEquipableItem> getItems();
@@ -126,6 +121,13 @@ public interface IUnit {
      *      The sword this unit is being attacked with
      */
     void attackedBySword(Sword sword);
+
+    /**
+     * Attacks this unit with a magic book
+     * @param magicBook
+     *      The magic book this unit is being attacked with
+     */
+    void equipMagicBook(MagicBook magicBook);
 
     /**
      * Makes this unit attack another unit.

@@ -87,5 +87,11 @@ public interface IEquipableItem {
      */
     void ownerAttackedBySword(Sword sword);
 
+    /**
+     * Calculates the type of damage to the owner of this item
+     * @param magicBook
+     *      The sword that is dealing the damage
+     */
+    void ownerAttackedByMagicBook(MagicBook magicBook);
 
 }

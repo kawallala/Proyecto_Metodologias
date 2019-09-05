@@ -1,6 +1,7 @@
 package model.units;
 
 import model.items.IEquipableItem;
+import model.items.Sword;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -88,5 +89,29 @@ public class SwordMasterTest extends AbstractTestUnit {
         swordMaster.attack(targetHero);
         assertEquals(50, targetHero.getCurrentHitPoints());
         assertEquals(35, swordMaster.getCurrentHitPoints());
+    }
+
+    @Override
+    @Test
+    public void testAttackTargetSwordMaster() {
+        swordMaster.addToInventory(sword);
+        sword.equipTo(swordMaster);
+        Sword secondSword = new Sword("second sword", 10, 1, 2);
+        targetSwordMaster.addToInventory(secondSword);
+        secondSword.equipTo(targetSwordMaster);
+
+        //in range
+        targetSwordMaster.moveTo(field.getCell(0, 1));
+        assertEquals(50, targetSwordMaster.getCurrentHitPoints());
+        swordMaster.attack(targetSwordMaster);
+        assertEquals(40, targetSwordMaster.getCurrentHitPoints());
+        assertEquals(40, swordMaster.getCurrentHitPoints());
+
+        //out of range
+        targetAlpaca.moveTo(field.getCell(0,2));
+        targetSwordMaster.moveTo(field.getCell(2, 2));
+        swordMaster.attack(targetSwordMaster);
+        assertEquals(40, targetSwordMaster.getCurrentHitPoints());
+        assertEquals(40, swordMaster.getCurrentHitPoints());
     }
 }
