@@ -83,7 +83,7 @@ public abstract class AbstractItem implements IEquipableItem {
     }
 
     @Override
-    public void ownerAttackedByMagicBook(MagicBook magicBook) {
+    public void ownerAttackedByMagicBook(IMagicBook magicBook) {
         owner.strongDamage(magicBook.getPower());
     }
 

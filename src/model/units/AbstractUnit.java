@@ -75,6 +75,11 @@ public abstract class AbstractUnit implements IUnit {
     }
 
     @Override
+    public int getMaximumItems() {
+        return this.maxItems;
+    }
+
+    @Override
     public Location getLocation() {
         return this.location;
     }
@@ -96,6 +101,11 @@ public abstract class AbstractUnit implements IUnit {
             getLocation().removeUnit();
             setLocation(targetLocation);
         }
+    }
+
+    @Override
+    public void equip(IEquipableItem item) {
+        item.equipTo(this);
     }
 
     @Override
@@ -169,7 +179,7 @@ public abstract class AbstractUnit implements IUnit {
     }
 
     @Override
-    public void attackedByMagicBook(MagicBook magicBook) {
+    public void attackedByMagicBook(IMagicBook magicBook) {
         if(equippedItem == null){
             normalDamage(magicBook.getPower());
         }
@@ -219,8 +229,23 @@ public abstract class AbstractUnit implements IUnit {
 
     @Override
     public void addToInventory(IEquipableItem item) {
-        if (this.items.size() <= this.maxItems){
+        if (this.items.size() < this.maxItems && !this.items.contains(item)){
             this.items.add(item);
+        }
+    }
+
+    @Override
+    public void removeFromInventory(IEquipableItem item) {
+        if(this.items.contains(item)){
+           this.items.remove(item);
+        }
+    }
+
+    @Override
+    public void giveItem(IEquipableItem item, IUnit receivingUnit) {
+        if(this.items.contains(item) && receivingUnit.getItems().size() < receivingUnit.getMaximumItems()){
+            removeFromInventory(item);
+            receivingUnit.addToInventory(item);
         }
     }
 }

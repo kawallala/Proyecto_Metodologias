@@ -11,6 +11,8 @@ import model.map.Location;
  * The signature of all the common methods that a unit can execute are defined here. All units
  * except some special ones can carry at most 3 weapons.
  *
+ * No item can be equipped to a default unit
+ *
  * @author Martin Araya Zavala
  * @since 1.0
  */
@@ -32,9 +34,18 @@ public interface IUnit {
     List<IEquipableItem> getItems();
 
     /**
+     * @return the maximum number of items that this unit can equip
+     */
+    int getMaximumItems();
+    /**
      * @return the currently equipped item
      */
     IEquipableItem getEquippedItem();
+
+    /**
+     * @return the number of cells this unit can move
+     */
+    int getMovement();
 
     /**
      * @return the current location of the unit
@@ -42,14 +53,9 @@ public interface IUnit {
     Location getLocation();
 
     /**
-     * Sets a new location for this unit,
+     * Sets a new location for this unit
      */
     void setLocation(final Location location);
-
-    /**
-     * @return the number of cells this unit can move
-     */
-    int getMovement();
 
     /**
      * Moves this unit to another location.
@@ -59,7 +65,14 @@ public interface IUnit {
     void moveTo(Location targetLocation);
 
     /**
-     * Equips an Axe to the unit
+     * Equips an item to this unit
+     * @param item
+     *      The item that is being equipped
+     */
+    void equip(IEquipableItem item);
+
+    /**
+     * Tries to equip an Axe to the unit, by default does nothing
      * @param axe
      *      the Axe to be equipped
      */
@@ -73,7 +86,7 @@ public interface IUnit {
     void attackedByAxe(Axe axe);
 
     /**
-     * Equips a Bow to the unit
+     * Tries to equips a Bow to the unit, by default does nothing
      * @param bow
      *      the Bow to be equipped
      */
@@ -87,7 +100,7 @@ public interface IUnit {
     void attackedByBow(Bow bow);
 
     /**
-     * Equips a staff to the unit
+     * Tries to equip a staff to the unit, by default it does nothing
      * @param staff
      *      the Staff to be equipped
      */
@@ -95,7 +108,7 @@ public interface IUnit {
     void equipStaff(Staff staff);
 
     /**
-     * Equips an Spear to the unit
+     * Tries to equip an Spear to the unit, by default it does nothing
      * @param spear
      *      the Spear to be equipped
      */
@@ -109,7 +122,7 @@ public interface IUnit {
     void attackedBySpear(Spear spear);
 
     /**
-     * Equips an Sword to the unit
+     * Tries to equip an Sword to the unit, by default it does nothing
      * @param sword
      *      the Sword to be equipped
      */
@@ -123,7 +136,7 @@ public interface IUnit {
     void attackedBySword(Sword sword);
 
     /**
-     * Equips a Magic Book to the unit
+     * Tries to equip a Magic Book to the unit, by default it does nothing
      * @param magicBook
      *      the Magic Book to be equipped
      */
@@ -134,7 +147,7 @@ public interface IUnit {
      * @param magicBook
      *      The magic book this unit is being attacked with
      */
-    void attackedByMagicBook(MagicBook magicBook);
+    void attackedByMagicBook(IMagicBook magicBook);
 
     /**
      * Makes this unit attack another unit.
@@ -142,6 +155,13 @@ public interface IUnit {
      * If the other unit is outside of this unit's range, the unit does not attack
      */
     void attack(IUnit targetUnit);
+
+    /**
+     * Makes a counter attack to the target unit
+     * @param targetUnit
+     *      The unit that the counter attack is directed at
+     */
+    void counterAttack(IUnit targetUnit);
 
     /**
      * Deals normal damage to this unit
@@ -172,9 +192,16 @@ public interface IUnit {
     void addToInventory(IEquipableItem item);
 
     /**
-     * Makes a counter attack to the target unit
-     * @param targetUnit
-     *      The unit that the counter attack is directed at
+     * Removes the item from the inventory of this unit
+     * @param item
+     *      The item to be removed
      */
-    void counterAttack(IUnit targetUnit);
+    void removeFromInventory(IEquipableItem item);
+
+    /**
+     * Gives an item belonging in the inventory to a receiving unit
+     * @param item
+     *      The item that is being given to the receiving unit
+     */
+    void giveItem(IEquipableItem item, IUnit receivingUnit);
 }

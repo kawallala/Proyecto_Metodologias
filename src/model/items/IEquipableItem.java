@@ -92,6 +92,6 @@ public interface IEquipableItem {
      * @param magicBook
      *      The sword that is dealing the damage
      */
-    void ownerAttackedByMagicBook(MagicBook magicBook);
+    void ownerAttackedByMagicBook(IMagicBook magicBook);
 
 }
