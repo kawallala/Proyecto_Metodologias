@@ -1,16 +1,23 @@
-package model.items;
+package model.items.offensive.magic;
 
-public interface IMagicBook extends IEquipableItem{
+import model.items.offensive.IOffensiveItem;
+
+/**
+ *
+ */
+public interface IMagicOffensiveItem extends IOffensiveItem {
 
     /**
      * defends the owner with a light magic book
+     *
      * @param lightMagicBook
      *      the light magic book that's being used for defense
      */
     void defendedByLightMagicBook(LightMagicBook lightMagicBook);
 
     /**
-     * Calculates the type of damage to the owner of this magic book
+     * Deals normal damage to the owner of this magic book
+     *
      * @param lightMagicBook
      *      the light magic book that is dealing the damage
      */
@@ -18,13 +25,14 @@ public interface IMagicBook extends IEquipableItem{
 
     /**
      * defends the owner with a dark magic book
+     *
      * @param darkMagicBook
      *      the dark magic book that's being used for defense
      */
     void defendedByDarkMagicBook(DarkMagicBook darkMagicBook);
 
     /**
-     * Calculates the type of damage to the owner of this magic Book
+     * Deals normal damage to the owner of this magic Book
      * @param darkMagicBook
      *      the dark magic book that is dealing the damage
      */
@@ -38,7 +46,7 @@ public interface IMagicBook extends IEquipableItem{
     void defendedByAnimaMagicBook(AnimaMagicBook animaMagicBook);
 
     /**
-     * Calculates the type of damage to the owner of this magic book
+     * Deals normal damage to the owner of this magic book
      * @param animaMagicBook
      *      the anima magic book that is dealing the damage
      */

@@ -1,5 +1,6 @@
-package model.items;
+package model.items.offensive;
 
+import model.items.AbstractItem;
 import model.units.IUnit;
 
 /**
@@ -10,7 +11,7 @@ import model.units.IUnit;
  * @author Martin Araya Zavala
  * @since 1.0
  */
-public class Sword extends AbstractItem {
+public class Sword extends AbstractOffensiveItem {
 
     /**
      * Creates a new Sword.
@@ -40,7 +41,7 @@ public class Sword extends AbstractItem {
      * @param targetUnit the unit being attacked
      */
     @Override
-    public void attackWith(IUnit targetUnit) {
+    public void use(IUnit targetUnit) {
         targetUnit.attackedBySword(this);
     }
 

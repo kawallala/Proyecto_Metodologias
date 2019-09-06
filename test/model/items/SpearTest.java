@@ -1,5 +1,6 @@
 package model.items;
 
+import model.items.offensive.Spear;
 import model.map.Location;
 import model.units.Hero;
 import model.units.IUnit;

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import model.items.IEquipableItem;
-import model.items.Staff;
+import model.items.healing.Staff;
 import org.junit.jupiter.api.Test;
 
 /**

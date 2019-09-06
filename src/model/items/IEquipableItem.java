@@ -1,12 +1,14 @@
 package model.items;
 
+import model.items.offensive.*;
+import model.items.offensive.magic.IMagicOffensiveItem;
 import model.units.IUnit;
 
 /**
- * This interface represents the <i>weapons</i> that the units of the game can use.
+ * This interface represents the <i>Items</i> that the units of the game can use.
  * <p>
- * The signature for all the common methods of the weapons are defined here. Every weapon has a
- * base damage and is strong or weak against other type of weapons.
+ * The signature for all the common methods of the items are defined here. Every item has a
+ * base power.
  *
  * @author Martin Araya Zavala
  * @since 1.0
@@ -53,37 +55,48 @@ public interface IEquipableItem {
     int getMaxRange();
 
     /**
-     * Makes an attack with the item
+     * Makes use of the item
      * @param targetUnit the unit being attacked
      */
-    void attackWith(IUnit targetUnit);
+    void use(IUnit targetUnit);
 
     /**
-     * Calculates the type of damage to the owner of this item
+     * Deals normal damage to the owner of the item
+     *
+     * @param offensiveItem the offensive item that is dealing the damage
+     */
+    void OwnerAttackedByOffensiveItem(IOffensiveItem offensiveItem);
+    /**
+     * Deals normal damage to the owner of the item
+     *
      * @param axe the axe that is dealing the damage
      */
     void ownerAttackedByAxe(Axe axe);
 
     /**
-     * Calculates the type of damage to the owner of this item
+     * Deals normal damage to the owner of the item
+     *
      * @param bow the bow that is dealing the damage
      */
     void ownerAttackedByBow(Bow bow);
 
     /**
-     * Calculates the type of damage to the owner of this item
+     * Deals normal damage to the owner of the item
+     *
      * @param spear the spear that is dealing the damage
      */
     void ownerAttackedBySpear(Spear spear);
     /**
-     * Calculates the type of damage to the owner of this item
+     * Deals normal damage to the owner of the item
+     *
      * @param sword the sword that is dealing the damage
      */
     void ownerAttackedBySword(Sword sword);
 
     /**
-     * Calculates the type of damage to the owner of this item
+     * Deals strong damage to the owner of the item
+     *
      * @param magicBook the magic book that is dealing the damage
      */
-    void ownerAttackedByMagicBook(IMagicBook magicBook);
+    void ownerAttackedByMagicBook(IMagicOffensiveItem magicBook);
 }

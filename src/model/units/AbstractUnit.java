@@ -5,6 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import model.items.*;
+import model.items.healing.Staff;
+import model.items.offensive.*;
+import model.items.offensive.magic.IMagicOffensiveItem;
+import model.items.offensive.magic.AbstractMagicOffensiveItem;
 import model.map.Location;
 
 import static java.lang.Math.*;
@@ -182,12 +186,12 @@ public abstract class AbstractUnit implements IUnit {
     }
 
     @Override
-    public void equipMagicBook(MagicBook magicBook) {
+    public void equipMagicItem(AbstractMagicOffensiveItem magicOffensiveItem) {
         //purposely left empty
     }
 
     @Override
-    public void attackedByMagicBook(IMagicBook magicBook) {
+    public void attackedByMagicBook(IMagicOffensiveItem magicBook) {
         if(equippedItem == null){
             normalDamage(magicBook.getPower());
         }
@@ -204,7 +208,7 @@ public abstract class AbstractUnit implements IUnit {
                 getEquippedItem().getMinRange()<= distance &&
                 getEquippedItem().getMaxRange()>= distance &&
                 this.getCurrentHitPoints() >= 1) {
-            this.getEquippedItem().attackWith(targetUnit);
+            this.getEquippedItem().use(targetUnit);
             targetUnit.counterAttack(this);
         }
     }
@@ -216,7 +220,7 @@ public abstract class AbstractUnit implements IUnit {
                 getEquippedItem().getMinRange()<= distance &&
                 getEquippedItem().getMaxRange()>= distance &&
                 getCurrentHitPoints()>=1) {
-            this.getEquippedItem().attackWith(targetUnit);
+            this.getEquippedItem().use(targetUnit);
         }
     }
 

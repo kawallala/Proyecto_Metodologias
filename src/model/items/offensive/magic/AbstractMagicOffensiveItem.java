@@ -1,29 +1,31 @@
-package model.items;
+package model.items.offensive.magic;
 
+import model.items.offensive.*;
 import model.units.IUnit;
 
-public abstract class MagicBook extends AbstractItem implements IMagicBook{
+public abstract class AbstractMagicOffensiveItem extends AbstractOffensiveItem implements IMagicOffensiveItem {
     /**
      * Constructor for a magic book
      *
-     * A magic book is strong against non-magic items
+     * A magic book is strong and weak against non-magic items
      *
-     * @param name     the name of the item
-     * @param power    the power of the item (this could be the amount of damage or healing the item does)
-     * @param minRange the minimum range of the item
-     * @param maxRange the maximum range of the item
+     *
+     * @param name     the name of the Magic book
+     * @param power    the power of the Magic book
+     * @param minRange the minimum range of the Magic book
+     * @param maxRange the maximum range of the Magic book
      */
-    public MagicBook(String name, int power, int minRange, int maxRange) {
+    public AbstractMagicOffensiveItem(String name, int power, int minRange, int maxRange) {
         super(name, power, minRange, maxRange);
     }
 
     @Override
     public void equipTo(IUnit unit) {
-        unit.equipMagicBook(this);
+        unit.equipMagicItem(this);
     }
 
     @Override
-    public void attackWith(IUnit targetUnit) {
+    public void use(IUnit targetUnit) {
         targetUnit.attackedByMagicBook(this);
     }
 

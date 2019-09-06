@@ -1,4 +1,4 @@
-package model.items;
+package model.items.offensive;
 
 import model.units.IUnit;
 
@@ -10,7 +10,7 @@ import model.units.IUnit;
  * @author Martin Araya Zavala
  * @since 1.0
  */
-public class Axe extends AbstractItem {
+public class Axe extends AbstractOffensiveItem {
 
     /**
      * Creates a new Axe item
@@ -40,7 +40,7 @@ public class Axe extends AbstractItem {
      * @param targetUnit the unit being attacked
      */
     @Override
-    public void attackWith(IUnit targetUnit) {
+    public void use(IUnit targetUnit) {
         targetUnit.attackedByAxe(this);
     }
 

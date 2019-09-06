@@ -1,6 +1,11 @@
 package model.units;
 
 import model.items.*;
+import model.items.healing.Staff;
+import model.items.offensive.Axe;
+import model.items.offensive.Bow;
+import model.items.offensive.Spear;
+import model.items.offensive.Sword;
 import model.map.Field;
 import model.map.Location;
 import org.junit.jupiter.api.BeforeEach;

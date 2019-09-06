@@ -1,6 +1,6 @@
 package model.units;
 
-import model.items.Bow;
+import model.items.offensive.Bow;
 import model.items.IEquipableItem;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,6 @@
-package model.items;
+package model.items.offensive;
 
+import model.items.AbstractItem;
 import model.units.IUnit;
 
 /**
@@ -10,7 +11,7 @@ import model.units.IUnit;
  * @author Martin Araya Zavala
  * @since 1.0
  */
-public class Spear extends AbstractItem {
+public class Spear extends AbstractOffensiveItem {
 
     /**
      * Creates a new Spear item
@@ -40,12 +41,12 @@ public class Spear extends AbstractItem {
      * @param targetUnit the unit being attacked
      */
     @Override
-    public void attackWith(IUnit targetUnit) {
+    public void use(IUnit targetUnit) {
         targetUnit.attackedBySpear(this);
     }
 
     /**
-     * Makes strong damage to the owner of the Spear, since the Spear is weak against axes
+     * Deals strong damage to the owner of the Spear, since the Spear is weak against axes
      *
      * @param axe The axe that is dealing the damage
      */
@@ -55,7 +56,7 @@ public class Spear extends AbstractItem {
     }
 
     /**
-     * Makes weak damage to the owner of the Spear, since the Spear is strong agains Swords
+     * Deals weak damage to the owner of the Spear, since the Spear is strong agains Swords
      *
      * @param sword the Sword that is dealing the damage
      */

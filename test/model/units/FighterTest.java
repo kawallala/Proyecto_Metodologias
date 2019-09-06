@@ -3,7 +3,7 @@ package model.units;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import model.items.Axe;
+import model.items.offensive.Axe;
 import model.items.IEquipableItem;
 import org.junit.jupiter.api.Test;
 

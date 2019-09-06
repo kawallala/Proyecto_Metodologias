@@ -1,22 +1,23 @@
-package model.items;
+package model.items.healing;
 
+import model.items.AbstractItem;
 import model.units.IUnit;
 
 /**
  * This class represents a <i>Staff</i> type item.
  * <p>
- * A staff is an item that can heal other units and cannot counter any attack
+ * A staff is an item that can heal other units and cannot attack or counter attack
  *
  * @author Martin Araya Zavala
  * @since 1.0
  */
-public class Staff extends AbstractItem {
+public class Staff extends AbstractHealingItem {
 
     /**
      * Creates a new Staff item.
      *
-     * @param name the name of the staff
-     * @param power the healing power of the staff
+     * @param name     the name of the staff
+     * @param power    the healing power of the staff
      * @param minRange the minimum range of the staff
      * @param maxRange the maximum range of the staff
      */
@@ -26,6 +27,7 @@ public class Staff extends AbstractItem {
 
     /**
      * Equips this Staff to the unit
+     *
      * @param unit the unit that will be equipped with the item
      */
     @Override
@@ -33,7 +35,13 @@ public class Staff extends AbstractItem {
         unit.equipStaff(this);
     }
 
+    /**
+     * Tries to attack with the Staff, since the staff cannot attack, the method does nothing
+     *
+     * @param targetUnit the unit being attacked
+     */
     @Override
-    public void attackWith(IUnit targetUnit) {
+    public void use(IUnit targetUnit) {
+        targetUnit.healedByStaff(this);
     }
 }

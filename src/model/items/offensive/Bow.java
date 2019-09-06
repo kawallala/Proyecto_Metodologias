@@ -1,12 +1,15 @@
-package model.items;
+package model.items.offensive;
 
+import model.items.AbstractItem;
 import model.units.IUnit;
 
 /**
+ * This class represents a <i>Bow</i>
+ * Bows are neither strong or weak aginst any item
  * @author Martin Araya Zavala
  * @since 1.0
  */
-public class Bow extends AbstractItem {
+public class Bow extends AbstractOffensiveItem {
 
     private IUnit unit;
 
@@ -43,7 +46,7 @@ public class Bow extends AbstractItem {
      * @param targetUnit the unit being attacked
      */
     @Override
-    public void attackWith(IUnit targetUnit) {
+    public void use(IUnit targetUnit) {
         targetUnit.attackedByBow(this);
     }
 }

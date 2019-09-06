@@ -3,6 +3,10 @@ package model.units;
 import java.util.List;
 
 import model.items.*;
+import model.items.healing.Staff;
+import model.items.offensive.*;
+import model.items.offensive.magic.IMagicOffensiveItem;
+import model.items.offensive.magic.AbstractMagicOffensiveItem;
 import model.map.Location;
 
 /**
@@ -142,17 +146,17 @@ public interface IUnit {
 
     /**
      * Tries to equip a Magic Book to the unit, by default it does nothing
-     * @param magicBook
+     * @param magicOffensiveItem
      *      the Magic Book to be equipped
      */
-    void equipMagicBook(MagicBook magicBook);
+    void equipMagicItem(AbstractMagicOffensiveItem magicOffensiveItem);
 
     /**
      * Attacks this unit with a magic book
      * @param magicBook
      *      The magic book this unit is being attacked with
      */
-    void attackedByMagicBook(IMagicBook magicBook);
+    void attackedByMagicBook(IMagicOffensiveItem magicBook);
 
     /**
      * Makes this unit attack another unit.
@@ -209,4 +213,9 @@ public interface IUnit {
      *      The item that is being given to the receiving unit
      */
     void giveItem(IEquipableItem item, IUnit receivingUnit);
+
+    /**
+     * @param staff
+     */
+    void healedByStaff(Staff staff);
 }

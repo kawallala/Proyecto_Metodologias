@@ -1,7 +1,7 @@
 package model.units;
 
 import model.items.IEquipableItem;
-import model.items.MagicBook;
+import model.items.offensive.magic.AbstractMagicOffensiveItem;
 import model.map.Location;
 
 /**
@@ -25,10 +25,10 @@ public class Sorcerer extends AbstractUnit {
     }
 
     @Override
-    public void equipMagicBook(MagicBook magicBook) {
-        if(items.contains(magicBook)){
-            equippedItem = magicBook;
-            magicBook.setOwner(this);
+    public void equipMagicItem(AbstractMagicOffensiveItem magicOffensiveItem) {
+        if(items.contains(magicOffensiveItem)){
+            equippedItem = magicOffensiveItem;
+            magicOffensiveItem.setOwner(this);
         }
     }
 }

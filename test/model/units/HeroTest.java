@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import model.items.IEquipableItem;
-import model.items.Spear;
+import model.items.offensive.Spear;
 import org.junit.jupiter.api.Test;
 
 /**

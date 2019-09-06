@@ -1,6 +1,6 @@
-package model.items;
+package model.items.offensive.magic;
 
-public class DarkMagicBook extends MagicBook{
+public class DarkMagicBook extends AbstractMagicOffensiveItem {
     /**
      * Constructor for a dark magic book.
      *
@@ -17,7 +17,7 @@ public class DarkMagicBook extends MagicBook{
     }
 
     @Override
-    public void ownerAttackedByMagicBook(MagicBook magicBook) {
+    public void ownerAttackedByMagicBook(IMagicOffensiveItem magicBook) {
         magicBook.defendedByDarkMagicBook(this);
     }
 

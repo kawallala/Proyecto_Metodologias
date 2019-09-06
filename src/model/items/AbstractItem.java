@@ -1,5 +1,7 @@
 package model.items;
 
+import model.items.offensive.*;
+import model.items.offensive.magic.IMagicOffensiveItem;
 import model.units.IUnit;
 
 /**
@@ -62,6 +64,11 @@ public abstract class AbstractItem implements IEquipableItem {
     }
 
     @Override
+    public void OwnerAttackedByOffensiveItem(IOffensiveItem offensiveItem) {
+        owner.normalDamage(offensiveItem.getPower());
+    }
+
+    @Override
     public void ownerAttackedByAxe(Axe axe) {
         owner.normalDamage(axe.getPower());
     }
@@ -82,7 +89,7 @@ public abstract class AbstractItem implements IEquipableItem {
     }
 
     @Override
-    public void ownerAttackedByMagicBook(IMagicBook magicBook) {
+    public void ownerAttackedByMagicBook(IMagicOffensiveItem magicBook) {
         owner.strongDamage(magicBook.getPower());
     }
 
