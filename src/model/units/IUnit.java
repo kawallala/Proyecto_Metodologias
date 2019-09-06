@@ -72,6 +72,11 @@ public interface IUnit {
     void equip(IEquipableItem item);
 
     /**
+     * Unequips current equipped item, if there is one
+     */
+    void unequip();
+
+    /**
      * Tries to equip an Axe to the unit, by default does nothing
      * @param axe
      *      the Axe to be equipped

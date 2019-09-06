@@ -14,7 +14,6 @@ public abstract class AbstractItem implements IEquipableItem {
     private final int power;
     protected int maxRange;
     protected int minRange;
-    //TODO cambiar owner por equipped to y generar in inventory
     private IUnit owner;
 
     /**

@@ -109,6 +109,14 @@ public abstract class AbstractUnit implements IUnit {
     }
 
     @Override
+    public void unequip() {
+        if(equippedItem != null){
+            equippedItem.setOwner(null);
+            equippedItem = null;
+        }
+    }
+
+    @Override
     public void equipAxe(Axe axe) {
         //purposely left empty :c
     }
@@ -237,7 +245,8 @@ public abstract class AbstractUnit implements IUnit {
     @Override
     public void removeFromInventory(IEquipableItem item) {
         if(this.items.contains(item)){
-           this.items.remove(item);
+            unequip();
+            this.items.remove(item);
         }
     }
 
