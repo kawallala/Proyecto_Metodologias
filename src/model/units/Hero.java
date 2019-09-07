@@ -1,7 +1,7 @@
 package model.units;
 
 import model.items.IEquipableItem;
-import model.items.offensive.Spear;
+import model.items.offensive.physical.Spear;
 import model.map.Location;
 
 /**
@@ -42,4 +42,5 @@ public class Hero extends AbstractUnit {
             spear.setOwner(this);
         }
     }
+
 }

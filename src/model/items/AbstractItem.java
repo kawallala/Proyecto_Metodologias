@@ -1,7 +1,7 @@
 package model.items;
 
-import model.items.offensive.*;
 import model.items.offensive.magic.IMagicOffensiveItem;
+import model.items.offensive.physical.*;
 import model.units.IUnit;
 
 /**
@@ -11,7 +11,7 @@ import model.units.IUnit;
  * @since 1.0
  */
 public abstract class AbstractItem implements IEquipableItem {
-
+    //TODO en el inventario de, equipado por
     private final String name;
     private final int power;
     protected int maxRange;
@@ -64,8 +64,13 @@ public abstract class AbstractItem implements IEquipableItem {
     }
 
     @Override
-    public void OwnerAttackedByOffensiveItem(IOffensiveItem offensiveItem) {
-        owner.normalDamage(offensiveItem.getPower());
+    public void ownerAttackedByOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem) {
+        owner.normalDamage(physicalOffensiveItem.getPower());
+    }
+
+    @Override
+    public void ownerAttackedByOffensiveMagicItem(IMagicOffensiveItem magicOffensiveItem) {
+        owner.normalDamage(magicOffensiveItem.getPower());
     }
 
     @Override
@@ -89,8 +94,8 @@ public abstract class AbstractItem implements IEquipableItem {
     }
 
     @Override
-    public void ownerAttackedByMagicBook(IMagicOffensiveItem magicBook) {
-        owner.strongDamage(magicBook.getPower());
+    public void ownerAttackedByMagicOffensiveItem(IMagicOffensiveItem magicOffensiveItem) {
+        owner.strongDamage(magicOffensiveItem.getPower());
     }
 
     @Override

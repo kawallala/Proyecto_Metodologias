@@ -25,10 +25,11 @@ public class Sorcerer extends AbstractUnit {
     }
 
     @Override
-    public void equipMagicItem(AbstractMagicOffensiveItem magicOffensiveItem) {
+    public void equipMagicOffensiveItem(AbstractMagicOffensiveItem magicOffensiveItem) {
         if(items.contains(magicOffensiveItem)){
             equippedItem = magicOffensiveItem;
             magicOffensiveItem.setOwner(this);
         }
     }
+
 }

@@ -17,33 +17,24 @@ public class DarkMagicBook extends AbstractMagicOffensiveItem {
     }
 
     @Override
-    public void ownerAttackedByMagicBook(IMagicOffensiveItem magicBook) {
-        magicBook.defendedByDarkMagicBook(this);
-    }
-
-    @Override
-    public void ownerAttackedByLightMagicBook(LightMagicBook lightMagicBook) {
-        getOwner().strongDamage(lightMagicBook.getPower());
-    }
-
-    @Override
-    public void ownerAttackedByAnimaMagicBook(AnimaMagicBook animaMagicBook) {
-        getOwner().weakDamage(animaMagicBook.getPower());
+    public void ownerAttackedByMagicOffensiveItem(IMagicOffensiveItem magicOffensiveItem) {
+        magicOffensiveItem.defendedByDarkMagicBook(this);
     }
 
     @Override
     public void defendedByLightMagicBook(LightMagicBook lightMagicBook) {
-        lightMagicBook.ownerAttackedByDarkMagicBook(this);
+        lightMagicBook.getOwner().weakDamage(this.getPower());
     }
 
     @Override
     public void defendedByDarkMagicBook(DarkMagicBook darkMagicBook) {
-        darkMagicBook.ownerAttackedByDarkMagicBook(this);
+        darkMagicBook.getOwner().normalDamage(this.getPower());
     }
 
     @Override
     public void defendedByAnimaMagicBook(AnimaMagicBook animaMagicBook) {
-        animaMagicBook.ownerAttackedByDarkMagicBook(this);
+        animaMagicBook.getOwner().strongDamage(this.getPower());
+
     }
 
 }

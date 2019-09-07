@@ -1,7 +1,7 @@
 package model.units;
 
 import model.items.IEquipableItem;
-import model.items.offensive.Sword;
+import model.items.offensive.physical.Sword;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -113,5 +113,10 @@ public class SwordMasterTest extends AbstractTestUnit {
         swordMaster.attack(targetSwordMaster);
         assertEquals(40, targetSwordMaster.getCurrentHitPoints());
         assertEquals(40, swordMaster.getCurrentHitPoints());
+    }
+
+    @Override
+    public void testAttackTargetSorcerer() {
+
     }
 }

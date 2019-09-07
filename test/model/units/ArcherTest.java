@@ -1,6 +1,6 @@
 package model.units;
 
-import model.items.offensive.Bow;
+import model.items.offensive.physical.Bow;
 import model.items.IEquipableItem;
 import org.junit.jupiter.api.Test;
 
@@ -80,7 +80,6 @@ public class ArcherTest extends AbstractTestUnit {
     @Override
     @Test
     public void testAttackTargetArcher() {
-        //TODO preguntar al aux sobre particularidades de los test
         archer.addToInventory(bow);
         bow.equipTo(archer);
 
@@ -247,5 +246,10 @@ public class ArcherTest extends AbstractTestUnit {
         archer.attack(targetSwordMaster);
         assertEquals(50, targetSwordMaster.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
+    }
+
+    @Override
+    public void testAttackTargetSorcerer() {
+
     }
 }

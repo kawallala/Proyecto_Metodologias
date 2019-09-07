@@ -1,8 +1,13 @@
 package model.items.offensive.magic;
 
 import model.items.offensive.*;
+import model.items.offensive.physical.*;
 import model.units.IUnit;
 
+/**
+ * @author Martin Araya Zavala
+ * @since 1.22
+ */
 public abstract class AbstractMagicOffensiveItem extends AbstractOffensiveItem implements IMagicOffensiveItem {
     /**
      * Constructor for a magic book
@@ -21,46 +26,16 @@ public abstract class AbstractMagicOffensiveItem extends AbstractOffensiveItem i
 
     @Override
     public void equipTo(IUnit unit) {
-        unit.equipMagicItem(this);
+        unit.equipMagicOffensiveItem(this);
     }
 
     @Override
     public void use(IUnit targetUnit) {
-        targetUnit.attackedByMagicBook(this);
+        targetUnit.attackedByMagicOffensiveItem(this);
     }
 
     @Override
-    public void ownerAttackedByAxe(Axe axe) {
-        getOwner().strongDamage(axe.getPower());
-    }
-
-    @Override
-    public void ownerAttackedByBow(Bow bow) {
-        getOwner().strongDamage(bow.getPower());
-    }
-
-    @Override
-    public void ownerAttackedBySpear(Spear spear) {
-        getOwner().strongDamage(spear.getPower());
-    }
-
-    @Override
-    public void ownerAttackedBySword(Sword sword) {
-        getOwner().strongDamage(sword.getPower());
-    }
-
-    @Override
-    public void ownerAttackedByLightMagicBook(LightMagicBook lightMagicBook) {
-        getOwner().normalDamage(lightMagicBook.getPower());
-    }
-
-    @Override
-    public void ownerAttackedByDarkMagicBook(DarkMagicBook darkMagicBook) {
-        getOwner().normalDamage(darkMagicBook.getPower());
-    }
-
-    @Override
-    public void ownerAttackedByAnimaMagicBook(AnimaMagicBook animaMagicBook) {
-        getOwner().normalDamage(animaMagicBook.getPower());
+    public void ownerAttackedByPhysicalOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem) {
+        getOwner().strongDamage(physicalOffensiveItem.getPower());
     }
 }

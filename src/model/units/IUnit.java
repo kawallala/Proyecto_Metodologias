@@ -4,15 +4,15 @@ import java.util.List;
 
 import model.items.*;
 import model.items.healing.Staff;
-import model.items.offensive.*;
 import model.items.offensive.magic.IMagicOffensiveItem;
 import model.items.offensive.magic.AbstractMagicOffensiveItem;
+import model.items.offensive.physical.*;
 import model.map.Location;
 
 /**
  * This interface represents all units in the game.
  * <p>
- * The signature of all the common methods that a unit can execute are defined here. All units
+ * The signature of all the common methods that a unit can execute is defined here. All units
  * except some special ones can carry at most 3 weapons.
  *
  * No item can be equipped to a default unit
@@ -88,25 +88,11 @@ public interface IUnit {
     void equipAxe(Axe axe);
 
     /**
-     * Attacks this unit with an Axe
-     * @param axe
-     *      The axe this unit is being attacked with
-     */
-    void attackedByAxe(Axe axe);
-
-    /**
      * Tries to equips a Bow to the unit, by default does nothing
      * @param bow
      *      the Bow to be equipped
      */
     void equipBow(Bow bow);
-
-    /**
-     * Attacks this unit with a Bow
-     * @param bow
-     *      The bow this unit is being attacked with
-     */
-    void attackedByBow(Bow bow);
 
     /**
      * Tries to equip a staff to the unit, by default it does nothing
@@ -124,13 +110,6 @@ public interface IUnit {
     void equipSpear(Spear spear);
 
     /**
-     * Attacks this unit with a Spear
-     * @param spear
-     *      The spear this unit is being attacked with
-     */
-    void attackedBySpear(Spear spear);
-
-    /**
      * Tries to equip an Sword to the unit, by default it does nothing
      * @param sword
      *      the Sword to be equipped
@@ -138,25 +117,25 @@ public interface IUnit {
     void equipSword(Sword sword);
 
     /**
-     * Attacks this unit with a Sword
-     * @param sword
-     *      The sword this unit is being attacked with
-     */
-    void attackedBySword(Sword sword);
-
-    /**
      * Tries to equip a Magic Book to the unit, by default it does nothing
      * @param magicOffensiveItem
      *      the Magic Book to be equipped
      */
-    void equipMagicItem(AbstractMagicOffensiveItem magicOffensiveItem);
+    void equipMagicOffensiveItem(AbstractMagicOffensiveItem magicOffensiveItem);
+
+    /**
+     * Attacks the unit with a Offensive Item
+     *
+     * @param physicalOffensiveItem the offensive item the unit is being attacked with
+     */
+    void attackedByPhysicalOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem);
 
     /**
      * Attacks this unit with a magic book
-     * @param magicBook
+     * @param magicOffensiveItem
      *      The magic book this unit is being attacked with
      */
-    void attackedByMagicBook(IMagicOffensiveItem magicBook);
+    void attackedByMagicOffensiveItem(IMagicOffensiveItem magicOffensiveItem);
 
     /**
      * Makes this unit attack another unit.
@@ -213,9 +192,4 @@ public interface IUnit {
      *      The item that is being given to the receiving unit
      */
     void giveItem(IEquipableItem item, IUnit receivingUnit);
-
-    /**
-     * @param staff
-     */
-    void healedByStaff(Staff staff);
 }

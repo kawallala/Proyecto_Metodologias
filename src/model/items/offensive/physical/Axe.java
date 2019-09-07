@@ -1,4 +1,4 @@
-package model.items.offensive;
+package model.items.offensive.physical;
 
 import model.units.IUnit;
 
@@ -10,7 +10,7 @@ import model.units.IUnit;
  * @author Martin Araya Zavala
  * @since 1.0
  */
-public class Axe extends AbstractOffensiveItem {
+public class Axe extends AbstractPhysicalOffensiveItem {
 
     /**
      * Creates a new Axe item
@@ -34,14 +34,9 @@ public class Axe extends AbstractOffensiveItem {
         unit.equipAxe(this);
     }
 
-    /**
-     * Attacks the target unit with the Axe
-     *
-     * @param targetUnit the unit being attacked
-     */
     @Override
-    public void use(IUnit targetUnit) {
-        targetUnit.attackedByAxe(this);
+    public void ownerAttackedByPhysicalOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem) {
+        physicalOffensiveItem.defendedByAxe(this);
     }
 
     /**
@@ -64,4 +59,18 @@ public class Axe extends AbstractOffensiveItem {
         getOwner().strongDamage(sword.getPower());
     }
 
+    @Override
+    public void defendedByAxe(Axe axe) {
+        axe.getOwner().normalDamage(this.getPower());
+    }
+
+    @Override
+    public void defendedBySpear(Spear spear) {
+        spear.getOwner().strongDamage(this.getPower());
+    }
+
+    @Override
+    public void defendedBySword(Sword sword) {
+        sword.getOwner().weakDamage(this.getPower());
+    }
 }

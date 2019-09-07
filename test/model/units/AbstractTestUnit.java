@@ -2,10 +2,10 @@ package model.units;
 
 import model.items.*;
 import model.items.healing.Staff;
-import model.items.offensive.Axe;
-import model.items.offensive.Bow;
-import model.items.offensive.Spear;
-import model.items.offensive.Sword;
+import model.items.offensive.physical.Axe;
+import model.items.offensive.physical.Bow;
+import model.items.offensive.physical.Spear;
+import model.items.offensive.physical.Sword;
 import model.map.Field;
 import model.map.Location;
 import org.junit.jupiter.api.BeforeEach;
@@ -230,15 +230,15 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
         // in range - Alpaca
         targetAlpaca.moveTo(getField().getCell(0, 1));
-        assertEquals(50, targetAlpaca.getCurrentHitPoints());
+        assertEquals(100, targetAlpaca.getCurrentHitPoints());
         getTestUnit().attack(targetAlpaca);
-        assertEquals(40, targetAlpaca.getCurrentHitPoints());
-        assertEquals(50, getTestUnit().getCurrentHitPoints());
+        assertEquals(75, targetAlpaca.getCurrentHitPoints());
+        assertEquals(100, getTestUnit().getCurrentHitPoints());
 
         //out of range - Alpaca
         targetAlpaca.moveTo(getField().getCell(2, 2));
         getTestUnit().attack(targetAlpaca);
-        assertEquals(40, targetAlpaca.getCurrentHitPoints());
+        assertEquals(75, targetAlpaca.getCurrentHitPoints());
     }
 
     @Override
@@ -252,23 +252,23 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
         //in range, no counter attack
         targetArcher.moveTo(field.getCell(0, 1));
-        assertEquals(50, targetArcher.getCurrentHitPoints());
+        assertEquals(100, targetArcher.getCurrentHitPoints());
         getTestUnit().attack(targetArcher);
-        assertEquals(50 - 10, targetArcher.getCurrentHitPoints());
-        assertEquals(50, getTestUnit().getCurrentHitPoints());
+        assertEquals(75, targetArcher.getCurrentHitPoints());
+        assertEquals(100, getTestUnit().getCurrentHitPoints());
 
         //in range
         targetArcher.moveTo(field.getCell(0, 2));
         getTestUnit().attack(targetArcher);
-        assertEquals(30, targetArcher.getCurrentHitPoints());
-        assertEquals(40, getTestUnit().getCurrentHitPoints());
+        assertEquals(50, targetArcher.getCurrentHitPoints());
+        assertEquals(75, getTestUnit().getCurrentHitPoints());
 
         //out of range
         targetAlpaca.moveTo(field.getCell(0, 1));
         targetArcher.moveTo(field.getCell(2, 2));
         getTestUnit().attack(targetArcher);
-        assertEquals(30, targetArcher.getCurrentHitPoints());
-        assertEquals(40, getTestUnit().getCurrentHitPoints());
+        assertEquals(50, targetArcher.getCurrentHitPoints());
+        assertEquals(75, getTestUnit().getCurrentHitPoints());
     }
 
     @Override
@@ -282,16 +282,16 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
         //in range
         targetCleric.moveTo(field.getCell(0, 1));
-        assertEquals(50, targetCleric.getCurrentHitPoints());
+        assertEquals(100, targetCleric.getCurrentHitPoints());
         getTestUnit().attack(targetCleric);
-        assertEquals(40, targetCleric.getCurrentHitPoints());
-        assertEquals(50, getTestUnit().getCurrentHitPoints());
+        assertEquals(75, targetCleric.getCurrentHitPoints());
+        assertEquals(100, getTestUnit().getCurrentHitPoints());
 
         //out of range
         targetAlpaca.moveTo(field.getCell(0, 2));
         targetCleric.moveTo(field.getCell(2, 2));
         getTestUnit().attack(targetCleric);
-        assertEquals(40, targetCleric.getCurrentHitPoints());
-        assertEquals(50, getTestUnit().getCurrentHitPoints());
+        assertEquals(75, targetCleric.getCurrentHitPoints());
+        assertEquals(100, getTestUnit().getCurrentHitPoints());
     }
 }

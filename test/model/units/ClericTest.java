@@ -111,4 +111,9 @@ public class ClericTest extends AbstractTestUnit {
     public void testAttackTargetSwordMaster() {
         nulldamageCleric(targetSwordMaster, sword);
     }
+
+    @Override
+    public void testAttackTargetSorcerer() {
+
+    }
 }

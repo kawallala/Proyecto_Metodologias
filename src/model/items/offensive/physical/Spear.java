@@ -1,6 +1,6 @@
-package model.items.offensive;
+package model.items.offensive.physical;
 
-import model.items.AbstractItem;
+import model.items.offensive.AbstractOffensiveItem;
 import model.units.IUnit;
 
 /**
@@ -11,7 +11,7 @@ import model.units.IUnit;
  * @author Martin Araya Zavala
  * @since 1.0
  */
-public class Spear extends AbstractOffensiveItem {
+public class Spear extends AbstractPhysicalOffensiveItem {
 
     /**
      * Creates a new Spear item
@@ -36,16 +36,6 @@ public class Spear extends AbstractOffensiveItem {
     }
 
     /**
-     * Attacks the target unit with the Spear
-     *
-     * @param targetUnit the unit being attacked
-     */
-    @Override
-    public void use(IUnit targetUnit) {
-        targetUnit.attackedBySpear(this);
-    }
-
-    /**
      * Deals strong damage to the owner of the Spear, since the Spear is weak against axes
      *
      * @param axe The axe that is dealing the damage
@@ -63,5 +53,25 @@ public class Spear extends AbstractOffensiveItem {
     @Override
     public void ownerAttackedBySword(Sword sword) {
         getOwner().weakDamage(sword.getPower());
+    }
+
+    @Override
+    public void ownerAttackedByPhysicalOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem) {
+        physicalOffensiveItem.defendedBySpear(this);
+    }
+
+    @Override
+    public void defendedByAxe(Axe axe) {
+        axe.getOwner().weakDamage(this.getPower());
+    }
+
+    @Override
+    public void defendedBySpear(Spear spear) {
+        spear.getOwner().normalDamage(this.getPower());
+    }
+
+    @Override
+    public void defendedBySword(Sword sword) {
+        sword.getOwner().strongDamage(this.getPower());
     }
 }

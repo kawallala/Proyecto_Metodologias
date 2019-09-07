@@ -3,7 +3,7 @@ package model.units;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import model.items.offensive.Axe;
+import model.items.offensive.physical.Axe;
 import model.items.IEquipableItem;
 import org.junit.jupiter.api.Test;
 
@@ -51,11 +51,11 @@ public class FighterTest extends AbstractTestUnit {
     @Override
     public void testAttackTargetFighter() {
         fighter.addToInventory(axe);
-        axe.equipTo(fighter);
+        fighter.equip(axe);
 
         Axe secondAxe = new Axe("second axe", 25, 1,2);
         targetFighter.addToInventory(secondAxe);
-        secondAxe.equipTo(targetFighter);
+        targetFighter.equip(secondAxe);
 
         //in range
         targetFighter.moveTo(field.getCell(0, 1));

@@ -1,6 +1,5 @@
-package model.items.offensive;
+package model.items.offensive.physical;
 
-import model.items.AbstractItem;
 import model.units.IUnit;
 
 /**
@@ -9,9 +8,7 @@ import model.units.IUnit;
  * @author Martin Araya Zavala
  * @since 1.0
  */
-public class Bow extends AbstractOffensiveItem {
-
-    private IUnit unit;
+public class Bow extends AbstractPhysicalOffensiveItem {
 
     /**
      * Creates a new Bow.
@@ -40,13 +37,23 @@ public class Bow extends AbstractOffensiveItem {
         unit.equipBow(this);
     }
 
-    /**
-     * Attacks the target unit with this bow
-     *
-     * @param targetUnit the unit being attacked
-     */
     @Override
-    public void use(IUnit targetUnit) {
-        targetUnit.attackedByBow(this);
+    public void ownerAttackedByPhysicalOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem) {
+        getOwner().normalDamage(physicalOffensiveItem.getPower());
+    }
+
+    @Override
+    public void defendedByAxe(Axe axe) {
+        axe.getOwner().normalDamage(this.getPower());
+    }
+
+    @Override
+    public void defendedBySpear(Spear spear) {
+        spear.getOwner().normalDamage(this.getPower());
+    }
+
+    @Override
+    public void defendedBySword(Sword sword) {
+        sword.getOwner().normalDamage(this.getPower());
     }
 }

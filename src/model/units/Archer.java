@@ -1,6 +1,6 @@
 package model.units;
 
-import model.items.offensive.Bow;
+import model.items.offensive.physical.Bow;
 import model.items.IEquipableItem;
 import model.map.Location;
 
@@ -41,4 +41,5 @@ public class Archer extends AbstractUnit {
             bow.setOwner(this);
         }
     }
+
 }

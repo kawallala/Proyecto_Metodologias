@@ -1,6 +1,6 @@
 package model.units;
 
-import model.items.offensive.Axe;
+import model.items.offensive.physical.Axe;
 import model.items.IEquipableItem;
 import model.map.Location;
 
@@ -33,4 +33,5 @@ public class Fighter extends AbstractUnit {
             axe.setOwner(this);
         }
     }
+
 }

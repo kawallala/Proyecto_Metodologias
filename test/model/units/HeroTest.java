@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import model.items.IEquipableItem;
-import model.items.offensive.Spear;
+import model.items.offensive.physical.Spear;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -19,7 +19,7 @@ public class HeroTest extends AbstractTestUnit {
      */
     @Override
     public void setTestUnit() {
-        hero = new Hero(50, 2, field.getCell(0, 0));
+        hero = new Hero(100, 2, field.getCell(0, 0));
 
     }
 
@@ -74,23 +74,23 @@ public class HeroTest extends AbstractTestUnit {
     public void testAttackTargetHero() {
         hero.addToInventory(spear);
         spear.equipTo(hero);
-        Spear secondspear = new Spear("second spear", 10, 1, 2);
+        Spear secondspear = new Spear("second spear", 25, 1, 2);
         targetHero.addToInventory(secondspear);
         secondspear.equipTo(targetHero);
 
         //in range
         targetHero.moveTo(field.getCell(0, 1));
-        assertEquals(50, targetHero.getCurrentHitPoints());
+        assertEquals(100, targetHero.getCurrentHitPoints());
         hero.attack(targetHero);
-        assertEquals(40, targetHero.getCurrentHitPoints());
-        assertEquals(40, hero.getCurrentHitPoints());
+        assertEquals(75, targetHero.getCurrentHitPoints());
+        assertEquals(75, hero.getCurrentHitPoints());
 
         //out of range
         targetAlpaca.moveTo(field.getCell(0,2));
         targetHero.moveTo(field.getCell(2, 2));
         hero.attack(targetHero);
-        assertEquals(40, targetHero.getCurrentHitPoints());
-        assertEquals(40, hero.getCurrentHitPoints());
+        assertEquals(75, targetHero.getCurrentHitPoints());
+        assertEquals(75, hero.getCurrentHitPoints());
     }
 
     @Override
@@ -115,5 +115,10 @@ public class HeroTest extends AbstractTestUnit {
         hero.attack(targetSwordMaster);
         assertEquals(35, targetSwordMaster.getCurrentHitPoints());
         assertEquals(50, hero.getCurrentHitPoints());
+    }
+
+    @Override
+    public void testAttackTargetSorcerer() {
+
     }
 }

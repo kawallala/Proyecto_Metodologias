@@ -1,7 +1,7 @@
 package model.units;
 
 import model.items.IEquipableItem;
-import model.items.offensive.Sword;
+import model.items.offensive.physical.Sword;
 import model.map.Location;
 
 /**
@@ -34,4 +34,5 @@ public class SwordMaster extends AbstractUnit {
             sword.setOwner(this);
         }
     }
+
 }

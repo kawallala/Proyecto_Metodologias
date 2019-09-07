@@ -6,9 +6,9 @@ import java.util.List;
 
 import model.items.*;
 import model.items.healing.Staff;
-import model.items.offensive.*;
 import model.items.offensive.magic.IMagicOffensiveItem;
 import model.items.offensive.magic.AbstractMagicOffensiveItem;
+import model.items.offensive.physical.*;
 import model.map.Location;
 
 import static java.lang.Math.*;
@@ -60,8 +60,6 @@ public abstract class AbstractUnit implements IUnit {
     public int getCurrentHitPoints() {
         return this.currentHitPoints;
     }
-    //TODO preguntar al auxs si eso se puede dejar private, y si no, porque no?
-
 
     private void setCurrentHitPoints(int hitPoints) {
         this.currentHitPoints = min(hitPoints,maximumHitPoints);
@@ -72,7 +70,6 @@ public abstract class AbstractUnit implements IUnit {
         return List.copyOf(this.items);
     }
 
-    //TODO unequip item
     @Override
     public IEquipableItem getEquippedItem() {
         return this.equippedItem;
@@ -121,33 +118,22 @@ public abstract class AbstractUnit implements IUnit {
     }
 
     @Override
+    public void attackedByPhysicalOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem) {
+        if(getEquippedItem() == null){
+            normalDamage(physicalOffensiveItem.getPower());
+        }else {
+            equippedItem.ownerAttackedByPhysicalOffensiveItem(physicalOffensiveItem);
+        }
+    }
+
+    @Override
     public void equipAxe(Axe axe) {
         //purposely left empty :c
     }
 
     @Override
-    public void attackedByAxe(Axe axe) {
-        if(getEquippedItem() == null){
-            normalDamage(axe.getPower());
-        }
-        else{
-            getEquippedItem().ownerAttackedByAxe(axe);
-        }
-    }
-
-    @Override
     public void equipBow(Bow bow) {
         //purposely left empty :c
-    }
-
-    @Override
-    public void attackedByBow(Bow bow) {
-        if(getEquippedItem() == null){
-            normalDamage(bow.getPower());
-        }
-        else{
-            getEquippedItem().ownerAttackedByBow(bow);
-        }
     }
 
     @Override
@@ -161,48 +147,27 @@ public abstract class AbstractUnit implements IUnit {
     }
 
     @Override
-    public void attackedBySpear(Spear spear) {
-        if(getEquippedItem() == null){
-            normalDamage(spear.getPower());
-        }
-        else{
-            getEquippedItem().ownerAttackedBySpear(spear);
-        }
-    }
-
-    @Override
     public void equipSword(Sword sword) {
         //purposely left empty :c
     }
 
     @Override
-    public void attackedBySword(Sword sword) {
-        if(getEquippedItem() == null){
-            normalDamage(sword.getPower());
-        }
-        else{
-            getEquippedItem().ownerAttackedBySword(sword);
-        }
-    }
-
-    @Override
-    public void equipMagicItem(AbstractMagicOffensiveItem magicOffensiveItem) {
+    public void equipMagicOffensiveItem(AbstractMagicOffensiveItem magicOffensiveItem) {
         //purposely left empty
     }
 
     @Override
-    public void attackedByMagicBook(IMagicOffensiveItem magicBook) {
+    public void attackedByMagicOffensiveItem(IMagicOffensiveItem magicOffensiveItem) {
         if(equippedItem == null){
-            normalDamage(magicBook.getPower());
+            normalDamage(magicOffensiveItem.getPower());
         }
         else {
-            equippedItem.ownerAttackedByMagicBook(magicBook);
+            equippedItem.ownerAttackedByMagicOffensiveItem(magicOffensiveItem);
         }
     }
 
     @Override
     public void attack(IUnit targetUnit) {
-        //TODO verificar que la vida sea mayor a 0
         double distance = this.getLocation().distanceTo(targetUnit.getLocation());
         if(getEquippedItem() != null &&
                 getEquippedItem().getMinRange()<= distance &&
@@ -226,7 +191,7 @@ public abstract class AbstractUnit implements IUnit {
 
     @Override
     public void normalDamage(int damage) {
-        currentHitPoints -= damage;
+        currentHitPoints = max(0, currentHitPoints-damage);
     }
 
     @Override
@@ -236,7 +201,7 @@ public abstract class AbstractUnit implements IUnit {
 
     @Override
     public void weakDamage(int damage) {
-        currentHitPoints -= damage>20?damage:0;
+        currentHitPoints = max(0, currentHitPoints - (damage>20?(damage-20):0));
     }
 
     @Override

@@ -2,7 +2,7 @@ package model.items;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import model.items.offensive.Bow;
+import model.items.offensive.physical.Bow;
 import model.map.Location;
 import model.units.Archer;
 import model.units.IUnit;

@@ -111,4 +111,9 @@ public class AlpacaTest extends AbstractTestUnit {
     public void testAttackTargetSwordMaster() {
         nulldamageAlpaca(targetSwordMaster, sword);
     }
+
+    @Override
+    public void testAttackTargetSorcerer() {
+
+    }
 }

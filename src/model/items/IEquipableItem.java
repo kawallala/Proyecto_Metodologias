@@ -1,7 +1,7 @@
 package model.items;
 
-import model.items.offensive.*;
 import model.items.offensive.magic.IMagicOffensiveItem;
+import model.items.offensive.physical.*;
 import model.units.IUnit;
 
 /**
@@ -55,17 +55,26 @@ public interface IEquipableItem {
     int getMaxRange();
 
     /**
-     * Makes use of the item
-     * @param targetUnit the unit being attacked
+     * Uses the item on a target unit
+     *
+     * @param targetUnit the unit that the item is being used on
      */
     void use(IUnit targetUnit);
 
     /**
      * Deals normal damage to the owner of the item
      *
-     * @param offensiveItem the offensive item that is dealing the damage
+     * @param physicalOffensiveItem the physical offensive item that is dealing the damage
      */
-    void OwnerAttackedByOffensiveItem(IOffensiveItem offensiveItem);
+    void ownerAttackedByOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem);
+
+    /**
+     * Deals normal damage to the owner of the item
+     *
+     * @param magicOffensiveItem the magic offensive item that is dealing the damage
+     */
+    void ownerAttackedByOffensiveMagicItem(IMagicOffensiveItem magicOffensiveItem);
+
     /**
      * Deals normal damage to the owner of the item
      *
@@ -96,7 +105,13 @@ public interface IEquipableItem {
     /**
      * Deals strong damage to the owner of the item
      *
-     * @param magicBook the magic book that is dealing the damage
+     * @param magicOffensiveItem the magic book that is dealing the damage
      */
-    void ownerAttackedByMagicBook(IMagicOffensiveItem magicBook);
+    void ownerAttackedByMagicOffensiveItem(IMagicOffensiveItem magicOffensiveItem);
+
+    /**
+     * Defines the type of damage the owner of the item will receive
+     * @param physicalOffensiveItem the physical offensive item that is dealing the damage
+     */
+    void ownerAttackedByPhysicalOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem);
 }

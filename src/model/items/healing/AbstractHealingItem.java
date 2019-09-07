@@ -1,8 +1,13 @@
 package model.items.healing;
 
 import model.items.AbstractItem;
+import model.items.offensive.physical.IPhysicalOffensiveItem;
 import model.units.IUnit;
 
+/**
+ * @author Martin Araya Zavala
+ * @since 1.22
+ */
 public abstract class AbstractHealingItem extends AbstractItem implements IHealingItem {
     /**
      * Constructor for a default item without any special behaviour.
@@ -14,5 +19,10 @@ public abstract class AbstractHealingItem extends AbstractItem implements IHeali
      */
     public AbstractHealingItem(String name, int power, int minRange, int maxRange) {
         super(name, power, minRange, maxRange);
+    }
+
+    @Override
+    public void ownerAttackedByPhysicalOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem) {
+        getOwner().normalDamage(physicalOffensiveItem.getPower());
     }
 }

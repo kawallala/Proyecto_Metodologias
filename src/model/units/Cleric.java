@@ -40,4 +40,5 @@ public class Cleric extends AbstractUnit {
             staff.setOwner(this);
         }
     }
+
 }
