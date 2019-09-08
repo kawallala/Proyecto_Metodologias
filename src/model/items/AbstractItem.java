@@ -64,33 +64,8 @@ public abstract class AbstractItem implements IEquipableItem {
     }
 
     @Override
-    public void ownerAttackedByOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem) {
+    public void ownerAttackedByPhysicalOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem) {
         owner.normalDamage(physicalOffensiveItem.getPower());
-    }
-
-    @Override
-    public void ownerAttackedByOffensiveMagicItem(IMagicOffensiveItem magicOffensiveItem) {
-        owner.normalDamage(magicOffensiveItem.getPower());
-    }
-
-    @Override
-    public void ownerAttackedByAxe(Axe axe) {
-        owner.normalDamage(axe.getPower());
-    }
-
-    @Override
-    public void ownerAttackedByBow(Bow bow) {
-        owner.normalDamage(bow.getPower());
-    }
-
-    @Override
-    public void ownerAttackedBySpear(Spear spear) {
-        owner.normalDamage(spear.getPower());
-    }
-
-    @Override
-    public void ownerAttackedBySword(Sword sword) {
-        owner.normalDamage(sword.getPower());
     }
 
     @Override

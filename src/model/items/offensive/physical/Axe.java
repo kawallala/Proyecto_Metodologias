@@ -39,26 +39,6 @@ public class Axe extends AbstractPhysicalOffensiveItem {
         physicalOffensiveItem.defendedByAxe(this);
     }
 
-    /**
-     * Deals weak damage to the owner of the axe, since the Axe is strong against spears
-     * @param spear
-     *      The Spear that is doing the damage
-     */
-    @Override
-    public void ownerAttackedBySpear(Spear spear) {
-        getOwner().weakDamage(spear.getPower());
-    }
-
-    /**
-     * Deals strong damage to the owner of the Axe, since the Axe is weak against Swords
-     * @param sword
-     *      The Sword that is dealing the damage
-     */
-    @Override
-    public void ownerAttackedBySword(Sword sword) {
-        getOwner().strongDamage(sword.getPower());
-    }
-
     @Override
     public void defendedByAxe(Axe axe) {
         axe.getOwner().normalDamage(this.getPower());

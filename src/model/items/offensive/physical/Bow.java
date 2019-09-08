@@ -38,11 +38,6 @@ public class Bow extends AbstractPhysicalOffensiveItem {
     }
 
     @Override
-    public void ownerAttackedByPhysicalOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem) {
-        getOwner().normalDamage(physicalOffensiveItem.getPower());
-    }
-
-    @Override
     public void defendedByAxe(Axe axe) {
         axe.getOwner().normalDamage(this.getPower());
     }

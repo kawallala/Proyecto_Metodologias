@@ -1,6 +1,5 @@
 package model.items.healing;
 
-import model.items.AbstractItem;
 import model.units.IUnit;
 
 /**
@@ -33,15 +32,5 @@ public class Staff extends AbstractHealingItem {
     @Override
     public void equipTo(IUnit unit) {
         unit.equipStaff(this);
-    }
-
-    /**
-     * Tries to attack with the Staff, since the staff cannot attack, the method does nothing
-     *
-     * @param targetUnit the unit being attacked
-     */
-    @Override
-    public void use(IUnit targetUnit) {
-        targetUnit.healedByStaff(this);
     }
 }

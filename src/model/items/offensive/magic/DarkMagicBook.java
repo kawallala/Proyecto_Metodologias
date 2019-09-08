@@ -2,15 +2,15 @@ package model.items.offensive.magic;
 
 public class DarkMagicBook extends AbstractMagicOffensiveItem {
     /**
-     * Constructor for a dark magic book.
+     * Constructor for a Dark Magic Book.
      *
-     * A dark magic book is strong agains anima magic books and weak
-     * agains light magic books
+     * A Dark Magic Book is strong against Anima Magic Books and weak
+     * against Light Magic Books
      *
-     * @param name     the name of the item
-     * @param power    the power of the item (this could be the amount of damage or healing the item does)
-     * @param minRange the minimum range of the item
-     * @param maxRange the maximum range of the item
+     * @param name     the name of the Dark Magic Book
+     * @param power    the offensive power of the Dark Magic Book
+     * @param minRange the minimum range of the Dark Magic Book
+     * @param maxRange the maximum range of the Dark Magic Book
      */
     public DarkMagicBook(String name, int power, int minRange, int maxRange) {
         super(name, power, minRange, maxRange);

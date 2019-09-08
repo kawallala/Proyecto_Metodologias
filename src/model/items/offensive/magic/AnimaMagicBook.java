@@ -2,14 +2,15 @@ package model.items.offensive.magic;
 
 public class AnimaMagicBook extends AbstractMagicOffensiveItem {
     /**
-     * Constructor for a anima magic book.
+     * Constructor for a Anima Magic Book.
      *
-     * A anima magic book is strong against light magic books and weak
+     * A Anima Magic Book is strong against light magic books and weak
      * against dark magic books
-     * @param name     the name of the item
-     * @param power    the power of the item (this could be the amount of damage or healing the item does)
-     * @param minRange the minimum range of the item
-     * @param maxRange the maximum range of the item
+     *
+     * @param name     the name of the Anima Magic Book
+     * @param power    the offensive power of the Anima Magic Book
+     * @param minRange the minimum range of the Anima Magic Book
+     * @param maxRange the maximum range of the Anima Magic Book
      */
     public AnimaMagicBook(String name, int power, int minRange, int maxRange) {
         super(name, power, minRange, maxRange);

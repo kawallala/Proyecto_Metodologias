@@ -192,4 +192,11 @@ public interface IUnit {
      *      The item that is being given to the receiving unit
      */
     void giveItem(IEquipableItem item, IUnit receivingUnit);
+
+    /**
+     * Heals the unit using a healing item
+     *
+     * @param healingPower The power of the item that is healing the unit
+     */
+    void heal(int healingPower);
 }

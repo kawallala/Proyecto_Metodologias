@@ -61,10 +61,6 @@ public abstract class AbstractUnit implements IUnit {
         return this.currentHitPoints;
     }
 
-    private void setCurrentHitPoints(int hitPoints) {
-        this.currentHitPoints = min(hitPoints,maximumHitPoints);
-    }
-
     @Override
     public List<IEquipableItem> getItems() {
         return List.copyOf(this.items);
@@ -225,5 +221,10 @@ public abstract class AbstractUnit implements IUnit {
             removeFromInventory(item);
             receivingUnit.addToInventory(item);
         }
+    }
+
+    @Override
+    public void heal(int healingPower) {
+        this.currentHitPoints = min(maximumHitPoints, currentHitPoints+healingPower);
     }
 }

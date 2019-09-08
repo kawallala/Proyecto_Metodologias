@@ -9,12 +9,12 @@ import model.units.IUnit;
  */
 public abstract class AbstractPhysicalOffensiveItem extends AbstractOffensiveItem implements IPhysicalOffensiveItem {
     /**
-     * Constructor for a default item without any special behaviour.
+     * Constructor for a Physical Offensive Item
      *
-     * @param name     the name of the item
-     * @param power    the power of the item (this could be the amount of damage or healing the item does)
-     * @param minRange the minimum range of the item
-     * @param maxRange the maximum range of the item
+     * @param name     the name of the Physical Offensive Item
+     * @param power    the offensive power of the Physical Offensive Item
+     * @param minRange the minimum range of the Physical Offensive Item
+     * @param maxRange the maximum range of the Physical Offensive Item
      */
     public AbstractPhysicalOffensiveItem(String name, int power, int minRange, int maxRange) {
         super(name, power, minRange, maxRange);

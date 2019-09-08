@@ -5,15 +5,16 @@ import model.items.offensive.physical.*;
 import model.units.IUnit;
 
 /**
+ * Abstract class that defines some common behaviour for Magic Offensive Items
+ *
  * @author Martin Araya Zavala
  * @since 1.22
  */
 public abstract class AbstractMagicOffensiveItem extends AbstractOffensiveItem implements IMagicOffensiveItem {
     /**
-     * Constructor for a magic book
+     * Constructor for a Magic Offensive Item
      *
-     * A magic book is strong and weak against non-magic items
-     *
+     * A Magic Offensive Item is weak against non-magic items     *
      *
      * @param name     the name of the Magic book
      * @param power    the power of the Magic book

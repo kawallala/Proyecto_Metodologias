@@ -62,47 +62,6 @@ public interface IEquipableItem {
     void use(IUnit targetUnit);
 
     /**
-     * Deals normal damage to the owner of the item
-     *
-     * @param physicalOffensiveItem the physical offensive item that is dealing the damage
-     */
-    void ownerAttackedByOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem);
-
-    /**
-     * Deals normal damage to the owner of the item
-     *
-     * @param magicOffensiveItem the magic offensive item that is dealing the damage
-     */
-    void ownerAttackedByOffensiveMagicItem(IMagicOffensiveItem magicOffensiveItem);
-
-    /**
-     * Deals normal damage to the owner of the item
-     *
-     * @param axe the axe that is dealing the damage
-     */
-    void ownerAttackedByAxe(Axe axe);
-
-    /**
-     * Deals normal damage to the owner of the item
-     *
-     * @param bow the bow that is dealing the damage
-     */
-    void ownerAttackedByBow(Bow bow);
-
-    /**
-     * Deals normal damage to the owner of the item
-     *
-     * @param spear the spear that is dealing the damage
-     */
-    void ownerAttackedBySpear(Spear spear);
-    /**
-     * Deals normal damage to the owner of the item
-     *
-     * @param sword the sword that is dealing the damage
-     */
-    void ownerAttackedBySword(Sword sword);
-
-    /**
      * Deals strong damage to the owner of the item
      *
      * @param magicOffensiveItem the magic book that is dealing the damage
