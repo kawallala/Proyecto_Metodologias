@@ -52,34 +52,33 @@ public class ArcherTest extends AbstractTestUnit {
 
     @Test
     @Override
-    public void testAttackTargetAlpaca() {
+    public void testCombatTargetAlpaca() {
         archer.addToInventory(bow);
         bow.equipTo(archer);
 
         //attack in range
         getTargetAlpaca().moveTo(getField().getCell(0, 2));
         assertEquals(100, getTargetAlpaca().getCurrentHitPoints());
-        archer.attack(getTargetAlpaca());
+        archer.beginCombat(getTargetAlpaca());
         assertEquals(75, getTargetAlpaca().getCurrentHitPoints());
         assertEquals(100, archer.getCurrentHitPoints());
 
         //attack out of range (inner range)
         getTargetAlpaca().moveTo(getField().getCell(0, 1));
-        archer.attack(getTargetAlpaca());
+        archer.beginCombat(getTargetAlpaca());
         assertEquals(75, getTargetAlpaca().getCurrentHitPoints());
         assertEquals(100, archer.getCurrentHitPoints());
 
         //attack out of range(outer range)
-        getTargetAlpaca().moveTo(getField().getCell(0, 3));
-        getTargetAlpaca().moveTo(getField().getCell(0, 4));
-        archer.attack(getTargetAlpaca());
+        getTargetAlpaca().moveTo(getField().getCell(3, 3));
+        archer.beginCombat(getTargetAlpaca());
         assertEquals(75, getTargetAlpaca().getCurrentHitPoints());
         assertEquals(100, archer.getCurrentHitPoints());
     }
 
     @Override
     @Test
-    public void testAttackTargetArcher() {
+    public void testCombatTargetArcher() {
         archer.addToInventory(bow);
         bow.equipTo(archer);
 
@@ -90,53 +89,53 @@ public class ArcherTest extends AbstractTestUnit {
         //inner range, neither of them attack
         targetArcher.moveTo(field.getCell(0, 1));
         assertEquals(100, targetArcher.getCurrentHitPoints());
-        archer.attack(targetArcher);
+        archer.beginCombat(targetArcher);
         assertEquals(100, targetArcher.getCurrentHitPoints());
         assertEquals(100, archer.getCurrentHitPoints());
 
         //normal range, both of them attack
         targetArcher.moveTo(field.getCell(0, 2));
-        archer.attack(targetArcher);
+        archer.beginCombat(targetArcher);
         assertEquals(75, targetArcher.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
 
         //outer range, neither of them attack
         targetAlpaca.moveTo(field.getCell(0, 1));
         targetArcher.moveTo(field.getCell(2,2));
-        archer.attack(targetArcher);
+        archer.beginCombat(targetArcher);
         assertEquals(75, targetArcher.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
     }
 
     @Test
     @Override
-    public void testAttackTargetCleric() {
+    public void testCombatTargetCleric() {
         archer.addToInventory(bow);
         bow.equipTo(archer);
         //attack in range, with counter attack
         targetCleric.moveTo(getField().getCell(0, 2));
         assertEquals(100, targetCleric.getCurrentHitPoints());
-        archer.attack(targetCleric);
+        archer.beginCombat(targetCleric);
         assertEquals(75, targetCleric.getCurrentHitPoints());
         assertEquals(100, archer.getCurrentHitPoints());
 
         //attack out of range (inner range)
         targetCleric.moveTo(getField().getCell(0, 1));
-        archer.attack(targetCleric);
+        archer.beginCombat(targetCleric);
         assertEquals(75, targetCleric.getCurrentHitPoints());
         assertEquals(100, archer.getCurrentHitPoints());
 
         //attack out of range(outer range)
         getTargetAlpaca().moveTo(field.getCell(0, 1));
         targetCleric.moveTo(field.getCell(2,2));
-        archer.attack(targetCleric);
+        archer.beginCombat(targetCleric);
         assertEquals(75, targetCleric.getCurrentHitPoints());
         assertEquals(100, archer.getCurrentHitPoints());
     }
 
     @Test
     @Override
-    public void testAttackTargetFighter() {
+    public void testCombatTargetFighter() {
         archer.addToInventory(bow);
         bow.equipTo(archer);
 
@@ -146,33 +145,33 @@ public class ArcherTest extends AbstractTestUnit {
         //attack in range - counter attack is done
         targetFighter.moveTo(getField().getCell(0, 2));
         assertEquals(100, targetFighter.getCurrentHitPoints());
-        archer.attack(targetFighter);
+        archer.beginCombat(targetFighter);
         assertEquals(75, targetFighter.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
 
         //attack in range - no counter attack
         targetFighter.moveTo(getField().getCell(1, 2));
-        archer.attack(targetFighter);
+        archer.beginCombat(targetFighter);
         assertEquals(50, targetFighter.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
 
         //attack out of range (inner range)
         targetFighter.moveTo(getField().getCell(0, 1));
-        archer.attack(targetFighter);
+        archer.beginCombat(targetFighter);
         assertEquals(50, targetFighter.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
 
         //attack out of range(outer range)
         getTargetAlpaca().moveTo(field.getCell(0, 1));
         targetFighter.moveTo(field.getCell(2,2));
-        archer.attack(targetFighter);
+        archer.beginCombat(targetFighter);
         assertEquals(50, targetFighter.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
     }
 
     @Test
     @Override
-    public void testAttackTargetHero() {
+    public void testCombatTargetHero() {
         archer.addToInventory(bow);
         bow.equipTo(archer);
 
@@ -182,14 +181,14 @@ public class ArcherTest extends AbstractTestUnit {
         //attack in range - counter attack is done
         targetHero.moveTo(getField().getCell(0, 2));
         assertEquals(100, targetHero.getCurrentHitPoints());
-        archer.attack(targetHero);
+        archer.beginCombat(targetHero);
         assertEquals(75, targetHero.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
 
         //attack in range - no counter attack
         targetFighter.moveTo(getField().getCell(0, 1));
         targetHero.moveTo(getField().getCell(1,2));
-        archer.attack(targetHero);
+        archer.beginCombat(targetHero);
         assertEquals(50, targetHero.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
 
@@ -197,21 +196,21 @@ public class ArcherTest extends AbstractTestUnit {
         targetHero.moveTo(getField().getCell(0, 2));
         targetFighter.moveTo(getField().getCell(1, 2));
         targetHero.moveTo(getField().getCell(0,1));
-        archer.attack(targetHero);
+        archer.beginCombat(targetHero);
         assertEquals(50, targetHero.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
 
         //attack out of range(outer range)
         getTargetAlpaca().moveTo(field.getCell(0, 1));
         targetHero.moveTo(field.getCell(2,2));
-        archer.attack(targetHero);
+        archer.beginCombat(targetHero);
         assertEquals(50, targetHero.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
     }
 
     @Override
     @Test
-    public void testAttackTargetSwordMaster() {
+    public void testCombatTargetSwordMaster() {
         archer.addToInventory(bow);
         bow.equipTo(archer);
 
@@ -221,14 +220,14 @@ public class ArcherTest extends AbstractTestUnit {
         //attack in range - counter attack is done
         targetSwordMaster.moveTo(getField().getCell(0, 2));
         assertEquals(100, targetSwordMaster.getCurrentHitPoints());
-        archer.attack(targetSwordMaster);
+        archer.beginCombat(targetSwordMaster);
         assertEquals(75, targetSwordMaster.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
 
         //attack in range - no counter attack
         targetFighter.moveTo(getField().getCell(0, 1));
         targetSwordMaster.moveTo(getField().getCell(1,2));
-        archer.attack(targetSwordMaster);
+        archer.beginCombat(targetSwordMaster);
         assertEquals(50, targetSwordMaster.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
 
@@ -236,20 +235,54 @@ public class ArcherTest extends AbstractTestUnit {
         targetSwordMaster.moveTo(getField().getCell(0, 2));
         targetFighter.moveTo(getField().getCell(1, 2));
         targetSwordMaster.moveTo(getField().getCell(0,1));
-        archer.attack(targetSwordMaster);
+        archer.beginCombat(targetSwordMaster);
         assertEquals(50, targetSwordMaster.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
 
         //attack out of range(outer range)
         getTargetAlpaca().moveTo(field.getCell(0, 1));
         targetSwordMaster.moveTo(field.getCell(2,2));
-        archer.attack(targetSwordMaster);
+        archer.beginCombat(targetSwordMaster);
         assertEquals(50, targetSwordMaster.getCurrentHitPoints());
         assertEquals(75, archer.getCurrentHitPoints());
     }
 
     @Override
-    public void testAttackTargetSorcerer() {
+    @Test
+    public void testCombatTargetSorcerer() {
+        archer.addToInventory(bow);
+        bow.equipTo(archer);
 
+        targetSorcerer.addToInventory(animaMagicBook);
+        targetSorcerer.equip(animaMagicBook);
+
+        //attack in range - counter attack is done
+        targetSorcerer.moveTo(getField().getCell(0, 2));
+        assertEquals(100, targetSorcerer.getCurrentHitPoints());
+        archer.beginCombat(targetSorcerer);
+        assertEquals(62, targetSorcerer.getCurrentHitPoints());
+        assertEquals(62, archer.getCurrentHitPoints());
+
+        //attack in range - no counter attack
+        targetFighter.moveTo(getField().getCell(0, 1));
+        targetSorcerer.moveTo(getField().getCell(1,2));
+        archer.beginCombat(targetSorcerer);
+        assertEquals(24, targetSorcerer.getCurrentHitPoints());
+        assertEquals(62, archer.getCurrentHitPoints());
+
+        //attack out of range (inner range)
+        targetSorcerer.moveTo(getField().getCell(0, 2));
+        targetFighter.moveTo(getField().getCell(1, 2));
+        targetSorcerer.moveTo(getField().getCell(0,1));
+        archer.beginCombat(targetSorcerer);
+        assertEquals(24, targetSorcerer.getCurrentHitPoints());
+        assertEquals(62, archer.getCurrentHitPoints());
+
+        //attack out of range(outer range)
+        getTargetAlpaca().moveTo(field.getCell(0, 1));
+        targetSorcerer.moveTo(field.getCell(2,2));
+        archer.beginCombat(targetSorcerer);
+        assertEquals(24, targetSorcerer.getCurrentHitPoints());
+        assertEquals(62, archer.getCurrentHitPoints());
     }
 }

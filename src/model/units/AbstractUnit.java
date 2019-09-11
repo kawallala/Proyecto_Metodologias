@@ -123,6 +123,16 @@ public abstract class AbstractUnit implements IUnit {
     }
 
     @Override
+    public void attackedByMagicOffensiveItem(IMagicOffensiveItem magicOffensiveItem) {
+        if(equippedItem == null){
+            normalDamage(magicOffensiveItem.getPower());
+        }
+        else {
+            equippedItem.ownerAttackedByMagicOffensiveItem(magicOffensiveItem);
+        }
+    }
+
+    @Override
     public void equipAxe(Axe axe) {
         //purposely left empty :c
     }
@@ -149,21 +159,11 @@ public abstract class AbstractUnit implements IUnit {
 
     @Override
     public void equipMagicOffensiveItem(AbstractMagicOffensiveItem magicOffensiveItem) {
-        //purposely left empty
+        //purposely left empty :c
     }
 
     @Override
-    public void attackedByMagicOffensiveItem(IMagicOffensiveItem magicOffensiveItem) {
-        if(equippedItem == null){
-            normalDamage(magicOffensiveItem.getPower());
-        }
-        else {
-            equippedItem.ownerAttackedByMagicOffensiveItem(magicOffensiveItem);
-        }
-    }
-
-    @Override
-    public void attack(IUnit targetUnit) {
+    public void beginCombat(IUnit targetUnit) {
         double distance = this.getLocation().distanceTo(targetUnit.getLocation());
         if(getEquippedItem() != null &&
                 getEquippedItem().getMinRange()<= distance &&
@@ -187,17 +187,17 @@ public abstract class AbstractUnit implements IUnit {
 
     @Override
     public void normalDamage(int damage) {
-        currentHitPoints = max(0, currentHitPoints-damage);
+        currentHitPoints = currentHitPoints> damage ?currentHitPoints- damage :0;
     }
 
     @Override
     public void strongDamage(int damage) {
-        currentHitPoints = (int) max(0, currentHitPoints-damage*1.5);
+        currentHitPoints = (int) max(0, currentHitPoints- damage *1.5);
     }
 
     @Override
     public void weakDamage(int damage) {
-        currentHitPoints = max(0, currentHitPoints - (damage>20?(damage-20):0));
+        currentHitPoints = max(0, currentHitPoints - (damage >20?(damage -20):0));
     }
 
     @Override

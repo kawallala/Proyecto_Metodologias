@@ -38,7 +38,7 @@ public class AlpacaTest extends AbstractTestUnit {
 
         targetAlpaca.moveTo(getField().getCell(0,1));
         assertEquals(100, targetAlpaca.getCurrentHitPoints());
-        alpaca.attack(targetAlpaca);
+        alpaca.beginCombat(targetAlpaca);
         assertEquals(100, targetAlpaca.getCurrentHitPoints());
         assertEquals(0, alpaca.getCurrentHitPoints());
     }
@@ -49,20 +49,19 @@ public class AlpacaTest extends AbstractTestUnit {
 
         targetUnit.moveTo(getField().getCell(0,1));
         assertEquals(100, targetUnit.getCurrentHitPoints());
-        alpaca.attack(targetUnit);
+        alpaca.beginCombat(targetUnit);
         assertEquals(100, targetUnit.getCurrentHitPoints());
         assertEquals(100, alpaca.getCurrentHitPoints());
     }
-    //TODO estos test no pueden quedar vacios, baja el coverage
     /**
      * Test does nothing since the ALpaca cannot attack
      */
     @Override
     @Test
-    public void testAttackTargetAlpaca() {
+    public void testCombatTargetAlpaca() {
         targetAlpaca.moveTo(getField().getCell(0,1));
         assertEquals(100, targetAlpaca.getCurrentHitPoints());
-        alpaca.attack(targetAlpaca);
+        alpaca.beginCombat(targetAlpaca);
         assertEquals(100, targetAlpaca.getCurrentHitPoints());
         assertEquals(100, alpaca.getCurrentHitPoints());
     }
@@ -72,7 +71,7 @@ public class AlpacaTest extends AbstractTestUnit {
      */
     @Test
     @Override
-    public void testAttackTargetArcher() {
+    public void testCombatTargetArcher() {
         nulldamageAlpaca(targetArcher, bow);
     }
 
@@ -81,7 +80,7 @@ public class AlpacaTest extends AbstractTestUnit {
      */
     @Test
     @Override
-    public void testAttackTargetCleric() {
+    public void testCombatTargetCleric() {
         nulldamageAlpaca(targetCleric, staff);
     }
 
@@ -90,7 +89,7 @@ public class AlpacaTest extends AbstractTestUnit {
      */
     @Test
     @Override
-    public void testAttackTargetFighter() {
+    public void testCombatTargetFighter() {
         nulldamageAlpaca(targetFighter, axe);
     }
 
@@ -99,7 +98,7 @@ public class AlpacaTest extends AbstractTestUnit {
      */
     @Test
     @Override
-    public void testAttackTargetHero() {
+    public void testCombatTargetHero() {
         nulldamageAlpaca(targetHero, spear);
     }
 
@@ -108,12 +107,13 @@ public class AlpacaTest extends AbstractTestUnit {
      */
     @Override
     @Test
-    public void testAttackTargetSwordMaster() {
+    public void testCombatTargetSwordMaster() {
         nulldamageAlpaca(targetSwordMaster, sword);
     }
 
     @Override
-    public void testAttackTargetSorcerer() {
-
+    @Test
+    public void testCombatTargetSorcerer() {
+        nulldamageAlpaca(targetSorcerer,animaMagicBook);
     }
 }

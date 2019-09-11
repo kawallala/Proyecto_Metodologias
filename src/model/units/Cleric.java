@@ -41,4 +41,17 @@ public class Cleric extends AbstractUnit {
         }
     }
 
+    /**
+     * @param targetUnit the target unit of the combat
+     */
+    @Override
+    public void beginCombat(IUnit targetUnit) {
+            double distance = this.getLocation().distanceTo(targetUnit.getLocation());
+            if(getEquippedItem() != null &&
+                    getEquippedItem().getMinRange()<= distance &&
+                    getEquippedItem().getMaxRange()>= distance &&
+                    this.getCurrentHitPoints() >= 1) {
+                this.getEquippedItem().use(targetUnit);
+            }
+    }
 }

@@ -2,6 +2,10 @@ package model.units;
 
 import model.items.*;
 import model.items.healing.Staff;
+import model.items.offensive.magic.AnimaMagicBook;
+import model.items.offensive.magic.DarkMagicBook;
+import model.items.offensive.magic.IMagicOffensiveItem;
+import model.items.offensive.magic.LightMagicBook;
 import model.items.offensive.physical.Axe;
 import model.items.offensive.physical.Bow;
 import model.items.offensive.physical.Spear;
@@ -27,13 +31,16 @@ public abstract class AbstractTestUnit implements ITestUnit {
     protected Fighter targetFighter;
     protected Hero targetHero;
     protected SwordMaster targetSwordMaster;
+    protected Sorcerer targetSorcerer;
 
     protected Bow bow;
     protected Axe axe;
     protected Sword sword;
     protected Staff staff;
     protected Spear spear;
-
+    protected AnimaMagicBook animaMagicBook;
+    protected DarkMagicBook darkMagicBook;
+    protected LightMagicBook lightMagicBook;
 
     @Override
     public void setField() {
@@ -53,7 +60,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
         targetFighter = new Fighter(100, 9, getField().getCell(1, 2));
         targetHero = new Hero(100, 9, getField().getCell(1, 1));
         targetSwordMaster = new SwordMaster(100, 9, getField().getCell(1, 0));
-
+        targetSorcerer = new Sorcerer(100,9,getField().getCell(1,3));
     }
 
     @Override
@@ -63,6 +70,9 @@ public abstract class AbstractTestUnit implements ITestUnit {
         this.spear = new Spear("Spear", 25, 1, 2);
         this.staff = new Staff("Staff", 25, 1, 2);
         this.bow = new Bow("Bow", 25, 2, 3);
+        this.animaMagicBook = new AnimaMagicBook("Anima magic book",25,1,2);
+        this.darkMagicBook = new DarkMagicBook("Dark magic book",25,1,2);
+        this.lightMagicBook = new LightMagicBook("Light magic book",25,1,2);
     }
 
     @BeforeEach
@@ -95,7 +105,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
         targetAlpaca.moveTo(getField().getCell(0,1));
         assertEquals(100, targetAlpaca.getCurrentHitPoints());
-        getTestUnit().attack(targetAlpaca);
+        getTestUnit().beginCombat(targetAlpaca);
         assertEquals(100, targetAlpaca.getCurrentHitPoints());
         assertEquals(0, getTestUnit().getCurrentHitPoints());
     }
@@ -179,6 +189,17 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
     @Override
     @Test
+    public void equipIMagicOffensiveItem(){
+        assertNull(getTestUnit().getEquippedItem());
+        checkItemNotEquipped(animaMagicBook);
+        assertNull(getTestUnit().getEquippedItem());
+        checkItemNotEquipped(darkMagicBook);
+        assertNull(getTestUnit().getEquippedItem());
+        checkItemNotEquipped(lightMagicBook);
+    }
+
+    @Override
+    @Test
     public void testMovement() {
         getTestUnit().moveTo(getField().getCell(2, 2));
         assertEquals(getField().getCell(0, 0), getTestUnit().getLocation());
@@ -224,26 +245,26 @@ public abstract class AbstractTestUnit implements ITestUnit {
 
     @Override
     @Test
-    public void testAttackTargetAlpaca() {
+    public void testCombatTargetAlpaca() {
         getTestUnit().addToInventory(getCorrespondingWeapon());
         getCorrespondingWeapon().equipTo(getTestUnit());
 
         // in range - Alpaca
         targetAlpaca.moveTo(getField().getCell(0, 1));
         assertEquals(100, targetAlpaca.getCurrentHitPoints());
-        getTestUnit().attack(targetAlpaca);
+        getTestUnit().beginCombat(targetAlpaca);
         assertEquals(75, targetAlpaca.getCurrentHitPoints());
         assertEquals(100, getTestUnit().getCurrentHitPoints());
 
         //out of range - Alpaca
         targetAlpaca.moveTo(getField().getCell(2, 2));
-        getTestUnit().attack(targetAlpaca);
+        getTestUnit().beginCombat(targetAlpaca);
         assertEquals(75, targetAlpaca.getCurrentHitPoints());
     }
 
     @Override
     @Test
-    public void testAttackTargetArcher() {
+    public void testCombatTargetArcher() {
         getTestUnit().addToInventory(getCorrespondingWeapon());
         getCorrespondingWeapon().equipTo(getTestUnit());
 
@@ -253,27 +274,27 @@ public abstract class AbstractTestUnit implements ITestUnit {
         //in range, no counter attack
         targetArcher.moveTo(field.getCell(0, 1));
         assertEquals(100, targetArcher.getCurrentHitPoints());
-        getTestUnit().attack(targetArcher);
+        getTestUnit().beginCombat(targetArcher);
         assertEquals(75, targetArcher.getCurrentHitPoints());
         assertEquals(100, getTestUnit().getCurrentHitPoints());
 
         //in range
         targetArcher.moveTo(field.getCell(0, 2));
-        getTestUnit().attack(targetArcher);
+        getTestUnit().beginCombat(targetArcher);
         assertEquals(50, targetArcher.getCurrentHitPoints());
         assertEquals(75, getTestUnit().getCurrentHitPoints());
 
         //out of range
         targetAlpaca.moveTo(field.getCell(0, 1));
         targetArcher.moveTo(field.getCell(2, 2));
-        getTestUnit().attack(targetArcher);
+        getTestUnit().beginCombat(targetArcher);
         assertEquals(50, targetArcher.getCurrentHitPoints());
         assertEquals(75, getTestUnit().getCurrentHitPoints());
     }
 
     @Override
     @Test
-    public void testAttackTargetCleric() {
+    public void testCombatTargetCleric() {
         getTestUnit().addToInventory(getCorrespondingWeapon());
         getCorrespondingWeapon().equipTo(getTestUnit());
 
@@ -283,14 +304,14 @@ public abstract class AbstractTestUnit implements ITestUnit {
         //in range
         targetCleric.moveTo(field.getCell(0, 1));
         assertEquals(100, targetCleric.getCurrentHitPoints());
-        getTestUnit().attack(targetCleric);
+        getTestUnit().beginCombat(targetCleric);
         assertEquals(75, targetCleric.getCurrentHitPoints());
         assertEquals(100, getTestUnit().getCurrentHitPoints());
 
         //out of range
         targetAlpaca.moveTo(field.getCell(0, 2));
         targetCleric.moveTo(field.getCell(2, 2));
-        getTestUnit().attack(targetCleric);
+        getTestUnit().beginCombat(targetCleric);
         assertEquals(75, targetCleric.getCurrentHitPoints());
         assertEquals(100, getTestUnit().getCurrentHitPoints());
     }

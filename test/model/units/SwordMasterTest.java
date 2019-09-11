@@ -19,7 +19,7 @@ public class SwordMasterTest extends AbstractTestUnit {
      */
     @Override
     public void setTestUnit() {
-        swordMaster = new SwordMaster(50, 2, field.getCell(0, 0));
+        swordMaster = new SwordMaster(100, 2, field.getCell(0, 0));
     }
 
     /**
@@ -46,7 +46,7 @@ public class SwordMasterTest extends AbstractTestUnit {
 
     @Test
     @Override
-    public void testAttackTargetFighter() {
+    public void testCombatTargetFighter() {
         swordMaster.addToInventory(sword);
         sword.equipTo(swordMaster);
 
@@ -55,21 +55,21 @@ public class SwordMasterTest extends AbstractTestUnit {
 
         //in range
         targetFighter.moveTo(field.getCell(0, 1));
-        assertEquals(50, targetFighter.getCurrentHitPoints());
-        swordMaster.attack(targetFighter);
-        assertEquals(35, targetFighter.getCurrentHitPoints());
-        assertEquals(50, swordMaster.getCurrentHitPoints());
+        assertEquals(100, targetFighter.getCurrentHitPoints());
+        swordMaster.beginCombat(targetFighter);
+        assertEquals(62, targetFighter.getCurrentHitPoints());
+        assertEquals(95, swordMaster.getCurrentHitPoints());
 
         //out of range
         targetAlpaca.moveTo(field.getCell(0,2));
         targetFighter.moveTo(field.getCell(2, 2));
-        swordMaster.attack(targetFighter);
-        assertEquals(35, targetFighter.getCurrentHitPoints());
-        assertEquals(50, swordMaster.getCurrentHitPoints());
+        swordMaster.beginCombat(targetFighter);
+        assertEquals(62, targetFighter.getCurrentHitPoints());
+        assertEquals(95, swordMaster.getCurrentHitPoints());
     }
     @Test
     @Override
-    public void testAttackTargetHero() {
+    public void testCombatTargetHero() {
         swordMaster.addToInventory(sword);
         sword.equipTo(swordMaster);
 
@@ -78,45 +78,45 @@ public class SwordMasterTest extends AbstractTestUnit {
 
         //in range
         targetHero.moveTo(field.getCell(0, 1));
-        assertEquals(50, targetHero.getCurrentHitPoints());
-        swordMaster.attack(targetHero);
-        assertEquals(50, targetHero.getCurrentHitPoints());
-        assertEquals(35, swordMaster.getCurrentHitPoints());
+        assertEquals(100, targetHero.getCurrentHitPoints());
+        swordMaster.beginCombat(targetHero);
+        assertEquals(95, targetHero.getCurrentHitPoints());
+        assertEquals(62, swordMaster.getCurrentHitPoints());
 
         //out of range
         targetAlpaca.moveTo(field.getCell(0,2));
         targetHero.moveTo(field.getCell(2, 2));
-        swordMaster.attack(targetHero);
-        assertEquals(50, targetHero.getCurrentHitPoints());
-        assertEquals(35, swordMaster.getCurrentHitPoints());
+        swordMaster.beginCombat(targetHero);
+        assertEquals(95, targetHero.getCurrentHitPoints());
+        assertEquals(62, swordMaster.getCurrentHitPoints());
     }
 
     @Override
     @Test
-    public void testAttackTargetSwordMaster() {
+    public void testCombatTargetSwordMaster() {
         swordMaster.addToInventory(sword);
         sword.equipTo(swordMaster);
-        Sword secondSword = new Sword("second sword", 10, 1, 2);
+        Sword secondSword = new Sword("second sword", 25, 1, 2);
         targetSwordMaster.addToInventory(secondSword);
         secondSword.equipTo(targetSwordMaster);
 
         //in range
         targetSwordMaster.moveTo(field.getCell(0, 1));
-        assertEquals(50, targetSwordMaster.getCurrentHitPoints());
-        swordMaster.attack(targetSwordMaster);
-        assertEquals(40, targetSwordMaster.getCurrentHitPoints());
-        assertEquals(40, swordMaster.getCurrentHitPoints());
+        assertEquals(100, targetSwordMaster.getCurrentHitPoints());
+        swordMaster.beginCombat(targetSwordMaster);
+        assertEquals(75, targetSwordMaster.getCurrentHitPoints());
+        assertEquals(75, swordMaster.getCurrentHitPoints());
 
         //out of range
         targetAlpaca.moveTo(field.getCell(0,2));
         targetSwordMaster.moveTo(field.getCell(2, 2));
-        swordMaster.attack(targetSwordMaster);
-        assertEquals(40, targetSwordMaster.getCurrentHitPoints());
-        assertEquals(40, swordMaster.getCurrentHitPoints());
+        swordMaster.beginCombat(targetSwordMaster);
+        assertEquals(75, targetSwordMaster.getCurrentHitPoints());
+        assertEquals(75, swordMaster.getCurrentHitPoints());
     }
 
     @Override
-    public void testAttackTargetSorcerer() {
+    public void testCombatTargetSorcerer() {
 
     }
 }

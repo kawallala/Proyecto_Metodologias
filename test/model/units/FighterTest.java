@@ -49,7 +49,7 @@ public class FighterTest extends AbstractTestUnit {
     }
     @Test
     @Override
-    public void testAttackTargetFighter() {
+    public void testCombatTargetFighter() {
         fighter.addToInventory(axe);
         fighter.equip(axe);
 
@@ -60,20 +60,20 @@ public class FighterTest extends AbstractTestUnit {
         //in range
         targetFighter.moveTo(field.getCell(0, 1));
         assertEquals(100, targetFighter.getCurrentHitPoints());
-        fighter.attack(targetFighter);
+        fighter.beginCombat(targetFighter);
         assertEquals(75, targetFighter.getCurrentHitPoints());
         assertEquals(75, fighter.getCurrentHitPoints());
 
         //out of range
         targetAlpaca.moveTo(field.getCell(0,2));
         targetFighter.moveTo(field.getCell(2, 2));
-        fighter.attack(targetFighter);
+        fighter.beginCombat(targetFighter);
         assertEquals(75, targetFighter.getCurrentHitPoints());
         assertEquals(75, fighter.getCurrentHitPoints());
     }
     @Test
     @Override
-    public void testAttackTargetHero() {
+    public void testCombatTargetHero() {
         fighter.addToInventory(axe);
         axe.equipTo(fighter);
 
@@ -83,21 +83,21 @@ public class FighterTest extends AbstractTestUnit {
         //in range
         targetHero.moveTo(field.getCell(0, 1));
         assertEquals(100, targetHero.getCurrentHitPoints());
-        fighter.attack(targetHero);
+        fighter.beginCombat(targetHero);
         assertEquals(62, targetHero.getCurrentHitPoints());
         assertEquals(95, fighter.getCurrentHitPoints());
 
         //out of range
         targetAlpaca.moveTo(field.getCell(0,2));
         targetHero.moveTo(field.getCell(2, 2));
-        fighter.attack(targetHero);
+        fighter.beginCombat(targetHero);
         assertEquals(62, targetHero.getCurrentHitPoints());
         assertEquals(95, fighter.getCurrentHitPoints());
     }
 
     @Override
     @Test
-    public void testAttackTargetSwordMaster() {
+    public void testCombatTargetSwordMaster() {
         fighter.addToInventory(axe);
         axe.equipTo(fighter);
 
@@ -107,20 +107,20 @@ public class FighterTest extends AbstractTestUnit {
         //in range
         targetSwordMaster.moveTo(field.getCell(0, 1));
         assertEquals(100, targetSwordMaster.getCurrentHitPoints());
-        fighter.attack(targetSwordMaster);
+        fighter.beginCombat(targetSwordMaster);
         assertEquals(95, targetSwordMaster.getCurrentHitPoints());
         assertEquals(62, fighter.getCurrentHitPoints());
 
         //out of range
         targetAlpaca.moveTo(field.getCell(0,2));
         targetSwordMaster.moveTo(field.getCell(2, 2));
-        fighter.attack(targetSwordMaster);
+        fighter.beginCombat(targetSwordMaster);
         assertEquals(95, targetSwordMaster.getCurrentHitPoints());
         assertEquals(62, fighter.getCurrentHitPoints());
     }
 
     @Override
-    public void testAttackTargetSorcerer() {
+    public void testCombatTargetSorcerer() {
 
     }
 }

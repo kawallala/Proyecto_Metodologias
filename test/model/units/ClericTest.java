@@ -34,17 +34,18 @@ public class ClericTest extends AbstractTestUnit {
         return staff;
     }
 
-    private void nulldamageCleric(IUnit targetUnit, IEquipableItem targetItem){
+    private void healCleric(IUnit targetUnit, IEquipableItem targetItem){
         targetUnit.addToInventory(targetItem);
         targetItem.equipTo(targetUnit);
+        targetUnit.normalDamage(95);
 
         cleric.addToInventory(staff);
         staff.equipTo(cleric);
 
         targetUnit.moveTo(getField().getCell(0,1));
-        assertEquals(100, targetUnit.getCurrentHitPoints());
-        cleric.attack(targetUnit);
-        assertEquals(100, targetUnit.getCurrentHitPoints());
+        assertEquals(5, targetUnit.getCurrentHitPoints());
+        cleric.beginCombat(targetUnit);
+        assertEquals(30, targetUnit.getCurrentHitPoints());
         assertEquals(100, cleric.getCurrentHitPoints());
     }
 
@@ -62,14 +63,14 @@ public class ClericTest extends AbstractTestUnit {
      */
     @Test
     @Override
-    public void testAttackTargetAlpaca() {
+    public void testCombatTargetAlpaca() {
         cleric.addToInventory(staff);
         staff.equipTo(cleric);
-
+        targetAlpaca.normalDamage(95);
         targetAlpaca.moveTo(getField().getCell(0,1));
-        assertEquals(100, targetAlpaca.getCurrentHitPoints());
-        cleric.attack(targetAlpaca);
-        assertEquals(100, targetAlpaca.getCurrentHitPoints());
+        assertEquals(5, targetAlpaca.getCurrentHitPoints());
+        cleric.beginCombat(targetAlpaca);
+        assertEquals(30, targetAlpaca.getCurrentHitPoints());
         assertEquals(100, cleric.getCurrentHitPoints());
     }
 
@@ -78,8 +79,8 @@ public class ClericTest extends AbstractTestUnit {
      */
     @Test
     @Override
-    public void testAttackTargetArcher() {
-        nulldamageCleric(targetArcher,bow);
+    public void testCombatTargetArcher() {
+        healCleric(targetArcher,bow);
     }
 
     /**
@@ -87,33 +88,37 @@ public class ClericTest extends AbstractTestUnit {
      */
     @Test
     @Override
-    public void testAttackTargetCleric() {
-        nulldamageCleric(targetCleric,new Staff("second staff", 25,1,2));
+    public void testCombatTargetCleric() {
+        healCleric(targetCleric, new Staff("second staff", 25,1,2));
     }
 
     /**
      * Test does nothing since the Cleric cannot attack
      */
     @Override
-    public void testAttackTargetFighter() {
-        nulldamageCleric(targetFighter,axe);
+    @Test
+    public void testCombatTargetFighter() {
+        healCleric(targetFighter,axe);
     }
 
     @Override
-    public void testAttackTargetHero() {
-        nulldamageCleric(targetHero,spear);
+    @Test
+    public void testCombatTargetHero() {
+        healCleric(targetHero,spear);
     }
 
     /**
      * Test does nothing since the Cleric cannot attack
      */
     @Override
-    public void testAttackTargetSwordMaster() {
-        nulldamageCleric(targetSwordMaster, sword);
+    @Test
+    public void testCombatTargetSwordMaster() {
+        healCleric(targetSwordMaster, sword);
     }
 
     @Override
-    public void testAttackTargetSorcerer() {
+    @Test
+    public void testCombatTargetSorcerer() { healCleric(targetSorcerer,animaMagicBook);
 
     }
 }

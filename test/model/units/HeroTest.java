@@ -48,7 +48,7 @@ public class HeroTest extends AbstractTestUnit {
 
     @Test
     @Override
-    public void testAttackTargetFighter() {
+    public void testCombatTargetFighter() {
         hero.addToInventory(spear);
         spear.equipTo(hero);
 
@@ -57,21 +57,21 @@ public class HeroTest extends AbstractTestUnit {
 
         //in range
         targetFighter.moveTo(field.getCell(0, 1));
-        assertEquals(50, targetFighter.getCurrentHitPoints());
-        hero.attack(targetFighter);
-        assertEquals(50, targetFighter.getCurrentHitPoints());
-        assertEquals(35, hero.getCurrentHitPoints());
+        assertEquals(100, targetFighter.getCurrentHitPoints());
+        hero.beginCombat(targetFighter);
+        assertEquals(95, targetFighter.getCurrentHitPoints());
+        assertEquals(62, hero.getCurrentHitPoints());
 
         //out of range
         targetAlpaca.moveTo(field.getCell(0,2));
         targetFighter.moveTo(field.getCell(2, 2));
-        hero.attack(targetFighter);
-        assertEquals(50, targetFighter.getCurrentHitPoints());
-        assertEquals(35, hero.getCurrentHitPoints());
+        hero.beginCombat(targetFighter);
+        assertEquals(95, targetFighter.getCurrentHitPoints());
+        assertEquals(62, hero.getCurrentHitPoints());
     }
     @Test
     @Override
-    public void testAttackTargetHero() {
+    public void testCombatTargetHero() {
         hero.addToInventory(spear);
         spear.equipTo(hero);
         Spear secondspear = new Spear("second spear", 25, 1, 2);
@@ -81,21 +81,21 @@ public class HeroTest extends AbstractTestUnit {
         //in range
         targetHero.moveTo(field.getCell(0, 1));
         assertEquals(100, targetHero.getCurrentHitPoints());
-        hero.attack(targetHero);
+        hero.beginCombat(targetHero);
         assertEquals(75, targetHero.getCurrentHitPoints());
         assertEquals(75, hero.getCurrentHitPoints());
 
         //out of range
         targetAlpaca.moveTo(field.getCell(0,2));
         targetHero.moveTo(field.getCell(2, 2));
-        hero.attack(targetHero);
+        hero.beginCombat(targetHero);
         assertEquals(75, targetHero.getCurrentHitPoints());
         assertEquals(75, hero.getCurrentHitPoints());
     }
 
     @Override
     @Test
-    public void testAttackTargetSwordMaster() {
+    public void testCombatTargetSwordMaster() {
         hero.addToInventory(spear);
         spear.equipTo(hero);
 
@@ -104,21 +104,21 @@ public class HeroTest extends AbstractTestUnit {
 
         //in range
         targetSwordMaster.moveTo(field.getCell(0, 1));
-        assertEquals(50, targetSwordMaster.getCurrentHitPoints());
-        hero.attack(targetSwordMaster);
-        assertEquals(35, targetSwordMaster.getCurrentHitPoints());
-        assertEquals(50, hero.getCurrentHitPoints());
+        assertEquals(100, targetSwordMaster.getCurrentHitPoints());
+        hero.beginCombat(targetSwordMaster);
+        assertEquals(62, targetSwordMaster.getCurrentHitPoints());
+        assertEquals(95, hero.getCurrentHitPoints());
 
         //out of range
         targetAlpaca.moveTo(field.getCell(0,2));
         targetSwordMaster.moveTo(field.getCell(2, 2));
-        hero.attack(targetSwordMaster);
-        assertEquals(35, targetSwordMaster.getCurrentHitPoints());
-        assertEquals(50, hero.getCurrentHitPoints());
+        hero.beginCombat(targetSwordMaster);
+        assertEquals(62, targetSwordMaster.getCurrentHitPoints());
+        assertEquals(95, hero.getCurrentHitPoints());
     }
 
     @Override
-    public void testAttackTargetSorcerer() {
+    public void testCombatTargetSorcerer() {
 
     }
 }

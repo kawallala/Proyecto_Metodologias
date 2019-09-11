@@ -19,4 +19,5 @@ public abstract class AbstractOffensiveItem extends AbstractItem implements IOff
     public AbstractOffensiveItem(String name, int power, int minRange, int maxRange) {
         super(name, power, minRange, maxRange);
     }
+
 }

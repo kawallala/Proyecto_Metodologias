@@ -30,7 +30,7 @@ public class Alpaca extends AbstractUnit {
 
 
     @Override
-    public void attack(IUnit targetUnit) {
+    public void beginCombat(IUnit targetUnit) {
 
     }
 

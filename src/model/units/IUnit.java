@@ -142,7 +142,7 @@ public interface IUnit {
      * <p>
      * If the other unit is outside of this unit's range, the unit does not attack
      */
-    void attack(IUnit targetUnit);
+    void beginCombat(IUnit targetUnit);
 
     /**
      * Makes a counter attack to the target unit

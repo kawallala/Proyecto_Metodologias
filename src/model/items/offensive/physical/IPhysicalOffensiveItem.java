@@ -21,9 +21,16 @@ public interface IPhysicalOffensiveItem extends IOffensiveItem {
     void defendedByAxe(Axe axe);
 
     /**
-     * @param spear the
+     * Calculates the damage after being blocked by a Spear
+     *
+     * @param spear the Spear that's being used for defense
      */
     void defendedBySpear(Spear spear);
 
+    /**
+     * Calculates the damage after being blocked by a Sword
+     *
+     * @param sword the Sword that's being used for defense
+     */
     void defendedBySword(Sword sword);
 }

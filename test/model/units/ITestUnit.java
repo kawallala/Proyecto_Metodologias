@@ -111,6 +111,9 @@ public interface ITestUnit {
      */
     Bow getBow();
 
+    @Test
+    void equipIMagicOffensiveItem();
+
     /**
      * Checks if the unit moves correctly
      */
@@ -153,23 +156,23 @@ public interface ITestUnit {
     SwordMaster getTargetSwordMaster();
 
     @Test
-    void testAttackTargetAlpaca();
+    void testCombatTargetAlpaca();
 
     @Test
-    void testAttackTargetArcher();
+    void testCombatTargetArcher();
 
     @Test
-    void testAttackTargetCleric();
+    void testCombatTargetCleric();
 
     @Test
-    void testAttackTargetFighter();
+    void testCombatTargetFighter();
 
     @Test
-    void testAttackTargetHero();
+    void testCombatTargetHero();
 
     @Test
-    void testAttackTargetSwordMaster();
+    void testCombatTargetSwordMaster();
 
     @Test
-    void testAttackTargetSorcerer();
+    void testCombatTargetSorcerer();
 }
