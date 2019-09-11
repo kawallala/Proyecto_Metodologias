@@ -175,4 +175,9 @@ public interface ITestUnit {
 
     @Test
     void testCombatTargetSorcerer();
+
+    @Test
+    void testInventoryLimit();
+    @Test
+    void testExchangeItems();
 }

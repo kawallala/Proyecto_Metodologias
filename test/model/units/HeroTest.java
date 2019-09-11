@@ -50,10 +50,10 @@ public class HeroTest extends AbstractTestUnit {
     @Override
     public void testCombatTargetFighter() {
         hero.addToInventory(spear);
-        spear.equipTo(hero);
+        hero.equip(spear);
 
         targetFighter.addToInventory(axe);
-        axe.equipTo(targetFighter);
+        targetFighter.equip(axe);
 
         //in range
         targetFighter.moveTo(field.getCell(0, 1));
@@ -73,10 +73,11 @@ public class HeroTest extends AbstractTestUnit {
     @Override
     public void testCombatTargetHero() {
         hero.addToInventory(spear);
-        spear.equipTo(hero);
-        Spear secondspear = new Spear("second spear", 25, 1, 2);
-        targetHero.addToInventory(secondspear);
-        secondspear.equipTo(targetHero);
+        hero.equip(spear);
+
+        Spear secondSpear = new Spear("second spear", 25, 1, 2);
+        targetHero.addToInventory(secondSpear);
+        targetHero.equip(secondSpear);
 
         //in range
         targetHero.moveTo(field.getCell(0, 1));
@@ -97,10 +98,10 @@ public class HeroTest extends AbstractTestUnit {
     @Test
     public void testCombatTargetSwordMaster() {
         hero.addToInventory(spear);
-        spear.equipTo(hero);
+        hero.equip(spear);
 
         targetSwordMaster.addToInventory(sword);
-        sword.equipTo(targetSwordMaster);
+        targetSwordMaster.equip(sword);
 
         //in range
         targetSwordMaster.moveTo(field.getCell(0, 1));
@@ -118,7 +119,26 @@ public class HeroTest extends AbstractTestUnit {
     }
 
     @Override
+    @Test
     public void testCombatTargetSorcerer() {
+        hero.addToInventory(spear);
+        hero.equip(spear);
 
+        targetSorcerer.addToInventory(animaMagicBook);
+        targetSorcerer.equip(animaMagicBook);
+
+        //in range
+        targetSorcerer.moveTo(field.getCell(0, 1));
+        assertEquals(100, targetSorcerer.getCurrentHitPoints());
+        hero.beginCombat(targetSorcerer);
+        assertEquals(62, targetSorcerer.getCurrentHitPoints());
+        assertEquals(62, hero.getCurrentHitPoints());
+
+        //out of range
+        targetAlpaca.moveTo(field.getCell(0,2));
+        targetSorcerer.moveTo(field.getCell(2, 2));
+        hero.beginCombat(targetSorcerer);
+        assertEquals(62, targetSorcerer.getCurrentHitPoints());
+        assertEquals(62, hero.getCurrentHitPoints());
     }
 }

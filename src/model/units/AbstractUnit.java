@@ -1,17 +1,18 @@
 package model.units;
 
+import model.items.IEquipableItem;
+import model.items.healing.Staff;
+import model.items.offensive.magic.AbstractMagicOffensiveItem;
+import model.items.offensive.magic.IMagicOffensiveItem;
+import model.items.offensive.physical.*;
+import model.map.Location;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import model.items.*;
-import model.items.healing.Staff;
-import model.items.offensive.magic.IMagicOffensiveItem;
-import model.items.offensive.magic.AbstractMagicOffensiveItem;
-import model.items.offensive.physical.*;
-import model.map.Location;
-
-import static java.lang.Math.*;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 /**
  * This class represents an abstract unit.
@@ -26,11 +27,11 @@ import static java.lang.Math.*;
 public abstract class AbstractUnit implements IUnit {
 
     protected final List<IEquipableItem> items = new ArrayList<>();
-    private int currentHitPoints;
-    private int maximumHitPoints;
     private final int movement;
     private final int maxItems;
     protected IEquipableItem equippedItem;
+    private int currentHitPoints;
+    private int maximumHitPoints;
     private Location location;
 
     /**
@@ -49,11 +50,6 @@ public abstract class AbstractUnit implements IUnit {
         this.maxItems = maxItems;
         setLocation(location);
         this.items.addAll(Arrays.asList(items).subList(0, min(maxItems, items.length)));
-    }
-
-    @Override
-    public int getMaximumHitPoints() {
-        return this.maximumHitPoints;
     }
 
     @Override
@@ -107,7 +103,7 @@ public abstract class AbstractUnit implements IUnit {
 
     @Override
     public void unequip() {
-        if(equippedItem != null){
+        if (equippedItem != null) {
             equippedItem.setOwner(null);
             equippedItem = null;
         }
@@ -115,19 +111,18 @@ public abstract class AbstractUnit implements IUnit {
 
     @Override
     public void attackedByPhysicalOffensiveItem(IPhysicalOffensiveItem physicalOffensiveItem) {
-        if(getEquippedItem() == null){
+        if (getEquippedItem() == null) {
             normalDamage(physicalOffensiveItem.getPower());
-        }else {
+        } else {
             equippedItem.ownerAttackedByPhysicalOffensiveItem(physicalOffensiveItem);
         }
     }
 
     @Override
     public void attackedByMagicOffensiveItem(IMagicOffensiveItem magicOffensiveItem) {
-        if(equippedItem == null){
+        if (equippedItem == null) {
             normalDamage(magicOffensiveItem.getPower());
-        }
-        else {
+        } else {
             equippedItem.ownerAttackedByMagicOffensiveItem(magicOffensiveItem);
         }
     }
@@ -165,9 +160,9 @@ public abstract class AbstractUnit implements IUnit {
     @Override
     public void beginCombat(IUnit targetUnit) {
         double distance = this.getLocation().distanceTo(targetUnit.getLocation());
-        if(getEquippedItem() != null &&
-                getEquippedItem().getMinRange()<= distance &&
-                getEquippedItem().getMaxRange()>= distance &&
+        if (getEquippedItem() != null &&
+                getEquippedItem().getMinRange() <= distance &&
+                getEquippedItem().getMaxRange() >= distance &&
                 this.getCurrentHitPoints() >= 1) {
             this.getEquippedItem().use(targetUnit);
             targetUnit.counterAttack(this);
@@ -177,47 +172,51 @@ public abstract class AbstractUnit implements IUnit {
     @Override
     public void counterAttack(IUnit targetUnit) {
         double distance = this.getLocation().distanceTo(targetUnit.getLocation());
-        if(getEquippedItem() != null &&
-                getEquippedItem().getMinRange()<= distance &&
-                getEquippedItem().getMaxRange()>= distance &&
-                getCurrentHitPoints()>=1) {
+        if (getEquippedItem() != null &&
+                getEquippedItem().getMinRange() <= distance &&
+                getEquippedItem().getMaxRange() >= distance &&
+                getCurrentHitPoints() >= 1) {
             this.getEquippedItem().use(targetUnit);
         }
     }
 
     @Override
     public void normalDamage(int damage) {
-        currentHitPoints = currentHitPoints> damage ?currentHitPoints- damage :0;
+        currentHitPoints = currentHitPoints > damage ? currentHitPoints - damage : 0;
     }
 
     @Override
     public void strongDamage(int damage) {
-        currentHitPoints = (int) max(0, currentHitPoints- damage *1.5);
+        currentHitPoints = (int) max(0, currentHitPoints - damage * 1.5);
     }
 
     @Override
     public void weakDamage(int damage) {
-        currentHitPoints = max(0, currentHitPoints - (damage >20?(damage -20):0));
+        currentHitPoints = max(0, currentHitPoints - (damage > 20 ? (damage - 20) : 0));
     }
 
     @Override
     public void addToInventory(IEquipableItem item) {
-        if (this.items.size() < this.maxItems && !this.items.contains(item)){
+        if (this.items.size() < this.maxItems && !this.items.contains(item) && !item.itemInAnInventory()) {
             this.items.add(item);
+            item.addedToInventory();
         }
     }
 
     @Override
     public void removeFromInventory(IEquipableItem item) {
-        if(this.items.contains(item)){
+        if (this.items.contains(item)) {
             unequip();
             this.items.remove(item);
+            item.removedFromInventory();
         }
     }
 
     @Override
     public void giveItem(IEquipableItem item, IUnit receivingUnit) {
-        if(this.items.contains(item) && receivingUnit.getItems().size() < receivingUnit.getMaximumItems()){
+        if (this.items.contains(item) &&
+                receivingUnit.getItems().size() < receivingUnit.getMaximumItems() &&
+                this.location.distanceTo(receivingUnit.getLocation()) == 1) {
             removeFromInventory(item);
             receivingUnit.addToInventory(item);
         }
@@ -225,6 +224,6 @@ public abstract class AbstractUnit implements IUnit {
 
     @Override
     public void heal(int healingPower) {
-        this.currentHitPoints = min(maximumHitPoints, currentHitPoints+healingPower);
+        this.currentHitPoints = min(maximumHitPoints, currentHitPoints + healingPower);
     }
 }

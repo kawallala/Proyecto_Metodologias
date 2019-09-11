@@ -27,6 +27,14 @@ public class AlpacaTest extends AbstractTestUnit {
         return alpaca;
     }
 
+    /**
+     * Since the Alpaca does not have an Inventory limit, the test is irrelevant for the alpaca
+     */
+    @Override
+    public void testInventoryLimit() {
+
+    }
+
     @Override
     @Test
     public void deadUnitTest() {

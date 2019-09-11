@@ -15,6 +15,11 @@ import model.map.Location;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -118,6 +123,48 @@ public abstract class AbstractTestUnit implements ITestUnit {
     @Override
     public Field getField() {
         return field;
+    }
+
+    @Override
+    @Test
+    public void testInventoryLimit() {
+        assertEquals(new ArrayList<>(),getTestUnit().getItems());
+        getTestUnit().addToInventory(axe);
+        assertEquals(new ArrayList<>(Collections.singletonList(axe)),getTestUnit().getItems());
+        //we try to add the same item to the inventory
+        getTestUnit().addToInventory(axe);
+        assertEquals(new ArrayList<>(Collections.singletonList(axe)),getTestUnit().getItems());
+
+        //we fullfill the inventory and try to add another item
+        getTestUnit().addToInventory(bow);
+        getTestUnit().addToInventory(sword);
+        assertEquals(new ArrayList<>(Arrays.asList(axe,bow,sword)),getTestUnit().getItems());
+        getTestUnit().addToInventory(staff);
+        assertEquals(new ArrayList<>(Arrays.asList(axe,bow,sword)),getTestUnit().getItems());
+
+        targetAlpaca.addToInventory(animaMagicBook);
+        getTestUnit().removeFromInventory(bow);
+        getTestUnit().addToInventory(animaMagicBook);
+        assertEquals(new ArrayList<>(Arrays.asList(axe,sword)),getTestUnit().getItems());
+        assertEquals(new ArrayList<>(Collections.singletonList(animaMagicBook)),targetAlpaca.getItems());
+    }
+
+    @Override
+    @Test
+    public void testExchangeItems() {
+        assertEquals(new ArrayList<>(),getTestUnit().getItems());
+        targetAlpaca.addToInventory(axe);
+        targetAlpaca.addToInventory(sword);
+        targetAlpaca.addToInventory(bow);
+        targetAlpaca.moveTo(getField().getCell(0,1));
+
+        targetAlpaca.giveItem(axe,getTestUnit());
+        assertEquals(new ArrayList<>(Collections.singletonList(axe)),getTestUnit().getItems());
+        assertEquals(new ArrayList<>(Arrays.asList(sword,bow)),targetAlpaca.getItems());
+
+        getTestUnit().giveItem(sword,targetAlpaca);
+        assertEquals(new ArrayList<>(Collections.singletonList(axe)),getTestUnit().getItems());
+        assertEquals(new ArrayList<>(Arrays.asList(sword,bow)),targetAlpaca.getItems());
     }
 
     @Override

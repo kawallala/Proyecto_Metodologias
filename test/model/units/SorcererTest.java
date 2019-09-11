@@ -49,9 +49,64 @@ class SorcererTest extends AbstractTestUnit {
 
     @Override
     @Test
+    public void testCombatTargetArcher() {
+        getTestUnit().addToInventory(getCorrespondingWeapon());
+        getCorrespondingWeapon().equipTo(getTestUnit());
+
+        targetArcher.addToInventory(bow);
+        bow.equipTo(targetArcher);
+
+        //in range, no counter attack
+        targetArcher.moveTo(field.getCell(0, 1));
+        assertEquals(100, targetArcher.getCurrentHitPoints());
+        getTestUnit().beginCombat(targetArcher);
+        assertEquals(62, targetArcher.getCurrentHitPoints());
+        assertEquals(100, getTestUnit().getCurrentHitPoints());
+
+        //in range
+        targetArcher.moveTo(field.getCell(0, 2));
+        getTestUnit().beginCombat(targetArcher);
+        assertEquals(24, targetArcher.getCurrentHitPoints());
+        assertEquals(62, getTestUnit().getCurrentHitPoints());
+
+        //out of range
+        targetAlpaca.moveTo(field.getCell(0, 1));
+        targetArcher.moveTo(field.getCell(2, 2));
+        getTestUnit().beginCombat(targetArcher);
+        assertEquals(24, targetArcher.getCurrentHitPoints());
+        assertEquals(62, getTestUnit().getCurrentHitPoints());
+    }
+
+    @Override
+    @Test
+    public void testCombatTargetCleric() {
+        getTestUnit().addToInventory(getCorrespondingWeapon());
+        getCorrespondingWeapon().equipTo(getTestUnit());
+
+        targetCleric.addToInventory(staff);
+        staff.equipTo(targetCleric);
+
+        //in range
+        targetCleric.moveTo(field.getCell(0, 1));
+        assertEquals(100, targetCleric.getCurrentHitPoints());
+        getTestUnit().beginCombat(targetCleric);
+        assertEquals(62, targetCleric.getCurrentHitPoints());
+        assertEquals(100, getTestUnit().getCurrentHitPoints());
+
+        //out of range
+        targetAlpaca.moveTo(field.getCell(0, 2));
+        targetCleric.moveTo(field.getCell(2, 2));
+        getTestUnit().beginCombat(targetCleric);
+        assertEquals(62, targetCleric.getCurrentHitPoints());
+        assertEquals(100, getTestUnit().getCurrentHitPoints());
+    }
+
+    @Override
+    @Test
     public void testCombatTargetFighter() {
         sorcerer.addToInventory(animaMagicBook);
         sorcerer.equip(animaMagicBook);
+
         targetFighter.addToInventory(axe);
         targetFighter.equip(axe);
 
@@ -75,6 +130,7 @@ class SorcererTest extends AbstractTestUnit {
     public void testCombatTargetHero() {
         sorcerer.addToInventory(animaMagicBook);
         sorcerer.equip(animaMagicBook);
+
         targetHero.addToInventory(spear);
         targetHero.equip(spear);
 
@@ -98,6 +154,7 @@ class SorcererTest extends AbstractTestUnit {
     public void testCombatTargetSwordMaster() {
         sorcerer.addToInventory(animaMagicBook);
         sorcerer.equip(animaMagicBook);
+
         targetSwordMaster.addToInventory(sword);
         targetSwordMaster.equip(sword);
 

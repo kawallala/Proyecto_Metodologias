@@ -28,7 +28,9 @@ public interface IEquipableItem {
      * @param unit the unit that has equipped the item
      */
     void setOwner(IUnit unit);
-
+    boolean itemInAnInventory();
+    void addedToInventory();
+    void removedFromInventory();
     /**
      * @return the unit that has currently equipped this item
      */
