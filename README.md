@@ -1,8 +1,8 @@
 # Proyecto_Metodologias
 
 Project of the course Metodologias de diseño y programacion, that consists of the creation of the game Alpaca Emblem, based on a code template given by the teaching stafff, where the student is in charge of implementing the desired functionalities.
-<p>
-  For the implementation of the desired functiopnalities, specially in the combat interaccion, a wide use of Double Dispatch was made, where multiple interfaces where used for a quick and easy desambiguation of the interacting items.
+
+For the implementation of the desired functiopnalities, specially in the combat interaccion, a wide use of Double Dispatch was made, where multiple interfaces where used for a quick and easy desambiguation of the interacting items.
 
 For now the project does not have a way to be executed, however, every functionality of it was throughly tested
 
@@ -20,7 +20,9 @@ There are 2 sub-categories of Offensive Items
 
 #### Magic Offensive Items
 Magic Offensive Items attack units with magic, for now, they are made up of **Anima Magic Book, Light Magic Book** and **Dark Magic Book**
+
 Magic Offensive Items deal double damage to Physical Offensive Items
+
 Weaknesses are shown in the next table:
 
 | Item        | Weak against          | Strong against  |
@@ -31,7 +33,9 @@ Weaknesses are shown in the next table:
 
 #### Physical Offensive Items
 Physical Offensive Items attack units by hitting them, for now, they are made up of **Axe, Bow, Spear** and **Sword**
+
 Physical Offensive Items deal double damage to Magical Offensive Items
+
 Weaknesses are shown in the next table:
 
 | Item        | Weak against          | Strong against  |
@@ -48,10 +52,15 @@ The map is made up of 3 classes:
 
 ## Units
 
-The game is made up of several units, that can use items on another units, for now the units are made up of:
+The game is made up of several units, that can use items on another units
+
 A unit can hold up to 3 items in it's inventory, and have 1 item equipped at a time
+
 Two units can not share the same location
+
 Two units can exchange items if they are at a distance of 1
+
+For now the units are made up of:
 - Alpaca: can not equip items, can hold infinite number of items in it's inventory
 - Archer: can only equip Bows
 - Cleric: can only equip Staffs
