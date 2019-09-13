@@ -78,6 +78,9 @@ class FieldTest {
                     new Location(2, 1), new Location(2, 2));
             assertTrue(randomField.isConnected());
         }
+        Field randomField = new Field();
+        randomField.addCells(false, new Location(0,0), new Location(2,2));
+        assertFalse(randomField.isConnected());
     }
 
     /**
