@@ -28,6 +28,9 @@ public class Field {
      */
     public void addCells(final boolean connectAll, final Location... cells) {
         for (Location cell : cells) {
+            if (map.containsKey(cell.toString())){
+                continue;
+            }
             addCell(cell);
             Location[] adjacentCells = getAdjacentCells(cell);
             for (Location adjacentCell : adjacentCells) {
@@ -139,5 +142,9 @@ public class Field {
      */
     public boolean checkConnection(final Location cell1, final Location cell2) {
         return cell1.isNeighbour(cell2);
+    }
+
+    public int getSize() {
+        return (int) Math.sqrt(map.size());
     }
 }
