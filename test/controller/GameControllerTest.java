@@ -134,7 +134,7 @@ class GameControllerTest {
     List<String> winners = controller.getWinners();
     assertEquals(2, winners.size());
     assertTrue(List.of("Player 1", "Player 3").containsAll(winners));
-
+    //TODO lista auxiliar de tacticians para jugar
     controller.initEndlessGame();
     for (int i = 0; i < 3; i++) {
       assertNull(controller.getWinners());
@@ -146,14 +146,17 @@ class GameControllerTest {
   // Desde aquí en adelante, los tests deben definirlos completamente ustedes
   @Test
   void getSelectedUnit() {
+    //TODO observer
   }
 
   @Test
   void selectUnitIn() {
+    //TODO poner una unidad en el mapa y revisar si existe la unidad
   }
 
   @Test
   void getItems() {
+    //TODO poner una unidad en
   }
 
   @Test

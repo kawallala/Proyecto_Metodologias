@@ -121,6 +121,7 @@ public class GameController {
      * @param tactician the player to be removed
      */
     public void removeTactician(String tactician) {
+        tacticians.remove(new Tactician(tactician));
 
     }
 
@@ -131,6 +132,7 @@ public class GameController {
      */
     public void initGame(final int maxTurns) {
         this.maxRounds = maxTurns;
+        this.roundNumber = 0;
         tacticians.get(turnOrder.get(turnOwner)).beginTurn();
     }
 
@@ -145,7 +147,16 @@ public class GameController {
      * @return the winner of this game, if the match ends in a draw returns a list of all the winners
      */
     public List<String> getWinners() {
-        return null;
+        if (roundNumber == maxRounds){
+            ArrayList<String> tacticianNames = new ArrayList<String>();
+            for (Tactician tactician : tacticians){
+                tacticianNames.add(tactician.getName());
+            }
+            return tacticianNames;
+        }
+        else {
+            return null;
+        }
     }
 
     /**
