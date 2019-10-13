@@ -13,7 +13,6 @@ import javax.xml.stream.FactoryConfigurationError;
  * @since 1.0
  */
 public abstract class AbstractItem implements IEquipableItem {
-    //TODO en el inventario de, equipado por
     private final String name;
     private final int power;
     protected int maxRange;

@@ -1,20 +1,20 @@
 package controller;
 
-import model.tactician.Tactician;
 import model.items.IEquipableItem;
 import model.map.Field;
 import model.map.Location;
+import model.tactician.Tactician;
+import model.units.Alpaca;
 import model.units.IUnit;
+import model.units.factories.AlpacaFactory;
+import model.units.factories.ArcherFactory;
+import model.units.factories.ClericFactory;
+import model.units.factories.FighterFactory;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.net.http.WebSocket;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
-import static java.lang.Math.max;
 
 /**
  * Controller of the game.
@@ -24,7 +24,7 @@ import static java.lang.Math.max;
  * @version 2.0
  * @since 2.0
  */
-public class GameController implements PropertyChangeListener {
+public class GameController {
     private List<Tactician> tacticians;
     private List<Integer> turnOrder = new ArrayList<>();
     private Field gameMap;
@@ -35,6 +35,11 @@ public class GameController implements PropertyChangeListener {
     private int numberOfPlayers;
     private int mapSize;
     private IUnit SelectedUnit;
+    private AlpacaFactory alpacaFactory = new AlpacaFactory();
+    private ArcherFactory archerFactory = new ArcherFactory();
+    private ClericFactory clericFactory = new ClericFactory();
+    private FighterFactory fighterFactory = new FighterFactory();
+
     /**
      * Creates the controller for a new game.
      *
@@ -58,7 +63,7 @@ public class GameController implements PropertyChangeListener {
         gameMap = new Field();
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
-                gameMap.addCells(false, new Location(i,j));
+                gameMap.addCells(false, new Location(i, j));
             }
         }
     }
@@ -68,7 +73,7 @@ public class GameController implements PropertyChangeListener {
      *
      * @param numberOfPlayers the number of players for this game
      */
-    private void initTacticians(int numberOfPlayers){
+    private void initTacticians(int numberOfPlayers) {
         tacticians = new ArrayList<>();
         for (int i = 0; i < numberOfPlayers; i++) {
             Tactician tactician = new Tactician("Player " + i);
@@ -76,6 +81,7 @@ public class GameController implements PropertyChangeListener {
             turnOrder.add(i);
         }
     }
+
     /**
      * @return the list of all the tacticians participating in the game.
      */
@@ -86,9 +92,10 @@ public class GameController implements PropertyChangeListener {
     /**
      * @return the list with the order of turns in this round
      */
-    public List<Integer> getTurnOrder(){
+    public List<Integer> getTurnOrder() {
         return turnOrder;
     }
+
     /**
      * @return the map of the current game
      */
@@ -116,17 +123,18 @@ public class GameController implements PropertyChangeListener {
     public int getMaxRounds() {
         return maxRounds;
     }
+
     /**
      * Finishes the current player's turn.
      */
     public void endTurn() {
-        if(roundNumber<= maxRounds | maxRounds == -1) {
-            if (turnOwner < tacticians.size()-1) {
+        if (roundNumber <= maxRounds | maxRounds == -1) {
+            if (turnOwner < tacticians.size() - 1) {
                 turnOwner++;
             } else {
                 roundNumber++;
                 int a = turnOrder.get(0);
-                while(a == turnOrder.get(0)){
+                while (a == turnOrder.get(0)) {
                     Collections.shuffle(turnOrder);
                 }
                 turnOwner = 0;
@@ -172,28 +180,30 @@ public class GameController implements PropertyChangeListener {
      * @return the winner of this game, if the match ends in a draw returns a list of all the winners
      */
     public List<String> getWinners() {
-        if(maxRounds == -1){
-            if(tacticians.size() == 1){
+        if (maxRounds == -1) {
+            if (tacticians.size() == 1) {
                 ArrayList<String> tacticianNames = new ArrayList<String>();
-                for (Tactician tactician : tacticians){
+                for (Tactician tactician : tacticians) {
                     tacticianNames.add(tactician.getName());
                 }
                 return tacticianNames;
-            }
-            else {
+            } else {
                 return null;
             }
         }
-        if (roundNumber > maxRounds){
+        if (roundNumber > maxRounds) {
             ArrayList<String> tacticianNames = new ArrayList<String>();
-            for (Tactician tactician : tacticians){
+            for (Tactician tactician : tacticians) {
                 tacticianNames.add(tactician.getName());
             }
             return tacticianNames;
-        }
-        else {
+        } else {
             return null;
         }
+    }
+
+    public void addAlpaca() {
+        Alpaca alpaca = alpacaFactory.create();
     }
 
     /**
@@ -258,15 +268,4 @@ public class GameController implements PropertyChangeListener {
 
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-        String action = propertyChangeEvent.getPropertyName();
-        if (action.equals("PassTurn")){
-            endTurn();
-        }
-        if (action.equals("SelectUnit")){
-            propertyChangeEvent.getNewValue();
-            selectUnitIn();
-        }
-    }
 }

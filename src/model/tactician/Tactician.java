@@ -1,17 +1,14 @@
 package model.tactician;
 
 import model.units.IUnit;
-import model.units.UnitFactory;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Tactician {
     private String name;
     private ArrayList<IUnit> units = new ArrayList<>();
-    private UnitFactory unitFactory = new UnitFactory();
     private PropertyChangeSupport changes;
     public Tactician(String name){
         this.name = name;
@@ -21,8 +18,9 @@ public class Tactician {
     public String getName() {
         return name;
     }
-//TODO unitfactory gigante que le da unidades a cada tactician
-    public void addUnit(String unitType){
+
+    public void addUnit(IUnit unit){
+        this.units.add(unit);
 
     }
     public void beginTurn() {

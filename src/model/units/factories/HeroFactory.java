@@ -1,0 +1,22 @@
+package model.units.factories;
+
+import model.units.Hero;
+import model.units.IUnit;
+
+/**
+ * This class represents a Hero creating factory
+ *
+ * @author Martin Araya
+ * @since 2.4
+ */
+public class HeroFactory extends AbstractUnitFactory {
+    /**
+     * Creates a Hero with the parameters stored in the factory
+     *
+     * @return The newly created Hero
+     */
+    @Override
+    public IUnit create() {
+        return new Hero(this.getHitPoints(), this.getMovement(), this.getLocation());
+    }
+}
