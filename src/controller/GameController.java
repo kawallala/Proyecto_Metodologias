@@ -1,12 +1,14 @@
 package controller;
 
-import model.Tactician;
+import model.tactician.Tactician;
 import model.items.IEquipableItem;
 import model.map.Field;
 import model.map.Location;
 import model.units.IUnit;
 
-import java.text.CollationElementIterator;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.net.http.WebSocket;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,21 +18,23 @@ import static java.lang.Math.max;
 
 /**
  * Controller of the game.
- * The controller manages all the input received from de game's GUI.
+ * The controller manages all the input received from the game's GUI.
  *
- * @author Ignacio Slater Muñoz
+ * @author Martin Araya Zavala
  * @version 2.0
  * @since 2.0
  */
-public class GameController {
-    private List<Tactician> tacticians = new ArrayList<>();
+public class GameController implements PropertyChangeListener {
+    private List<Tactician> tacticians;
     private List<Integer> turnOrder = new ArrayList<>();
-    private Field gamemap = new Field();
+    private Field gameMap;
     private int roundNumber = 1;
     private Random randomseed = new Random();
     private int turnOwner = 0;
     private int maxRounds = -1;
-
+    private int numberOfPlayers;
+    private int mapSize;
+    private IUnit SelectedUnit;
     /**
      * Creates the controller for a new game.
      *
@@ -38,25 +42,40 @@ public class GameController {
      * @param mapSize         the dimensions of the map, for simplicity, all maps are squares
      */
     public GameController(int numberOfPlayers, int mapSize) {
+        this.numberOfPlayers = numberOfPlayers;
+        this.mapSize = mapSize;
+        initTacticians(this.numberOfPlayers);
+        initGameMap(this.mapSize);
+        Collections.shuffle(turnOrder);
+    }
+
+    /**
+     * Creates the map for the game
+     *
+     * @param mapSize The dimensions of the map, for simplicity, all maps are squares
+     */
+    private void initGameMap(int mapSize) {
+        gameMap = new Field();
+        for (int i = 0; i < mapSize; i++) {
+            for (int j = 0; j < mapSize; j++) {
+                gameMap.addCells(false, new Location(i,j));
+            }
+        }
+    }
+
+    /**
+     * Creates the list of players for the game
+     *
+     * @param numberOfPlayers the number of players for this game
+     */
+    private void initTacticians(int numberOfPlayers){
+        tacticians = new ArrayList<>();
         for (int i = 0; i < numberOfPlayers; i++) {
             Tactician tactician = new Tactician("Player " + i);
             tacticians.add(tactician);
             turnOrder.add(i);
         }
-        //TODO builders para unidades, items, mapa
-        int count = 0;
-        for (int i = 0; i < mapSize; i++) {
-            for (int j = 0; j < mapSize; j++) {
-                gamemap.addCells(false, new Location(i,j));
-                count++;
-                if (count==mapSize){
-                    break;
-                }
-            }
-        }
-        Collections.shuffle(turnOrder);
     }
-
     /**
      * @return the list of all the tacticians participating in the game.
      */
@@ -74,7 +93,7 @@ public class GameController {
      * @return the map of the current game
      */
     public Field getGameMap() {
-        return gamemap;
+        return gameMap;
     }
 
     /**
@@ -113,6 +132,7 @@ public class GameController {
                 turnOwner = 0;
             }
         }
+        tacticians.get(turnOrder.get(turnOwner)).beginTurn();
     }
 
     /**
@@ -132,8 +152,10 @@ public class GameController {
      */
     public void initGame(final int maxTurns) {
         this.maxRounds = maxTurns;
-        this.roundNumber = 0;
-        tacticians.get(turnOrder.get(turnOwner)).beginTurn();
+        this.roundNumber = 1;
+        initTacticians(numberOfPlayers);
+        initGameMap(mapSize);
+        Collections.shuffle(turnOrder);
     }
 
     /**
@@ -141,13 +163,28 @@ public class GameController {
      */
     public void initEndlessGame() {
         maxRounds = -1;
+        initTacticians(numberOfPlayers);
+        initGameMap(mapSize);
+        Collections.shuffle(turnOrder);
     }
 
     /**
      * @return the winner of this game, if the match ends in a draw returns a list of all the winners
      */
     public List<String> getWinners() {
-        if (roundNumber == maxRounds){
+        if(maxRounds == -1){
+            if(tacticians.size() == 1){
+                ArrayList<String> tacticianNames = new ArrayList<String>();
+                for (Tactician tactician : tacticians){
+                    tacticianNames.add(tactician.getName());
+                }
+                return tacticianNames;
+            }
+            else {
+                return null;
+            }
+        }
+        if (roundNumber > maxRounds){
             ArrayList<String> tacticianNames = new ArrayList<String>();
             for (Tactician tactician : tacticians){
                 tacticianNames.add(tactician.getName());
@@ -219,5 +256,17 @@ public class GameController {
      */
     public void giveItemTo(int x, int y) {
 
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+        String action = propertyChangeEvent.getPropertyName();
+        if (action.equals("PassTurn")){
+            endTurn();
+        }
+        if (action.equals("SelectUnit")){
+            propertyChangeEvent.getNewValue();
+            selectUnitIn();
+        }
     }
 }

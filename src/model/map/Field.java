@@ -83,7 +83,9 @@ public class Field {
         String id = generateID(row, col);
         return map.getOrDefault(id, new InvalidLocation());
     }
-
+    public void setRandom(Random newrandom){
+        this.random = newrandom;
+    }
     /**
      * Creates a map key from a row and a column
      *
