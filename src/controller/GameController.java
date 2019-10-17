@@ -1,16 +1,15 @@
 package controller;
 
+import model.factories.unit.*;
 import model.items.IEquipableItem;
 import model.map.Field;
 import model.map.Location;
 import model.tactician.Tactician;
 import model.units.*;
-import model.units.factories.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Controller of the game.

@@ -5,11 +5,13 @@ import model.units.IUnit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tactician {
     private String name;
     private ArrayList<IUnit> units = new ArrayList<>();
     private PropertyChangeSupport changes;
+
     public Tactician(String name){
         this.name = name;
         changes = new PropertyChangeSupport(this);
@@ -29,7 +31,9 @@ public class Tactician {
     public void endTurn(){
         changes.firePropertyChange(new PropertyChangeEvent(this,"PassTurn",null,null));
     }
-
+    public List<IUnit> getUnits(){
+        return this.units;
+    }
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Tactician){

@@ -1,7 +1,6 @@
-package model.units.factories;
+package model.factories.unit;
 
 import model.units.Archer;
-import model.units.IUnit;
 
 /**
  * This class represents a Archer creating Factory

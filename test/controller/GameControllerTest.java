@@ -1,9 +1,11 @@
 package controller;
 
 
+import model.factories.unit.*;
 import model.map.Field;
 import model.map.Location;
 import model.tactician.Tactician;
+import model.units.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +25,13 @@ class GameControllerTest {
     private GameController controller;
     private long randomSeed;
     private List<String> testTacticians;
+    private AlpacaFactory alpacaFactory = new AlpacaFactory();
+    private ArcherFactory archerFactory = new ArcherFactory();
+    private ClericFactory clericFactory = new ClericFactory();
+    private FighterFactory fighterFactory = new FighterFactory();
+    private HeroFactory heroFactory = new HeroFactory();
+    private SorcererFactory sorcererFactory = new SorcererFactory();
+    private SwordMasterFactory swordMasterFactory = new SwordMasterFactory();
 
     @BeforeEach
     void setUp() {
@@ -196,5 +205,54 @@ class GameControllerTest {
 
     @Test
     void giveItemTo() {
+    }
+
+    @Test
+    void addAlpaca() {
+        controller.addAlpaca(controller.getTacticians().get(0));
+        Alpaca alpaca = alpacaFactory.create();
+        assertTrue(controller.getTacticians().get(0).getUnits().contains(alpaca));
+    }
+
+    @Test
+    void addArcher() {
+        controller.addArcher(controller.getTacticians().get(0));
+        Archer archer = archerFactory.create();
+        assertTrue(controller.getTacticians().get(0).getUnits().contains(archer));
+    }
+
+    @Test
+    void addCleric() {
+        controller.addCleric(controller.getTacticians().get(0));
+        Cleric cleric = clericFactory.create();
+        assertTrue(controller.getTacticians().get(0).getUnits().contains(cleric));
+    }
+
+    @Test
+    void addFighter() {
+        controller.addFighter(controller.getTacticians().get(0));
+        Fighter fighter = fighterFactory.create();
+        assertTrue(controller.getTacticians().get(0).getUnits().contains(fighter));
+    }
+
+    @Test
+    void addHero() {
+        controller.addHero(controller.getTacticians().get(0));
+        Hero hero = heroFactory.create();
+        assertTrue(controller.getTacticians().get(0).getUnits().contains(hero));
+    }
+
+    @Test
+    void addSorcerer() {
+        controller.addSorcerer(controller.getTacticians().get(0));
+        Sorcerer sorcerer = sorcererFactory.create();
+        assertTrue(controller.getTacticians().get(0).getUnits().contains(sorcerer));
+    }
+
+    @Test
+    void addSwordMaster() {
+        controller.addSwordMaster(controller.getTacticians().get(0));
+        SwordMaster swordMaster = swordMasterFactory.create();
+        assertTrue(controller.getTacticians().get(0).getUnits().contains(swordMaster));
     }
 }

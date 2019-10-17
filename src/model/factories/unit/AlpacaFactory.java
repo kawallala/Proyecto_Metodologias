@@ -1,8 +1,6 @@
-package model.units.factories;
+package model.factories.unit;
 
-import model.map.Location;
 import model.units.Alpaca;
-import model.units.IUnit;
 
 /**
  * This class represent an Alpaca creating Factory

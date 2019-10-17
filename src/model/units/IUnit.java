@@ -21,7 +21,7 @@ import model.map.Location;
  * @since 1.0
  */
 public interface IUnit {
-
+    int getMaximumHitPoints();
     /**
      * @return hit points of the unit
      */

@@ -1,7 +1,6 @@
-package model.units.factories;
+package model.factories.unit;
 
 import model.units.Fighter;
-import model.units.IUnit;
 
 /**
  * This classs represents a Fighter creatingFactory

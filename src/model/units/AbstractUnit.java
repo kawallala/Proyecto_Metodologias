@@ -52,6 +52,10 @@ public abstract class AbstractUnit implements IUnit {
         this.items.addAll(Arrays.asList(items).subList(0, min(maxItems, items.length)));
     }
 
+    public int getMaximumHitPoints() {
+        return maximumHitPoints;
+    }
+
     @Override
     public int getCurrentHitPoints() {
         return this.currentHitPoints;
@@ -225,5 +229,15 @@ public abstract class AbstractUnit implements IUnit {
     @Override
     public void heal(int healingPower) {
         this.currentHitPoints = min(maximumHitPoints, currentHitPoints + healingPower);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof IUnit) {
+            return this.maximumHitPoints == ((IUnit) obj).getMaximumHitPoints() &&
+                    this.movement == ((IUnit) obj).getMovement() &&
+                    this.location.equals(((IUnit) obj).getLocation());
+        }
+        return false;
     }
 }

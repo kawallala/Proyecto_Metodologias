@@ -1,4 +1,4 @@
-package model.units.factories;
+package model.factories.unit;
 
 import model.units.Hero;
 
