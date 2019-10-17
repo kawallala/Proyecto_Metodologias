@@ -4,13 +4,8 @@ import model.items.IEquipableItem;
 import model.map.Field;
 import model.map.Location;
 import model.tactician.Tactician;
-import model.units.Alpaca;
-import model.units.Archer;
-import model.units.IUnit;
-import model.units.factories.AlpacaFactory;
-import model.units.factories.ArcherFactory;
-import model.units.factories.ClericFactory;
-import model.units.factories.FighterFactory;
+import model.units.*;
+import model.units.factories.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,6 +35,9 @@ public class GameController {
     private ArcherFactory archerFactory = new ArcherFactory();
     private ClericFactory clericFactory = new ClericFactory();
     private FighterFactory fighterFactory = new FighterFactory();
+    private HeroFactory heroFactory = new HeroFactory();
+    private SorcererFactory sorcererFactory = new SorcererFactory();
+    private SwordMasterFactory swordMasterFactory = new SwordMasterFactory();
 
     /**
      * Creates the controller for a new game.
@@ -212,15 +210,25 @@ public class GameController {
         Archer archer = archerFactory.create();
         tactician.addUnit(archer);
     }
-    public void addAlpaca(Tactician tactician) {
-        Alpaca alpaca = alpacaFactory.create();
-        tactician.addUnit(alpaca);
-    }public void addAlpaca(Tactician tactician) {
-        Alpaca alpaca = alpacaFactory.create();
-        tactician.addUnit(alpaca);
-    }public void addAlpaca(Tactician tactician) {
-        Alpaca alpaca = alpacaFactory.create();
-        tactician.addUnit(alpaca);
+    public void addCleric(Tactician tactician) {
+        Cleric cleric = clericFactory.create();
+        tactician.addUnit(cleric);
+    }
+    public void addFighter(Tactician tactician) {
+        Fighter fighter = fighterFactory.create();
+        tactician.addUnit(fighter);
+    }
+    public void addHero(Tactician tactician) {
+        Hero hero = heroFactory.create();
+        tactician.addUnit(hero);
+    }
+    public void addSorcerer(Tactician tactician){
+        Sorcerer sorcerer = sorcererFactory.create();
+        tactician.addUnit(sorcerer);
+    }
+    public void addSwordMaster(Tactician tactician){
+        SwordMaster swordMaster = swordMasterFactory.create();
+        tactician.addUnit(swordMaster);
     }
     /**
      * @return the current player's selected unit

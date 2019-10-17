@@ -1,7 +1,6 @@
 package model.units.factories;
 
 import model.units.Hero;
-import model.units.IUnit;
 
 /**
  * This class represents a Hero creating factory

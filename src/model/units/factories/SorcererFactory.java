@@ -1,6 +1,5 @@
 package model.units.factories;
 
-import model.units.IUnit;
 import model.units.Sorcerer;
 
 /**
