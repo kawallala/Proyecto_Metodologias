@@ -16,7 +16,9 @@ public class ClericFactory extends AbstractUnitFactory {
      * @return THe newly created Cleric
      */
     @Override
-    public IUnit create() {
-        return new Cleric(this.getHitPoints(), this.getMovement(), this.getLocation());
+    public Cleric create() {
+        Cleric cleric =  new Cleric(getHitPoints(), getMovement(), getLocation());
+        setDefaults();
+        return cleric;
     }
 }

@@ -5,6 +5,7 @@ import model.map.Field;
 import model.map.Location;
 import model.tactician.Tactician;
 import model.units.Alpaca;
+import model.units.Archer;
 import model.units.IUnit;
 import model.units.factories.AlpacaFactory;
 import model.units.factories.ArcherFactory;
@@ -26,10 +27,10 @@ import java.util.Random;
  */
 public class GameController {
     private List<Tactician> tacticians;
-    private List<Integer> turnOrder = new ArrayList<>();
+    private List<Tactician> turnOrder;
     private Field gameMap;
     private int roundNumber = 1;
-    private Random randomseed = new Random();
+    private long mapSeed;
     private int turnOwner = 0;
     private int maxRounds = -1;
     private int numberOfPlayers;
@@ -49,25 +50,27 @@ public class GameController {
     public GameController(int numberOfPlayers, int mapSize) {
         this.numberOfPlayers = numberOfPlayers;
         this.mapSize = mapSize;
-        initTacticians(this.numberOfPlayers);
-        initGameMap(this.mapSize);
+        this.gameMap = new Field();
+        initTacticians(numberOfPlayers);
         Collections.shuffle(turnOrder);
     }
 
     /**
      * Creates the map for the game
-     *
-     * @param mapSize The dimensions of the map, for simplicity, all maps are squares
      */
-    private void initGameMap(int mapSize) {
+    public void initGameMap() {
         gameMap = new Field();
+        gameMap.setSeed(mapSeed);
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
                 gameMap.addCells(false, new Location(i, j));
             }
         }
     }
-
+    public void setMapSeed(long mapSeed){
+        this.mapSeed = mapSeed;
+        this.gameMap.setSeed(mapSeed);
+    }
     /**
      * Creates the list of players for the game
      *
@@ -75,10 +78,11 @@ public class GameController {
      */
     private void initTacticians(int numberOfPlayers) {
         tacticians = new ArrayList<>();
+        turnOrder = new ArrayList<>();
         for (int i = 0; i < numberOfPlayers; i++) {
             Tactician tactician = new Tactician("Player " + i);
             tacticians.add(tactician);
-            turnOrder.add(i);
+            turnOrder.add(tactician);
         }
     }
 
@@ -92,7 +96,7 @@ public class GameController {
     /**
      * @return the list with the order of turns in this round
      */
-    public List<Integer> getTurnOrder() {
+    public List<Tactician> getTurnOrder() {
         return turnOrder;
     }
 
@@ -107,7 +111,7 @@ public class GameController {
      * @return the tactician that's currently playing
      */
     public Tactician getTurnOwner() {
-        return tacticians.get(turnOrder.get(turnOwner));
+        return turnOrder.get(turnOwner);
     }
 
     /**
@@ -124,23 +128,22 @@ public class GameController {
         return maxRounds;
     }
 
+    private void newRound(){
+        turnOwner = 0;
+        roundNumber++;
+        Tactician a = turnOrder.get(0);
+        while(a.equals(turnOrder.get(0))){
+            Collections.shuffle(turnOrder);
+        }
+    }
     /**
      * Finishes the current player's turn.
      */
     public void endTurn() {
-        if (roundNumber <= maxRounds | maxRounds == -1) {
-            if (turnOwner < tacticians.size() - 1) {
-                turnOwner++;
-            } else {
-                roundNumber++;
-                int a = turnOrder.get(0);
-                while (a == turnOrder.get(0)) {
-                    Collections.shuffle(turnOrder);
-                }
-                turnOwner = 0;
-            }
+        turnOwner++;
+        if (turnOwner == turnOrder.size()){
+            newRound();
         }
-        tacticians.get(turnOrder.get(turnOwner)).beginTurn();
     }
 
     /**
@@ -150,7 +153,7 @@ public class GameController {
      */
     public void removeTactician(String tactician) {
         tacticians.remove(new Tactician(tactician));
-
+        turnOrder.remove(new Tactician(tactician));
     }
 
     /**
@@ -162,8 +165,7 @@ public class GameController {
         this.maxRounds = maxTurns;
         this.roundNumber = 1;
         initTacticians(numberOfPlayers);
-        initGameMap(mapSize);
-        Collections.shuffle(turnOrder);
+        initGameMap();
     }
 
     /**
@@ -172,7 +174,7 @@ public class GameController {
     public void initEndlessGame() {
         maxRounds = -1;
         initTacticians(numberOfPlayers);
-        initGameMap(mapSize);
+        initGameMap();
         Collections.shuffle(turnOrder);
     }
 
@@ -202,10 +204,24 @@ public class GameController {
         }
     }
 
-    public void addAlpaca() {
+    public void addAlpaca(Tactician tactician) {
         Alpaca alpaca = alpacaFactory.create();
+        tactician.addUnit(alpaca);
     }
-
+    public void addArcher(Tactician tactician) {
+        Archer archer = archerFactory.create();
+        tactician.addUnit(archer);
+    }
+    public void addAlpaca(Tactician tactician) {
+        Alpaca alpaca = alpacaFactory.create();
+        tactician.addUnit(alpaca);
+    }public void addAlpaca(Tactician tactician) {
+        Alpaca alpaca = alpacaFactory.create();
+        tactician.addUnit(alpaca);
+    }public void addAlpaca(Tactician tactician) {
+        Alpaca alpaca = alpacaFactory.create();
+        tactician.addUnit(alpaca);
+    }
     /**
      * @return the current player's selected unit
      */

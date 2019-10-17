@@ -1,5 +1,6 @@
 package model.units.factories;
 
+import model.map.Location;
 import model.units.Alpaca;
 import model.units.IUnit;
 
@@ -17,6 +18,8 @@ public class AlpacaFactory extends AbstractUnitFactory {
      */
     @Override
     public Alpaca create() {
-        return new Alpaca(this.getHitPoints(),this.getMovement(),this.getLocation());
+        Alpaca alpaca = new Alpaca(getHitPoints(),getMovement(),getLocation());
+        setDefaults();
+        return alpaca;
     }
 }

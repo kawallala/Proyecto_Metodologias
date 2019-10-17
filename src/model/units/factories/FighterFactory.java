@@ -16,7 +16,9 @@ public class FighterFactory extends AbstractUnitFactory {
      * @return The newly created fighter
      */
     @Override
-    public IUnit create() {
-        return new Fighter(this.getHitPoints(), this.getMovement(), this.getLocation());
+    public Fighter create() {
+        Fighter fighter =  new Fighter(getHitPoints(), getMovement(), getLocation());
+        setDefaults();
+        return fighter;
     }
 }

@@ -21,8 +21,8 @@ public class Tactician {
 
     public void addUnit(IUnit unit){
         this.units.add(unit);
-
     }
+
     public void beginTurn() {
 
     }

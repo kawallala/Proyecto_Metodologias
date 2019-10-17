@@ -16,7 +16,9 @@ public class SorcererFactory extends AbstractUnitFactory {
      * @return The newly created Sorcerer
      */
     @Override
-    public IUnit create() {
-        return new Sorcerer(this.getHitPoints(), this.getMovement(), this.getLocation());
+    public Sorcerer create() {
+        Sorcerer sorcerer = new Sorcerer(this.getHitPoints(), this.getMovement(), this.getLocation());
+        this.setDefaults();
+        return sorcerer;
     }
 }

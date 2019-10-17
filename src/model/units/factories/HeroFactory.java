@@ -16,7 +16,9 @@ public class HeroFactory extends AbstractUnitFactory {
      * @return The newly created Hero
      */
     @Override
-    public IUnit create() {
-        return new Hero(this.getHitPoints(), this.getMovement(), this.getLocation());
+    public Hero create() {
+        Hero hero = new Hero(getHitPoints(), getMovement(), getLocation());
+        setDefaults();
+        return hero;
     }
 }

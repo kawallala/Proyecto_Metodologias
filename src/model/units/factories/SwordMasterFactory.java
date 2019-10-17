@@ -16,7 +16,9 @@ public class SwordMasterFactory extends AbstractUnitFactory {
      * @return The newly created Sword Master
      */
     @Override
-    public IUnit create() {
-        return new SwordMaster(this.getHitPoints(), this.getMovement(), this.getLocation());
+    public SwordMaster create() {
+        SwordMaster swordMaster = new SwordMaster(this.getHitPoints(), this.getMovement(), this.getLocation());
+        this.setDefaults();
+        return swordMaster;
     }
 }

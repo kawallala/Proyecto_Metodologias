@@ -20,7 +20,11 @@ public abstract class AbstractUnitFactory implements IUnitFactory {
      * Creates a Unit Factory with the default values
      */
     public AbstractUnitFactory() {
-        this.location = new Location(0, 0);
+        setDefaults();
+    }
+
+    void setDefaults(){
+        this.location = new Location(0,0);
         this.hitPoints = 100;
         this.movement = 2;
     }

@@ -16,7 +16,9 @@ public class ArcherFactory extends AbstractUnitFactory {
      * @return The newly created Archer
      */
     @Override
-    public IUnit create() {
-        return new Archer(this.getHitPoints(), this.getMovement(), this.getLocation());
+    public Archer create() {
+        Archer archer =  new Archer(getHitPoints(), getMovement(), getLocation());
+        setDefaults();
+        return archer;
     }
 }
