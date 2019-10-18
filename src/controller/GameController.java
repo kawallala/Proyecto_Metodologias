@@ -11,6 +11,7 @@ import model.units.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Controller of the game.
@@ -143,7 +144,7 @@ public class GameController {
         roundNumber++;
         Tactician a = turnOrder.get(0);
         while (a.equals(turnOrder.get(0))) {
-            Collections.shuffle(turnOrder);
+            Collections.shuffle(turnOrder,new Random(mapSeed));
         }
         turnOwner = turnOrder.get(turnNumber);
     }

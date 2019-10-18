@@ -19,6 +19,10 @@ public interface IUnitFactory {
      * @return The created unit
      */
     IUnit create();
+
+    /**
+     * Sets the default parameters for the unit factory
+     */
     void setDefaults();
     /**
      * Sets a new location for the unit to be created in

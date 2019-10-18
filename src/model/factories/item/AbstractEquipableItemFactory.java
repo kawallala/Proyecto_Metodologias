@@ -1,15 +1,32 @@
 package model.factories.item;
 
+/**
+ * This class represents the abstract behaviour for an item creating factory
+ * <p>
+ * There is a default value for all the parameters an item can be created with, this parameters can be changed for
+ * personalization
+ *
+ * @author Martin Araya
+ * @since 2.8
+ */
 public abstract class AbstractEquipableItemFactory implements IEquipabbleItemFactory {
     private String name;
     private int power;
     private int minimumRange;
     private int maximumRange;
 
+    /**
+     * Creates an Item Factory with the default values
+     */
     public AbstractEquipableItemFactory() {
         this.setDefaults();
     }
 
+    /**
+     * Getter for the name stored in the factory
+     *
+     * @return The stored name
+     */
     protected String getName() {
         return name;
     }
@@ -28,6 +45,11 @@ public abstract class AbstractEquipableItemFactory implements IEquipabbleItemFac
         this.power = power;
     }
 
+    /**
+     * Getter for the minimum range stored in the factory
+     *
+     * @return the stored minimum range
+     */
     protected int getMinimumRange() {
         return minimumRange;
     }
@@ -37,6 +59,11 @@ public abstract class AbstractEquipableItemFactory implements IEquipabbleItemFac
         this.minimumRange = minimumRange;
     }
 
+    /**
+     * Getter for the maximum range stored in the factory
+     *
+     * @return the stored maximum range
+     */
     protected int getMaximumRange() {
         return maximumRange;
     }

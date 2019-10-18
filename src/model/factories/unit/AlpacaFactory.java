@@ -3,7 +3,7 @@ package model.factories.unit;
 import model.units.Alpaca;
 
 /**
- * This class represent an Alpaca creating Factory
+ * This class represents an Alpaca creating Factory
  *
  * @author Martin Araya
  * @since 2.4

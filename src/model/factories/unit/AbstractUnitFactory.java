@@ -34,7 +34,7 @@ public abstract class AbstractUnitFactory implements IUnitFactory {
      *
      * @return The stored location
      */
-    Location getLocation() {
+    protected Location getLocation() {
         return location;
     }
 
@@ -46,9 +46,9 @@ public abstract class AbstractUnitFactory implements IUnitFactory {
     /**
      * Getter for the hitpoints stored in the factory
      *
-     * @return th stored hitpoints
+     * @return the stored hitpoints
      */
-    int getHitPoints() {
+    protected int getHitPoints() {
         return hitPoints;
     }
 
