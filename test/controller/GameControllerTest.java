@@ -1,6 +1,7 @@
 package controller;
 
 
+import model.factories.item.*;
 import model.factories.unit.*;
 import model.map.Field;
 import model.map.Location;
@@ -32,12 +33,20 @@ class GameControllerTest {
     private HeroFactory heroFactory = new HeroFactory();
     private SorcererFactory sorcererFactory = new SorcererFactory();
     private SwordMasterFactory swordMasterFactory = new SwordMasterFactory();
+    private AnimaMagicBookFactory animaMagicBookFactory = new AnimaMagicBookFactory();
+    private AxeFactory axeFactory = new AxeFactory();
+    private BowFactory bowFactory = new BowFactory();
+    private DarkMagicBookFactory darkMagicBookFactory = new DarkMagicBookFactory();
+    private LightMagicBookFactory lightMagicBookFactory = new LightMagicBookFactory();
+    private SpearFactory spearFactory = new SpearFactory();
+    private StaffFactory staffFactory = new StaffFactory();
+    private SwordFactory swordFactory = new SwordFactory();
 
     @BeforeEach
     void setUp() {
         // Se define la semilla como un número aleatorio para generar variedad en los tests
         randomSeed = new Random().nextLong();
-        controller = new GameController(4, 3);
+        controller = new GameController(4, 7);
         controller.setMapSeed(randomSeed);
         testTacticians = List.of("Player 0", "Player 1", "Player 2", "Player 3");
         controller.initGameMap();
@@ -55,7 +64,7 @@ class GameControllerTest {
     @Test
     void getGameMap() {
         Field gameMap = controller.getGameMap();
-        assertEquals(3, gameMap.getSize()); // getSize deben definirlo
+        assertEquals(7, gameMap.getSize()); // getSize deben definirlo
         assertTrue(controller.getGameMap().isConnected());
         Field testMap = new Field();
         testMap.setSeed(randomSeed);
@@ -131,21 +140,21 @@ class GameControllerTest {
 
     @Test
     void removeTactician() {
-        assertEquals(4, controller.getTacticians().size());
-        controller.getTacticians()
+        assertEquals(4, controller.getTurnOrder().size());
+        controller.getTurnOrder()
                 .forEach(tactician -> Assertions.assertTrue(testTacticians.contains(tactician.getName())));
         controller.getTurnOrder().forEach(tactician -> Assertions.assertTrue(testTacticians.contains(tactician.getName())));
 
         controller.removeTactician("Player 0");
-        assertEquals(3, controller.getTacticians().size());
-        controller.getTacticians().forEach(tactician -> assertNotEquals("Player 0", tactician));
+        assertEquals(3, controller.getTurnOrder().size());
+        controller.getTurnOrder().forEach(tactician -> assertNotEquals("Player 0", tactician));
         controller.getTurnOrder().forEach(tactician -> assertNotEquals("Player 0 ", tactician));
-        controller.getTacticians()
+        controller.getTurnOrder()
                 .forEach(tactician -> Assertions.assertTrue(testTacticians.contains(tactician.getName())));
 
         controller.removeTactician("Player 5");
-        assertEquals(3, controller.getTacticians().size());
-        controller.getTacticians()
+        assertEquals(3, controller.getTurnOrder().size());
+        controller.getTurnOrder()
                 .forEach(tactician -> Assertions.assertTrue(testTacticians.contains(tactician.getName())));
     }
 
@@ -184,6 +193,7 @@ class GameControllerTest {
     @Test
     void selectUnitIn() {
         //TODO poner una unidad en el mapa y revisar si existe la unidad
+        controller.addAlpaca(controller.getTurnOrder().get(0));
     }
 
     @Test
@@ -206,51 +216,47 @@ class GameControllerTest {
     @Test
     void giveItemTo() {
     }
-
     @Test
-    void addAlpaca() {
+    void addItems(){
+        controller.addAlpaca(controller.getTurnOrder().get(0));
+        controller.initEndlessGame();
+        controller.addAnimaMagicBook(0);
+        assertTrue(controller.getTurnOrder().get(0).getUnits().get(0).getItems().contains(animaMagicBookFactory.create()));
+        controller.addAxe(0);
+        assertTrue(controller.getTurnOrder().get(0).getUnits().get(0).getItems().contains(axeFactory.create()));
+        controller.addBow(0);
+        assertTrue(controller.getTurnOrder().get(0).getUnits().get(0).getItems().contains(bowFactory.create()));
+        controller.addDarkMagicBook(0);
+        assertTrue(controller.getTurnOrder().get(0).getUnits().get(0).getItems().contains(darkMagicBookFactory.create()));
+        controller.addLightMagicBook(0);
+        assertTrue(controller.getTurnOrder().get(0).getUnits().get(0).getItems().contains(lightMagicBookFactory.create()));
+        controller.addSpear(0);
+        assertTrue(controller.getTurnOrder().get(0).getUnits().get(0).getItems().contains(spearFactory.create()));
+        controller.addStaff(0);
+        assertTrue(controller.getTurnOrder().get(0).getUnits().get(0).getItems().contains(staffFactory.create()));
+        controller.addSword(0);
+        assertTrue(controller.getTurnOrder().get(0).getUnits().get(0).getItems().contains(swordFactory.create()));
+    }
+    @Test
+    void addUnits() {
         controller.addAlpaca(controller.getTacticians().get(0));
         Alpaca alpaca = alpacaFactory.create();
         assertTrue(controller.getTacticians().get(0).getUnits().contains(alpaca));
-    }
-
-    @Test
-    void addArcher() {
         controller.addArcher(controller.getTacticians().get(0));
         Archer archer = archerFactory.create();
         assertTrue(controller.getTacticians().get(0).getUnits().contains(archer));
-    }
-
-    @Test
-    void addCleric() {
         controller.addCleric(controller.getTacticians().get(0));
         Cleric cleric = clericFactory.create();
         assertTrue(controller.getTacticians().get(0).getUnits().contains(cleric));
-    }
-
-    @Test
-    void addFighter() {
         controller.addFighter(controller.getTacticians().get(0));
         Fighter fighter = fighterFactory.create();
         assertTrue(controller.getTacticians().get(0).getUnits().contains(fighter));
-    }
-
-    @Test
-    void addHero() {
         controller.addHero(controller.getTacticians().get(0));
         Hero hero = heroFactory.create();
         assertTrue(controller.getTacticians().get(0).getUnits().contains(hero));
-    }
-
-    @Test
-    void addSorcerer() {
         controller.addSorcerer(controller.getTacticians().get(0));
         Sorcerer sorcerer = sorcererFactory.create();
         assertTrue(controller.getTacticians().get(0).getUnits().contains(sorcerer));
-    }
-
-    @Test
-    void addSwordMaster() {
         controller.addSwordMaster(controller.getTacticians().get(0));
         SwordMaster swordMaster = swordMasterFactory.create();
         assertTrue(controller.getTacticians().get(0).getUnits().contains(swordMaster));

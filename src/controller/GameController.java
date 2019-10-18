@@ -1,5 +1,6 @@
 package controller;
 
+import model.factories.item.*;
 import model.factories.unit.*;
 import model.items.IEquipableItem;
 import model.map.Field;
@@ -25,7 +26,8 @@ public class GameController {
     private Field gameMap;
     private int roundNumber = 1;
     private long mapSeed;
-    private int turnOwner = 0;
+    private Tactician turnOwner;
+    private int turnNumber = 0;
     private int maxRounds = -1;
     private int numberOfPlayers;
     private int mapSize;
@@ -37,6 +39,14 @@ public class GameController {
     private HeroFactory heroFactory = new HeroFactory();
     private SorcererFactory sorcererFactory = new SorcererFactory();
     private SwordMasterFactory swordMasterFactory = new SwordMasterFactory();
+    private AnimaMagicBookFactory animaMagicBookFactory = new AnimaMagicBookFactory();
+    private AxeFactory axeFactory = new AxeFactory();
+    private BowFactory bowFactory = new BowFactory();
+    private DarkMagicBookFactory darkMagicBookFactory = new DarkMagicBookFactory();
+    private LightMagicBookFactory lightMagicBookFactory = new LightMagicBookFactory();
+    private SpearFactory spearFactory = new SpearFactory();
+    private StaffFactory staffFactory = new StaffFactory();
+    private SwordFactory swordFactory = new SwordFactory();
 
     /**
      * Creates the controller for a new game.
@@ -48,8 +58,16 @@ public class GameController {
         this.numberOfPlayers = numberOfPlayers;
         this.mapSize = mapSize;
         this.gameMap = new Field();
-        initTacticians(numberOfPlayers);
-        Collections.shuffle(turnOrder);
+        tacticians = new ArrayList<>();
+        tacticians = new ArrayList<>();
+        turnOrder = new ArrayList<>();
+        for (int i = 0; i < numberOfPlayers; i++) {
+            Tactician tactician = new Tactician("Player " + i);
+            tacticians.add(tactician);
+        }
+        reOrderTacticians();
+//        Collections.shuffle(turnOrder);
+        turnOwner = turnOrder.get(0);
     }
 
     /**
@@ -64,23 +82,18 @@ public class GameController {
             }
         }
     }
-    public void setMapSeed(long mapSeed){
+
+    public void setMapSeed(long mapSeed) {
         this.mapSeed = mapSeed;
         this.gameMap.setSeed(mapSeed);
     }
+
     /**
      * Creates the list of players for the game
-     *
-     * @param numberOfPlayers the number of players for this game
      */
-    private void initTacticians(int numberOfPlayers) {
-        tacticians = new ArrayList<>();
+    private void reOrderTacticians() {
         turnOrder = new ArrayList<>();
-        for (int i = 0; i < numberOfPlayers; i++) {
-            Tactician tactician = new Tactician("Player " + i);
-            tacticians.add(tactician);
-            turnOrder.add(tactician);
-        }
+        turnOrder.addAll(tacticians);
     }
 
     /**
@@ -108,7 +121,7 @@ public class GameController {
      * @return the tactician that's currently playing
      */
     public Tactician getTurnOwner() {
-        return turnOrder.get(turnOwner);
+        return turnOwner;
     }
 
     /**
@@ -125,22 +138,25 @@ public class GameController {
         return maxRounds;
     }
 
-    private void newRound(){
-        turnOwner = 0;
+    private void newRound() {
+        turnNumber = 0;
         roundNumber++;
         Tactician a = turnOrder.get(0);
-        while(a.equals(turnOrder.get(0))){
+        while (a.equals(turnOrder.get(0))) {
             Collections.shuffle(turnOrder);
         }
+        turnOwner = turnOrder.get(turnNumber);
     }
+
     /**
      * Finishes the current player's turn.
      */
     public void endTurn() {
-        turnOwner++;
-        if (turnOwner == turnOrder.size()){
+        turnNumber++;
+        if (turnNumber == turnOrder.size()) {
             newRound();
         }
+        turnOwner = turnOrder.get(turnNumber);
     }
 
     /**
@@ -149,7 +165,6 @@ public class GameController {
      * @param tactician the player to be removed
      */
     public void removeTactician(String tactician) {
-        tacticians.remove(new Tactician(tactician));
         turnOrder.remove(new Tactician(tactician));
     }
 
@@ -161,18 +176,40 @@ public class GameController {
     public void initGame(final int maxTurns) {
         this.maxRounds = maxTurns;
         this.roundNumber = 1;
-        initTacticians(numberOfPlayers);
+        if (turnOrder.size() < tacticians.size()) {
+            reOrderTacticians();
+        }
         initGameMap();
+//        setUnits();
+//        setUnitsLocation();
+        turnOwner = turnOrder.get(0);
     }
+
+//    private void setUnitsLocation() {
+//        for (int i = 0; i < tacticianUnitsLocation.size(); i++) {
+//            tacticians.get(i).placeUnits(tacticianUnitsLocation.get(i));
+//        }
+//    }
+
+//    private void setUnits() {
+//        for (int i = 0; i < tacticiansUnits.size(); i++) {
+//            for(IUnit unit : tacticiansUnits.get(i)){
+//                tacticians.get(i).addUnit(unit);
+//            }
+//        }
+//    }
 
     /**
      * Starts a game without a limit of turns.
      */
     public void initEndlessGame() {
         maxRounds = -1;
-        initTacticians(numberOfPlayers);
+        this.roundNumber = 1;
+        if (turnOrder.size() < tacticians.size()) {
+            reOrderTacticians();
+        }
         initGameMap();
-        Collections.shuffle(turnOrder);
+        turnOwner = turnOrder.get(0);
     }
 
     /**
@@ -180,19 +217,15 @@ public class GameController {
      */
     public List<String> getWinners() {
         if (maxRounds == -1) {
-            if (tacticians.size() == 1) {
-                ArrayList<String> tacticianNames = new ArrayList<String>();
-                for (Tactician tactician : tacticians) {
-                    tacticianNames.add(tactician.getName());
-                }
-                return tacticianNames;
+            if (turnOrder.size() == 1) {
+                return List.of(turnOrder.get(0).getName());
             } else {
                 return null;
             }
         }
         if (roundNumber > maxRounds) {
             ArrayList<String> tacticianNames = new ArrayList<String>();
-            for (Tactician tactician : tacticians) {
+            for (Tactician tactician : turnOrder) {
                 tacticianNames.add(tactician.getName());
             }
             return tacticianNames;
@@ -205,30 +238,38 @@ public class GameController {
         Alpaca alpaca = alpacaFactory.create();
         tactician.addUnit(alpaca);
     }
+
     public void addArcher(Tactician tactician) {
         Archer archer = archerFactory.create();
         tactician.addUnit(archer);
+
     }
+
     public void addCleric(Tactician tactician) {
         Cleric cleric = clericFactory.create();
         tactician.addUnit(cleric);
     }
+
     public void addFighter(Tactician tactician) {
         Fighter fighter = fighterFactory.create();
         tactician.addUnit(fighter);
     }
+
     public void addHero(Tactician tactician) {
         Hero hero = heroFactory.create();
         tactician.addUnit(hero);
     }
-    public void addSorcerer(Tactician tactician){
+
+    public void addSorcerer(Tactician tactician) {
         Sorcerer sorcerer = sorcererFactory.create();
         tactician.addUnit(sorcerer);
     }
-    public void addSwordMaster(Tactician tactician){
+
+    public void addSwordMaster(Tactician tactician) {
         SwordMaster swordMaster = swordMasterFactory.create();
         tactician.addUnit(swordMaster);
     }
+
     /**
      * @return the current player's selected unit
      */
@@ -291,4 +332,52 @@ public class GameController {
 
     }
 
+    public void addAnimaMagicBook(int i) {
+        if (turnOwner != null) {
+            turnOwner.getUnits().get(i).addToInventory(animaMagicBookFactory.create());
+        }
+
+    }
+
+    public void addAxe(int i) {
+        if (turnOwner != null) {
+            turnOwner.getUnits().get(i).addToInventory(axeFactory.create());
+        }
+    }
+
+    public void addBow(int i) {
+        if (turnOwner != null) {
+            turnOwner.getUnits().get(i).addToInventory(bowFactory.create());
+        }
+    }
+
+    public void addDarkMagicBook(int i) {
+        if (turnOwner != null) {
+            turnOwner.getUnits().get(i).addToInventory(darkMagicBookFactory.create());
+        }
+    }
+
+    public void addLightMagicBook(int i) {
+        if (turnOwner != null) {
+            turnOwner.getUnits().get(i).addToInventory(lightMagicBookFactory.create());
+        }
+    }
+
+    public void addSpear(int i) {
+        if (turnOwner != null) {
+            turnOwner.getUnits().get(i).addToInventory(spearFactory.create());
+        }
+    }
+
+    public void addStaff(int i) {
+        if (turnOwner != null) {
+            turnOwner.getUnits().get(i).addToInventory(staffFactory.create());
+        }
+    }
+
+    public void addSword(int i) {
+        if (turnOwner != null) {
+            turnOwner.getUnits().get(i).addToInventory(swordFactory.create());
+        }
+    }
 }

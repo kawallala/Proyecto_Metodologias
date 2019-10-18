@@ -19,7 +19,7 @@ public interface IUnitFactory {
      * @return The created unit
      */
     IUnit create();
-
+    void setDefaults();
     /**
      * Sets a new location for the unit to be created in
      *

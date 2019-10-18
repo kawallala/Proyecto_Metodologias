@@ -28,6 +28,13 @@ public class Alpaca extends AbstractUnit {
         super(hitPoints, movement, location, Integer.MAX_VALUE, items);
     }
 
+    @Override
+    public void addToInventory(IEquipableItem item) {
+        if (!this.items.contains(item) && !item.itemInAnInventory()) {
+            this.items.add(item);
+            item.addedToInventory();
+        }
+    }
 
     @Override
     public void beginCombat(IUnit targetUnit) {

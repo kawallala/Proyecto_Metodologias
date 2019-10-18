@@ -1,5 +1,6 @@
 package model.tactician;
 
+import model.map.Location;
 import model.units.IUnit;
 
 import java.beans.PropertyChangeEvent;
@@ -9,7 +10,9 @@ import java.util.List;
 
 public class Tactician {
     private String name;
-    private ArrayList<IUnit> units = new ArrayList<>();
+    private ArrayList<IUnit> units = new ArrayList<IUnit>();
+    private ArrayList<IUnit> unitsInGame = new ArrayList<IUnit>();
+    private ArrayList<Location> unitLocations = new ArrayList<Location>();
     private PropertyChangeSupport changes;
 
     public Tactician(String name){
@@ -28,12 +31,11 @@ public class Tactician {
     public void beginTurn() {
 
     }
-    public void endTurn(){
-        changes.firePropertyChange(new PropertyChangeEvent(this,"PassTurn",null,null));
-    }
+
     public List<IUnit> getUnits(){
         return this.units;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Tactician){
