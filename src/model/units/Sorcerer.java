@@ -32,4 +32,9 @@ public class Sorcerer extends AbstractUnit {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj) && obj instanceof Sorcerer;
+    }
+
 }

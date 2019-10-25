@@ -46,4 +46,8 @@ public class Alpaca extends AbstractUnit {
 
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj) && obj instanceof Alpaca;
+    }
 }

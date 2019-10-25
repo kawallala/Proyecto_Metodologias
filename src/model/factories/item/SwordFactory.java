@@ -20,6 +20,7 @@ public class SwordFactory extends AbstractEquipableItemFactory {
 
     /**
      * Creates a new Sword with the parameters stored in the factory
+     *
      * @return the newly created Sword
      */
     @Override

@@ -32,7 +32,7 @@ public class GameController {
     private int maxRounds = -1;
     private int numberOfPlayers;
     private int mapSize;
-    private IUnit SelectedUnit;
+    private IUnit selectedUnit;
     private AlpacaFactory alpacaFactory = new AlpacaFactory();
     private ArcherFactory archerFactory = new ArcherFactory();
     private ClericFactory clericFactory = new ClericFactory();
@@ -67,7 +67,6 @@ public class GameController {
             tacticians.add(tactician);
         }
         reOrderTacticians();
-//        Collections.shuffle(turnOrder);
         turnOwner = turnOrder.get(0);
     }
 
@@ -81,6 +80,13 @@ public class GameController {
             for (int j = 0; j < mapSize; j++) {
                 gameMap.addCells(false, new Location(i, j));
             }
+        }
+        setMapTacticians();
+    }
+
+    private void setMapTacticians() {
+        for(Tactician tactician : turnOrder){
+            tactician.setMap(this.gameMap);
         }
     }
 
@@ -97,6 +103,11 @@ public class GameController {
         turnOrder.addAll(tacticians);
     }
 
+    private void beginTurnsTacticians(){
+        for(Tactician tactician : this.turnOrder){
+            tactician.beginTurn();
+        }
+    }
     /**
      * @return the list of all the tacticians participating in the game.
      */
@@ -144,8 +155,9 @@ public class GameController {
         roundNumber++;
         Tactician a = turnOrder.get(0);
         while (a.equals(turnOrder.get(0))) {
-            Collections.shuffle(turnOrder,new Random(mapSeed));
+            Collections.shuffle(turnOrder);
         }
+        beginTurnsTacticians();
         turnOwner = turnOrder.get(turnNumber);
     }
 
@@ -153,9 +165,11 @@ public class GameController {
      * Finishes the current player's turn.
      */
     public void endTurn() {
-        turnNumber++;
-        if (turnNumber == turnOrder.size()) {
+        if (turnNumber+1 == turnOrder.size()) {
             newRound();
+        }
+        else {
+            turnNumber++;
         }
         turnOwner = turnOrder.get(turnNumber);
     }
@@ -177,39 +191,29 @@ public class GameController {
     public void initGame(final int maxTurns) {
         this.maxRounds = maxTurns;
         this.roundNumber = 1;
+        this.turnNumber = 0;
         if (turnOrder.size() < tacticians.size()) {
             reOrderTacticians();
         }
         initGameMap();
-//        setUnits();
-//        setUnitsLocation();
+        beginTurnsTacticians();
         turnOwner = turnOrder.get(0);
     }
 
-//    private void setUnitsLocation() {
-//        for (int i = 0; i < tacticianUnitsLocation.size(); i++) {
-//            tacticians.get(i).placeUnits(tacticianUnitsLocation.get(i));
-//        }
-//    }
 
-//    private void setUnits() {
-//        for (int i = 0; i < tacticiansUnits.size(); i++) {
-//            for(IUnit unit : tacticiansUnits.get(i)){
-//                tacticians.get(i).addUnit(unit);
-//            }
-//        }
-//    }
 
     /**
      * Starts a game without a limit of turns.
      */
     public void initEndlessGame() {
-        maxRounds = -1;
+        this.maxRounds = -1;
         this.roundNumber = 1;
+        this.turnNumber = 0;
         if (turnOrder.size() < tacticians.size()) {
             reOrderTacticians();
         }
         initGameMap();
+        beginTurnsTacticians();
         turnOwner = turnOrder.get(0);
     }
 
@@ -275,7 +279,7 @@ public class GameController {
      * @return the current player's selected unit
      */
     public IUnit getSelectedUnit() {
-        return null;
+        return this.selectedUnit;
     }
 
     /**
@@ -285,7 +289,7 @@ public class GameController {
      * @param y vertical position of the unit
      */
     public void selectUnitIn(int x, int y) {
-
+        this.selectedUnit = this.gameMap.getCell(x, y).getUnit();
     }
 
     /**

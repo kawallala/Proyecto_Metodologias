@@ -54,4 +54,9 @@ public class Cleric extends AbstractUnit {
                 this.getEquippedItem().use(targetUnit);
             }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj) && obj instanceof Cleric;
+    }
 }

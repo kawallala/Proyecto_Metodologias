@@ -4,6 +4,8 @@ import model.items.offensive.physical.Bow;
 import model.items.IEquipableItem;
 import model.map.Location;
 
+import java.util.ArrayList;
+
 /**
  * This class represents an <i>Archer</i> type unit.
  * <p>
@@ -40,6 +42,11 @@ public class Archer extends AbstractUnit {
             this.equippedItem = bow;
             bow.setOwner(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj) && obj instanceof Archer;
     }
 
 }

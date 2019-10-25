@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -22,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.*;
  * @since v2.0
  */
 class GameControllerTest {
-
     private GameController controller;
     private long randomSeed;
     private List<String> testTacticians;
@@ -194,6 +194,15 @@ class GameControllerTest {
     void selectUnitIn() {
         //TODO poner una unidad en el mapa y revisar si existe la unidad
         controller.addAlpaca(controller.getTurnOrder().get(0));
+        ArrayList<Integer> locations = new ArrayList<>();
+        locations.add(0);
+        locations.add(1);
+        controller.getTurnOrder().get(0).setLocation(locations);
+        controller.initEndlessGame();
+        controller.selectUnitIn(0, 1);
+        Alpaca alpaca = alpacaFactory.create();
+        alpaca.setLocation(new Location(0, 1));
+        assertEquals(alpaca, controller.getSelectedUnit());
     }
 
     @Test
