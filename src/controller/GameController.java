@@ -27,6 +27,7 @@ public class GameController {
     private Field gameMap;
     private int roundNumber = 1;
     private long mapSeed;
+    private Random random = new Random(mapSeed);
     private Tactician turnOwner;
     private int turnNumber = 0;
     private int maxRounds = -1;
@@ -93,6 +94,7 @@ public class GameController {
     public void setMapSeed(long mapSeed) {
         this.mapSeed = mapSeed;
         this.gameMap.setSeed(mapSeed);
+        random.setSeed(mapSeed);
     }
 
     /**
@@ -155,10 +157,9 @@ public class GameController {
         roundNumber++;
         Tactician a = turnOrder.get(0);
         while (a.equals(turnOrder.get(0))) {
-            Collections.shuffle(turnOrder);
+            Collections.shuffle(turnOrder, random);
         }
         beginTurnsTacticians();
-        turnOwner = turnOrder.get(turnNumber);
     }
 
     /**
