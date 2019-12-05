@@ -203,7 +203,6 @@ class GameControllerTest {
   // Desde aquí en adelante, los tests deben definirlos completamente ustedes
   @Test
   void getSelectedUnit() {
-    //TODO observer
   }
 
   @Test
@@ -222,14 +221,34 @@ class GameControllerTest {
 
   @Test
   void getItems() {
+    controller.addAlpaca(controller.getTurnOrder().get(0));
+    ArrayList<Integer> locations = new ArrayList<>();
+    locations.add(0);
+    locations.add(1);
+    controller.getTurnOrder().get(0).setLocation(locations);
+    controller.initEndlessGame();
+    controller.addAnimaMagicBook(0);
+    controller.selectUnitIn(0, 1);
+    assertTrue(controller.getItems().contains(animaMagicBookFactory.create()));
   }
 
   @Test
   void equipItem() {
+    controller.addArcher(controller.getTurnOrder().get(0));
+    ArrayList<Integer> locations = new ArrayList<>();
+    locations.add(0);
+    locations.add(1);
+    controller.getTurnOrder().get(0).setLocation(locations);
+    controller.initEndlessGame();
+    controller.addBow(0);
+    controller.selectUnitIn(0, 1);
+    controller.equipItem(0);
+    assertEquals(bowFactory.create(), controller.getSelectedUnit().getEquippedItem());
   }
 
   @Test
   void useItemOn() {
+
   }
 
   @Test
@@ -238,6 +257,7 @@ class GameControllerTest {
 
   @Test
   void giveItemTo() {
+
   }
 
   @Test
