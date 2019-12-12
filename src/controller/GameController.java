@@ -248,7 +248,6 @@ public class GameController {
   public void addArcher(Tactician tactician) {
     Archer archer = archerFactory.create();
     tactician.addUnit(archer);
-
   }
 
   public void addCleric(Tactician tactician) {
@@ -318,7 +317,16 @@ public class GameController {
    * @param y vertical position of the target
    */
   public void useItemOn(int x, int y) {
+    IUnit target;
+    if(selectedUnit != null){
+      if((target = gameMap.getCell(x, y).getUnit()) != null){
+        selectedUnit.beginCombat(target);
+      }
+    }
+  }
 
+  public IEquipableItem getSelectedItem() {
+    return selectedItem;
   }
 
   /**
@@ -328,7 +336,12 @@ public class GameController {
    */
   public void selectItem(int index) {
     if (selectedUnit != null) {
-      this.selectedItem = this.getSelectedUnit().getItems().get(index);
+      if(selectedUnit.getItems().size()>=index+1) {
+        this.selectedItem = this.getSelectedUnit().getItems().get(index);
+      }
+      else{
+        this.selectedItem = null;
+      }
     }
   }
 
@@ -339,7 +352,10 @@ public class GameController {
    * @param y vertical position of the target
    */
   public void giveItemTo(int x, int y) {
-
+    IUnit target;
+    if(selectedUnit!=null && (target = gameMap.getCell(x,y).getUnit())!=null && selectedItem != null){
+      selectedUnit.giveItem(selectedItem,target);
+    }
   }
 
   public void addAnimaMagicBook(int i) {

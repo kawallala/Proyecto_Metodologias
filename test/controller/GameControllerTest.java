@@ -11,10 +11,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -203,6 +200,14 @@ class GameControllerTest {
   // Desde aquí en adelante, los tests deben definirlos completamente ustedes
   @Test
   void getSelectedUnit() {
+    controller.addAlpaca(controller.getTurnOrder().get(0));
+    ArrayList<Integer> locations = new ArrayList<>();
+    locations.add(0);
+    locations.add(0);
+    controller.getTurnOrder().get(0).setLocation(locations);
+    controller.initEndlessGame();
+    controller.selectUnitIn(0,0);
+    assertEquals(alpacaFactory.create(), controller.getSelectedUnit());
   }
 
   @Test
@@ -248,16 +253,60 @@ class GameControllerTest {
 
   @Test
   void useItemOn() {
-
+    controller.addArcher(controller.getTurnOrder().get(0));
+    ArrayList<Integer> locations = new ArrayList<>();
+    locations.add(0);
+    locations.add(1);
+    controller.getTurnOrder().get(0).setLocation(locations);
+    controller.addArcher(controller.getTurnOrder().get(1));
+    locations = new ArrayList<>();
+    locations.add(2);
+    locations.add(1);
+    controller.getTurnOrder().get(1).setLocation(locations);
+    controller.initEndlessGame();
+    controller.addBow(0);
+    controller.selectUnitIn(0,1);
+    controller.equipItem(0);
+    controller.endTurn();
+    controller.addBow(0);
+    controller.selectUnitIn(2,1);
+    controller.equipItem(0);
+    controller.useItemOn(0,1);
+    assertEquals(75,controller.getSelectedUnit().getCurrentHitPoints());
+    controller.selectUnitIn(0,1);
+    assertEquals(75,controller.getSelectedUnit().getCurrentHitPoints());
   }
 
   @Test
   void selectItem() {
+    controller.addAlpaca(controller.getTurnOrder().get(0));
+    ArrayList<Integer> locations = new ArrayList<>();
+    locations.add(0);
+    locations.add(1);
+    controller.getTurnOrder().get(0).setLocation(locations);
+    controller.initEndlessGame();
+    controller.addBow(0);
+    controller.selectUnitIn(0,1);
+    controller.selectItem(0);
+    assertEquals(bowFactory.create(),controller.getSelectedItem());
+    controller.selectItem(1);
+    assertNull(controller.getSelectedItem());
   }
 
   @Test
   void giveItemTo() {
-
+    controller.addAlpaca(controller.getTurnOrder().get(0));
+    controller.addArcher(controller.getTurnOrder().get(0));
+    ArrayList<Integer> locations = new ArrayList<>(Arrays.asList(0,0,0,1));
+    controller.getTurnOrder().get(0).setLocation(locations);
+    controller.initEndlessGame();
+    controller.addBow(0);
+    controller.selectUnitIn(0,0);
+    controller.selectItem(0);
+    controller.giveItemTo(0,1);
+    assertEquals(new ArrayList<>(),controller.getSelectedUnit().getItems());
+    controller.selectUnitIn(0,1);
+    assertTrue(controller.getSelectedUnit().getItems().contains(bowFactory.create()));
   }
 
   @Test
