@@ -9,7 +9,7 @@ package model.factories.item;
  * @author Martin Araya
  * @since 2.8
  */
-public abstract class AbstractEquipableItemFactory implements IEquipabbleItemFactory {
+public abstract class AbstractEquipableItemFactory implements IEquipableItemFactory {
   private String name;
   private int power;
   private int minimumRange;
@@ -62,6 +62,7 @@ public abstract class AbstractEquipableItemFactory implements IEquipabbleItemFac
   @Override
   public void setMinimumRange(int minimumRange) {
     this.minimumRange = minimumRange;
+    this.maximumRange = Math.max(minimumRange, this.maximumRange);
   }
 
   /**
@@ -75,6 +76,6 @@ public abstract class AbstractEquipableItemFactory implements IEquipabbleItemFac
 
   @Override
   public void setMaximumRange(int maximumRange) {
-    this.maximumRange = maximumRange;
+    this.maximumRange = Math.max(maximumRange, this.minimumRange);
   }
 }

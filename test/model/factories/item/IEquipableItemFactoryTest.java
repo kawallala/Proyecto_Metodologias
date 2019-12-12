@@ -1,9 +1,6 @@
 package model.factories.item;
 
-import model.units.AbstractTestUnit;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Class that defines the behaviour for the tests for factories that produce items
@@ -11,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Martin Araya Zavala
  * @since 2.15
  */
-public interface IEquipabbleItemFactoryTest {
+public interface IEquipableItemFactoryTest {
 
   /**
    * Checks that the create method works properly
@@ -25,15 +22,27 @@ public interface IEquipabbleItemFactoryTest {
   @Test
   void setDefaultsTest();
 
+  /**
+   * Checks that a name can be set
+   */
   @Test
   void setNameTest();
 
+  /**
+   * Checks that a power can be set
+   */
   @Test
   void setPowerTest();
 
+  /**
+   * Checks that a minimum range can be set
+   */
   @Test
   void setMinimumRangeTest();
 
+  /**
+   * Checks that a maximum range can be set
+   */
   @Test
   void setMaximumRangeTest();
 }

@@ -21,11 +21,21 @@ public class BowFactory extends AbstractEquipableItemFactory {
     setMaximumRange(3);
   }
 
-    /**
-     * Creates a new bow with the parameters stored in the factory
-     *
-     * @return The newly created Bow
-     */
+  /**
+   * Sets the minimum range of the bow that will be created, a bow can not have a range less than 2
+   *
+   * @param minimumRange the minimum range of the bow that will be created
+   */
+  @Override
+  public void setMinimumRange(int minimumRange) {
+    super.setMinimumRange(Math.max(minimumRange, 2));
+  }
+
+  /**
+   * Creates a new bow with the parameters stored in the factory
+   *
+   * @return The newly created Bow
+   */
   @Override
   public Bow create() {
     Bow item = new Bow(this.getName(), this.getPower(), this.getMinimumRange(), this.getMaximumRange());
