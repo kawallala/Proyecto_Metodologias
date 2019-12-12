@@ -62,7 +62,6 @@ public abstract class AbstractEquipableItemFactory implements IEquipableItemFact
   @Override
   public void setMinimumRange(int minimumRange) {
     this.minimumRange = minimumRange;
-    this.maximumRange = Math.max(minimumRange, this.maximumRange);
   }
 
   /**
@@ -76,6 +75,6 @@ public abstract class AbstractEquipableItemFactory implements IEquipableItemFact
 
   @Override
   public void setMaximumRange(int maximumRange) {
-    this.maximumRange = Math.max(maximumRange, this.minimumRange);
+    this.maximumRange = maximumRange;
   }
 }
