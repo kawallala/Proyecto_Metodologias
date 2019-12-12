@@ -86,12 +86,20 @@ public class GameController {
     setMapTacticians();
   }
 
+  /**
+   * Sets all the map for all the tacticians
+   */
   private void setMapTacticians() {
     for (Tactician tactician : turnOrder) {
       tactician.setMap(this.gameMap);
     }
   }
 
+  /**
+   * Sets the seed for the map and for the random number generator
+   *
+   * @param mapSeed The seed to be set
+   */
   public void setMapSeed(long mapSeed) {
     this.mapSeed = mapSeed;
     this.gameMap.setSeed(mapSeed);
@@ -106,6 +114,9 @@ public class GameController {
     turnOrder.addAll(tacticians);
   }
 
+  /**
+   * Begins the turn for all the tacticians
+   */
   private void beginTurnsTacticians() {
     for (Tactician tactician : this.turnOrder) {
       tactician.beginTurn();
@@ -154,6 +165,9 @@ public class GameController {
     return maxRounds;
   }
 
+  /**
+   * Starts a new round
+   */
   private void newRound() {
     turnNumber = 0;
     roundNumber++;
@@ -240,36 +254,71 @@ public class GameController {
     }
   }
 
+  /**
+   * Adds an Alpaca to a tactician's units
+   *
+   * @param tactician The tactician that the alpaca will be added to
+   */
   public void addAlpaca(Tactician tactician) {
     Alpaca alpaca = alpacaFactory.create();
     tactician.addUnit(alpaca);
   }
 
+  /**
+   * Adds an Archer to a tactician's units
+   *
+   * @param tactician The tactician that the archer will be added to
+   */
   public void addArcher(Tactician tactician) {
     Archer archer = archerFactory.create();
     tactician.addUnit(archer);
   }
 
+  /**
+   * Adds a Cleric to a tactician's units
+   *
+   * @param tactician The tactician that the cleric will be added to
+   */
   public void addCleric(Tactician tactician) {
     Cleric cleric = clericFactory.create();
     tactician.addUnit(cleric);
   }
 
+  /**
+   * Adds an Alpaca to a tactician's units
+   *
+   * @param tactician The tactician that the alpaca will be added to
+   */
   public void addFighter(Tactician tactician) {
     Fighter fighter = fighterFactory.create();
     tactician.addUnit(fighter);
   }
 
+  /**
+   * Adds a Hero to a tactician's units
+   *
+   * @param tactician The tactician that the hero will be added to
+   */
   public void addHero(Tactician tactician) {
     Hero hero = heroFactory.create();
     tactician.addUnit(hero);
   }
 
+  /**
+   * Adds a Sorcerer to a tactician's units
+   *
+   * @param tactician The tactician that the sorcerer will be added to
+   */
   public void addSorcerer(Tactician tactician) {
     Sorcerer sorcerer = sorcererFactory.create();
     tactician.addUnit(sorcerer);
   }
 
+  /**
+   * Adds a Sword Master to a tactician's units
+   *
+   * @param tactician The tactician that the Sword master will be added to
+   */
   public void addSwordMaster(Tactician tactician) {
     SwordMaster swordMaster = swordMasterFactory.create();
     tactician.addUnit(swordMaster);
@@ -318,8 +367,8 @@ public class GameController {
    */
   public void useItemOn(int x, int y) {
     IUnit target;
-    if(selectedUnit != null){
-      if((target = gameMap.getCell(x, y).getUnit()) != null){
+    if (selectedUnit != null) {
+      if ((target = gameMap.getCell(x, y).getUnit()) != null) {
         selectedUnit.beginCombat(target);
       }
     }
@@ -336,10 +385,9 @@ public class GameController {
    */
   public void selectItem(int index) {
     if (selectedUnit != null) {
-      if(selectedUnit.getItems().size()>=index+1) {
+      if (selectedUnit.getItems().size() >= index + 1) {
         this.selectedItem = this.getSelectedUnit().getItems().get(index);
-      }
-      else{
+      } else {
         this.selectedItem = null;
       }
     }
@@ -353,54 +401,87 @@ public class GameController {
    */
   public void giveItemTo(int x, int y) {
     IUnit target;
-    if(selectedUnit!=null && (target = gameMap.getCell(x,y).getUnit())!=null && selectedItem != null){
-      selectedUnit.giveItem(selectedItem,target);
+    if (selectedUnit != null && (target = gameMap.getCell(x, y).getUnit()) != null && selectedItem != null) {
+      selectedUnit.giveItem(selectedItem, target);
     }
   }
 
+  /**
+   * Adds an Anima Magic Book to a unit
+   *
+   * @param i The index of the unit that the item will be added to
+   */
   public void addAnimaMagicBook(int i) {
     if (turnOwner != null) {
       turnOwner.getUnits().get(i).addToInventory(animaMagicBookFactory.create());
     }
 
   }
-
+  /**
+   * Adds an Axe to a unit
+   *
+   * @param i The index of the unit that the item will be added to
+   */
   public void addAxe(int i) {
     if (turnOwner != null) {
       turnOwner.getUnits().get(i).addToInventory(axeFactory.create());
     }
   }
-
+  /**
+   * Adds a Bow to a unit
+   *
+   * @param i The index of the unit that the item will be added to
+   */
   public void addBow(int i) {
     if (turnOwner != null) {
       turnOwner.getUnits().get(i).addToInventory(bowFactory.create());
     }
   }
-
+  /**
+   * Adds a Dark Magic Book to a unit
+   *
+   * @param i The index of the unit that the item will be added to
+   */
   public void addDarkMagicBook(int i) {
     if (turnOwner != null) {
       turnOwner.getUnits().get(i).addToInventory(darkMagicBookFactory.create());
     }
   }
-
+  /**
+   * Adds a Light Magic Book to a unit
+   *
+   * @param i The index of the unit that the item will be added to
+   */
   public void addLightMagicBook(int i) {
     if (turnOwner != null) {
       turnOwner.getUnits().get(i).addToInventory(lightMagicBookFactory.create());
     }
   }
-
+  /**
+   * Adds a Spear to a unit
+   *
+   * @param i The index of the unit that the item will be added to
+   */
   public void addSpear(int i) {
     if (turnOwner != null) {
       turnOwner.getUnits().get(i).addToInventory(spearFactory.create());
     }
   }
-
+  /**
+   * Adds a Staff to a unit
+   *
+   * @param i The index of the unit that the item will be added to
+   */
   public void addStaff(int i) {
     if (turnOwner != null) {
       turnOwner.getUnits().get(i).addToInventory(staffFactory.create());
     }
   }
-
+  /**
+   * Adds a Sword to a unit
+   *
+   * @param i The index of the unit that the item will be added to
+   */
   public void addSword(int i) {
     if (turnOwner != null) {
       turnOwner.getUnits().get(i).addToInventory(swordFactory.create());
