@@ -10,66 +10,71 @@ package model.factories.item;
  * @since 2.8
  */
 public abstract class AbstractEquipableItemFactory implements IEquipabbleItemFactory {
-    private String name;
-    private int power;
-    private int minimumRange;
-    private int maximumRange;
+  private String name;
+  private int power;
+  private int minimumRange;
+  private int maximumRange;
 
-    /**
-     * Creates an Item Factory with the default values
-     */
-    public AbstractEquipableItemFactory() {
-        this.setDefaults();
-    }
+  /**
+   * Creates an Item Factory with the default values
+   */
+  public AbstractEquipableItemFactory() {
+    this.setDefaults();
+  }
 
-    /**
-     * Getter for the name stored in the factory
-     *
-     * @return The stored name
-     */
-    protected String getName() {
-        return name;
-    }
+  /**
+   * Getter for the name stored in the factory
+   *
+   * @return The stored name
+   */
+  protected String getName() {
+    return name;
+  }
 
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
+  @Override
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    protected int getPower() {
-        return power;
-    }
+  /**
+   * Getter for the power stored in the factory
+   *
+   * @return the stored power
+   */
+  protected int getPower() {
+    return power;
+  }
 
-    @Override
-    public void setPower(int power) {
-        this.power = power;
-    }
+  @Override
+  public void setPower(int power) {
+    this.power = power;
+  }
 
-    /**
-     * Getter for the minimum range stored in the factory
-     *
-     * @return the stored minimum range
-     */
-    protected int getMinimumRange() {
-        return minimumRange;
-    }
+  /**
+   * Getter for the minimum range stored in the factory
+   *
+   * @return the stored minimum range
+   */
+  protected int getMinimumRange() {
+    return minimumRange;
+  }
 
-    @Override
-    public void setMinimumRange(int minimumRange) {
-        this.minimumRange = minimumRange;
-    }
+  @Override
+  public void setMinimumRange(int minimumRange) {
+    this.minimumRange = minimumRange;
+  }
 
-    /**
-     * Getter for the maximum range stored in the factory
-     *
-     * @return the stored maximum range
-     */
-    protected int getMaximumRange() {
-        return maximumRange;
-    }
+  /**
+   * Getter for the maximum range stored in the factory
+   *
+   * @return the stored maximum range
+   */
+  protected int getMaximumRange() {
+    return maximumRange;
+  }
 
-    @Override
-    public void setMaximumRange(int maximumRange) {
-        this.maximumRange = maximumRange;
-    }
+  @Override
+  public void setMaximumRange(int maximumRange) {
+    this.maximumRange = maximumRange;
+  }
 }

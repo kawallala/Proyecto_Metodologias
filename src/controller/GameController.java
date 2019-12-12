@@ -244,7 +244,7 @@ public class GameController {
       }
     }
     if (roundNumber > maxRounds) {
-      ArrayList<String> tacticianNames = new ArrayList<String>();
+      ArrayList<String> tacticianNames = new ArrayList<>();
       for (Tactician tactician : turnOrder) {
         tacticianNames.add(tactician.getName());
       }

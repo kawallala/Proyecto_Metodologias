@@ -10,19 +10,26 @@ import model.items.offensive.physical.Bow;
  */
 public class BowFactory extends AbstractEquipableItemFactory {
 
-    /**
-     * Sets the default parameters for the bow to be created with
-     */
-    @Override
-    public void setDefaults() {
-        setName("Bow");
-        setPower(25);
-        setMinimumRange(2);
-        setMaximumRange(3);
-    }
+  /**
+   * Sets the default parameters for the bow to be created with
+   */
+  @Override
+  public void setDefaults() {
+    setName("Bow");
+    setPower(25);
+    setMinimumRange(2);
+    setMaximumRange(3);
+  }
 
-    @Override
-    public Bow create() {
-        return new Bow(this.getName(), this.getPower(), this.getMinimumRange(), this.getMaximumRange());
-    }
+    /**
+     * Creates a new bow with the parameters stored in the factory
+     *
+     * @return The newly created Bow
+     */
+  @Override
+  public Bow create() {
+    Bow item = new Bow(this.getName(), this.getPower(), this.getMinimumRange(), this.getMaximumRange());
+    setDefaults();
+    return item;
+  }
 }

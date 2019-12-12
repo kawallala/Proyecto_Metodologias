@@ -178,6 +178,7 @@ public interface ITestUnit {
 
     @Test
     void testInventoryLimit();
+
     @Test
     void testExchangeItems();
 }

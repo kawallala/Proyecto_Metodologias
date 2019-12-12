@@ -7,24 +7,26 @@ import model.items.offensive.physical.Sword;
  */
 public class SwordFactory extends AbstractEquipableItemFactory {
 
-    /**
-     * Sets the default parameters for the Sword to be created with
-     */
-    @Override
-    public void setDefaults() {
-        setName("Sword");
-        setPower(25);
-        setMinimumRange(1);
-        setMaximumRange(2);
-    }
+  /**
+   * Sets the default parameters for the Sword to be created with
+   */
+  @Override
+  public void setDefaults() {
+    setName("Sword");
+    setPower(25);
+    setMinimumRange(1);
+    setMaximumRange(2);
+  }
 
-    /**
-     * Creates a new Sword with the parameters stored in the factory
-     *
-     * @return the newly created Sword
-     */
-    @Override
-    public Sword create() {
-        return new Sword(this.getName(), this.getPower(), this.getMinimumRange(), this.getMaximumRange());
-    }
+  /**
+   * Creates a new Sword with the parameters stored in the factory
+   *
+   * @return the newly created Sword
+   */
+  @Override
+  public Sword create() {
+    Sword item = new Sword(this.getName(), this.getPower(), this.getMinimumRange(), this.getMaximumRange());
+    setDefaults();
+    return item;
+  }
 }

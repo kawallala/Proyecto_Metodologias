@@ -10,24 +10,26 @@ import model.items.offensive.physical.Axe;
  */
 public class AxeFactory extends AbstractEquipableItemFactory {
 
-    /**
-     * Sets the default parameters for the axe to be created with
-     */
-    @Override
-    public void setDefaults() {
-        setName("Axe");
-        setPower(25);
-        setMinimumRange(1);
-        setMaximumRange(2);
-    }
+  /**
+   * Sets the default parameters for the axe to be created with
+   */
+  @Override
+  public void setDefaults() {
+    setName("Axe");
+    setPower(25);
+    setMinimumRange(1);
+    setMaximumRange(2);
+  }
 
-    /**
-     * Creates a new Axe with the parameters stored in the class
-     *
-     * @return the newly created Axe
-     */
-    @Override
-    public Axe create() {
-        return new Axe(this.getName(), this.getPower(), this.getMinimumRange(), this.getMaximumRange());
-    }
+  /**
+   * Creates a new Axe with the parameters stored in the class
+   *
+   * @return the newly created Axe
+   */
+  @Override
+  public Axe create() {
+    Axe item = new Axe(this.getName(), this.getPower(), this.getMinimumRange(), this.getMaximumRange());
+    setDefaults();
+    return item;
+  }
 }

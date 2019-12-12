@@ -7,24 +7,26 @@ import model.items.offensive.magic.DarkMagicBook;
  */
 public class DarkMagicBookFactory extends AbstractEquipableItemFactory {
 
-    /**
-     * Sets the default parameters for the Dark Magic Book to be created with
-     */
-    @Override
-    public void setDefaults() {
-        setName("Dark Magic Book");
-        setPower(25);
-        setMinimumRange(1);
-        setMaximumRange(2);
-    }
+  /**
+   * Sets the default parameters for the Dark Magic Book to be created with
+   */
+  @Override
+  public void setDefaults() {
+    setName("Dark Magic Book");
+    setPower(25);
+    setMinimumRange(1);
+    setMaximumRange(2);
+  }
 
-    /**
-     * Creates a new Dark Magic Book with the parameters stored in the factory
-     *
-     * @return the newly created Dark Magic Book
-     */
-    @Override
-    public DarkMagicBook create() {
-        return new DarkMagicBook(this.getName(), this.getPower(), this.getMinimumRange(), this.getMaximumRange());
-    }
+  /**
+   * Creates a new Dark Magic Book with the parameters stored in the factory
+   *
+   * @return the newly created Dark Magic Book
+   */
+  @Override
+  public DarkMagicBook create() {
+      DarkMagicBook item = new DarkMagicBook(this.getName(), this.getPower(), this.getMinimumRange(), this.getMaximumRange());
+      setDefaults();
+      return item;
+  }
 }

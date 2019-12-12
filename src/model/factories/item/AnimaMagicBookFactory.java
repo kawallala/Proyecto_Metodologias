@@ -10,25 +10,26 @@ import model.items.offensive.magic.AnimaMagicBook;
  */
 public class AnimaMagicBookFactory extends AbstractEquipableItemFactory {
 
-    /**
-     * Sets the default parameters for an Anima Magic Book to be created with
-     *
-     */
-    @Override
-    public void setDefaults() {
-        setName("Anima Magic Book");
-        setPower(25);
-        setMinimumRange(1);
-        setMaximumRange(2);
-    }
+  /**
+   * Sets the default parameters for an Anima Magic Book to be created with
+   */
+  @Override
+  public void setDefaults() {
+    setName("Anima Magic Book");
+    setPower(25);
+    setMinimumRange(1);
+    setMaximumRange(2);
+  }
 
-    /**
-     * Creates a new Anima Magic Book with the parameters stored in the class
-     *
-     * @return the newly created Anima Magic Book
-     */
-    @Override
-    public AnimaMagicBook create() {
-        return new AnimaMagicBook(this.getName(), this.getPower(), this.getMinimumRange(), this.getMaximumRange());
-    }
+  /**
+   * Creates a new Anima Magic Book with the parameters stored in the class
+   *
+   * @return the newly created Anima Magic Book
+   */
+  @Override
+  public AnimaMagicBook create() {
+    AnimaMagicBook item = new AnimaMagicBook(this.getName(), this.getPower(), this.getMinimumRange(), this.getMaximumRange());
+    setDefaults();
+    return item;
+  }
 }

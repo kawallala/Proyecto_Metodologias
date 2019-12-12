@@ -10,24 +10,26 @@ import model.items.offensive.magic.LightMagicBook;
  */
 public class LightMagicBookFactory extends AbstractEquipableItemFactory {
 
-    /**
-     * Sets the default parameters for the Light Magic Book
-     */
-    @Override
-    public void setDefaults() {
-        setName("Light Magic Book");
-        setPower(25);
-        setMinimumRange(1);
-        setMaximumRange(2);
-    }
+  /**
+   * Sets the default parameters for the Light Magic Book
+   */
+  @Override
+  public void setDefaults() {
+    setName("Light Magic Book");
+    setPower(25);
+    setMinimumRange(1);
+    setMaximumRange(2);
+  }
 
-    /**
-     * Creates a new Light Magic Book with the parameters stored in the factory
-     *
-     * @return the newly created Light Magic Book
-     */
-    @Override
-    public LightMagicBook create() {
-        return new LightMagicBook(this.getName(), this.getPower(), this.getMinimumRange(), this.getMaximumRange());
-    }
+  /**
+   * Creates a new Light Magic Book with the parameters stored in the factory
+   *
+   * @return the newly created Light Magic Book
+   */
+  @Override
+  public LightMagicBook create() {
+    LightMagicBook item = new LightMagicBook(this.getName(), this.getPower(), this.getMinimumRange(), this.getMaximumRange());
+    setDefaults();
+    return item;
+  }
 }
