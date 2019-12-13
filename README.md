@@ -68,3 +68,17 @@ For now the units are made up of:
 - Hero: can only equip Spears
 - Sorcerer: can only equip Magical Offensive Items
 - SwordMaster: can only equip Swords
+
+## Factories
+
+The game has both unit and item making factories, which take care of the creation of the units and items when needed, each of the factories has methods for changed the parameters of the Object to be created, that way the objects created are customizable.
+
+There exists a factory for each unit and item in the game
+
+## Controller
+
+The controller is the class that controls the entirety of the game, it takes care of unit creation, turn assignment, unit behaviour, ultimately all actions taken by a player will pass to the controller before being applied to the corresponding object in the game
+
+## Tactician
+
+The tactician represents the state of a particular player in the game, storing the units for each of the players, and having references to the map and a list of the units each players has
