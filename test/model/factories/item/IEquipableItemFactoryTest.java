@@ -9,7 +9,10 @@ import org.junit.jupiter.api.Test;
  * @since 2.15
  */
 public interface IEquipableItemFactoryTest {
-
+  /**
+   * Sets the states necesarry for the tests to function
+   */
+  void setUp();
   /**
    * Checks that the create method works properly
    */

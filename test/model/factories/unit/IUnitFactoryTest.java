@@ -1,29 +1,42 @@
 package model.factories.unit;
 
-import model.units.AbstractTestUnit;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+/**
+ * Class that defines the behaviour for the tests for factories that produce units
+ *
+ * @author Martin Araya Zavala
+ * @since 2.15
+ */
+public interface IUnitFactoryTest {
 
-class IUnitFactoryTest{
-
+  /**
+   * Checks that the create method works properly
+   */
   @Test
-  void create() {
-  }
+  void createTest();
 
+  /**
+   * Checks that the default parameters are applied
+   */
   @Test
-  void setDefaults() {
-  }
+  void setDefaultsTest();
 
+  /**
+   * Checks that a location is set properly
+   */
   @Test
-  void setLocation() {
-  }
+  void setLocationTest();
 
+  /**
+   * Checks that the maximum hit points are set properly
+   */
   @Test
-  void setHitPoints() {
-  }
+  void setHitPointsTest();
 
+  /**
+   * Checks that the movement is set properly
+   */
   @Test
-  void setMovement() {
-  }
+  void setMovementTest();
 }
